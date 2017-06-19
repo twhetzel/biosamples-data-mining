@@ -4,23 +4,52 @@ from neo4j.v1 import GraphDatabase, basic_auth
 
 import csv
 
-import time, datetime
+import datetime
+
+from functools import wraps
+from time import time
 
 
+
+def timing(f):
+    """
+    Create wrapper to report time of functions.
+    """
+    @wraps(f)
+    def wrap(*args, **kw):
+        ts = time()
+        result = f(*args, **kw)
+        te = time()
+        print 'Function: %r args:[%r, %r] took: %2.4f sec' % \
+          (f.__name__, args, kw, te-ts)
+        return result
+    return wrap
+
+
+def get_timestamp():
+    """ 
+    Get timestamp of current date and time. 
+    """
+    timestamp = '{:%Y-%m-%d_%H-%M-%S}'.format(datetime.datetime.now())
+    return timestamp
+
+
+@timing
 def get_all_attribute_types(driver):
-    """ Get all unique attribute types. """
-    print "Generating spreadsheet of most common attribute types and values..."
-    start_time = time.time()
-
-    timestamp = get_timestamp()
-    with open("TEST-attr_common_"+timestamp+".csv", "w") as outfile:
+    """ 
+    Get all unique attribute types. 
+    """
+    print "Generating spreadsheet of unique attribute types..."
+    
+    TIMESTAMP = get_timestamp()
+    with open("TEST-attr_common_"+TIMESTAMP+".csv", "w") as outfile:
         csvout = csv.writer(outfile)
         
         with driver.session() as session:
             results = session.run(
                 "MATCH (:Sample)-[u:hasAttribute]->(a:Attribute) \
                 RETURN a.type AS type, COUNT(u) AS usage_count \
-                ORDER BY usage_count DESC"
+                ORDER BY usage_count DESC LIMIT 10"
             )
             
             for result in results:
@@ -28,21 +57,13 @@ def get_all_attribute_types(driver):
                 print "{} | ({})".format(result["type"], result["usage_count"])
                 csvout.writerow(row)
 
-    end_time = time.time()
-    total_time = end_time - start_time           
-    
-    print "** DONE - generated spreadsheet (attr_common.csv) of most common attribute types and values in %s seconds" % total_time
-    print "Time in minutes", total_time/60
-
-
-def get_timestamp():
-    """Get current timestamp. """
-    TIMESTAMP = '{:%Y-%m-%d_%H-%M-%S}'.format(datetime.datetime.now())
-    return TIMESTAMP
+    print "** DONE - generated file of most common attribute types."
 
 
 if __name__ == "__main__":
-    """ Generate file of most common Attribute Types and their count. """
+    """ 
+    Generate file of most common Attribute Types and their count. 
+    """
     driver = GraphDatabase.driver("bolt://localhost", auth=basic_auth("neo4j", "neo4jebi"))
     get_all_attribute_types(driver)
     
