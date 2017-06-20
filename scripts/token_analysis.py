@@ -26,8 +26,8 @@ def timing(f):
         ts = time()
         result = f(*args, **kw)
         te = time()
-        print 'Function: %r args:[%r, %r] took: %2.2f sec, %2.2f min' % \
-          (f.__name__, args, kw, te-ts, (te-ts)/60)
+        print 'Function: %r took: %2.2f sec, %2.2f min' % \
+          (f.__name__, te-ts, (te-ts)/60)
         return result
     return wrap
 
@@ -40,7 +40,6 @@ def get_timestamp():
     return timestamp
 
 
-@timing
 def read_file():
     """ 
     Read file of common attributes. 
@@ -60,26 +59,28 @@ def read_file():
     return attribute_type_dict
 
 
+@timing
 def generate_tokens(all_attribute_types):
     """ 
     Convert attribute types to lowercase, **lemmatized** tokens without punctuation or stopwords.
     """
     # Notes from: http://www.cs.duke.edu/courses/spring14/compsci290/assignments/lab02.html
+    print "-- convert to lowercase"
     lower_case_attr_types = [x.lower() for x in all_attribute_types]
 
+    print "-- remove punctuation"
     no_punc_attr_type_list = []
-    print "-- convert attributes to lowercase..."
     for attr_type in lower_case_attr_types:
         no_punctuation_attr_type = attr_type.translate(None, string.punctuation)
         # print "No Punc: ", no_punctuation_attr_type
         no_punc_attr_type_list.append(no_punctuation_attr_type)
 
-
-    print "-- tokenize attributes ..."
+    print "-- tokenize attributes"
     attr_token_dict = {}
-    NUMBER_ATTR_TO_EXAMINE = len(all_attribute_types)/1000    # All Attribute types = 15662
-    for attr_type in no_punc_attr_type_list[:NUMBER_ATTR_TO_EXAMINE]:
-        
+    NUMBER_ATTR_TO_EXAMINE = int(len(all_attribute_types) * float(args.attr_proportion))    # All Attribute types = 15662
+    print "--- number of attributes to examine: ", NUMBER_ATTR_TO_EXAMINE
+    
+    for attr_type in no_punc_attr_type_list[:NUMBER_ATTR_TO_EXAMINE]:    
         # Tokenize    
         #TODO: switch to use pos_tag(wordpunct_tokenize("see jane run")) --> see VB, jane NN, run VB
         # The Parts of Speech can then be used with the lemmatize()
@@ -91,6 +92,9 @@ def generate_tokens(all_attribute_types):
         filtered = [w for w in tokens if not w in stopwords.words('english')]
         # print "** Filter: ", filtered
 
+        # Store tokens in dictionary, key=original attribute type, value=processed attribute type
+        attr_token_dict[attr_type] = filtered
+
         #TODO: Incorporate lemmatization into analysis to convert tokens to base form
         # https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html
         # NOTE: When analyzing Attribute values, consider mapping non-standard words 
@@ -101,12 +105,11 @@ def generate_tokens(all_attribute_types):
         # Might be more interesting for Attribute values
         # nltk.FreqDist(all_words)
 
-        # Store tokens in dictionary
-        attr_token_dict[attr_type] = filtered
 
     return attr_token_dict
 
 
+@timing
 def word_token_analysis(attr_token_dict):
     """ 
     For each token, check if it exists as a token in another attribute type.
@@ -115,7 +118,6 @@ def word_token_analysis(attr_token_dict):
     attr_token_matches = []
     editable_dict = attr_token_dict.copy()
 
-    #TODO: 
     for attr_type, token_list in attr_token_dict.iteritems():
         # remove attribute to be examined from dict
         del editable_dict[attr_type]
@@ -130,7 +132,7 @@ def word_token_analysis(attr_token_dict):
 
     # Print Matches found for each attr_type
     if matches:
-        print "** Matches: ", len(matches)
+        print "** Matching Pairs: ", len(matches)
 
     return matches
 
@@ -147,9 +149,7 @@ if __name__ == '__main__':
     # Commandline arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--input_file_path', default="/Users/twhetzel/git/biosamples-data-mining/unique_attr_types_2017-06-20_14-31-00.csv")
-    # parser.add_argument('--attr', default="Organism")
-    # parser.add_argument('--num_attr_types', default=15662) # total in file is 15662
-    # parser.add_argument('--num_attr_values', default=500)
+    parser.add_argument('--attr_proportion', default=".001") # Proportion of attributes to examine, from 0.0 to 1, e.g. 15622*attr_proportion
     args = parser.parse_args()
 
     # Methods
@@ -157,14 +157,15 @@ if __name__ == '__main__':
     all_attribute_types = attribute_type_dict.keys()
     print "All Attributes: ", len(all_attribute_types)
     
-    # attr_token_dict = generate_tokens(all_attribute_types)
+    attr_token_dict = generate_tokens(all_attribute_types)
+    # print "Token Dict: ", len(attr_token_dict)
 
-    # attr_token_matches = word_token_analysis(attr_token_dict)
-    # print type(attr_token_matches)
+    attr_token_matches = word_token_analysis(attr_token_dict)
+    # print "Token Matches: ", attr_token_matches
 
-    # # Write results of tuples to file
-    # with open("tokenization_pairing_results.csv", "w") as att_type_out:
-    #     att_type_out.write('\n'.join('%s | %s | %s' % x for x in attr_token_matches))
+    # write results of tuples to file
+    with open("tokenization_pairing_results_"+args.attr_proportion+".csv", "w") as att_type_out:
+        att_type_out.write('\n'.join('%s | %s | %s' % x for x in attr_token_matches))
 
 
 
