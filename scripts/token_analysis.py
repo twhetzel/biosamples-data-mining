@@ -10,6 +10,9 @@ from functools import wraps
 from time import time
 
 import nltk
+from nltk import wordpunct_tokenize
+from nltk import WordNetLemmatizer
+from nltk import pos_tag
 from nltk.corpus import stopwords
 
 import networkx as nx
@@ -81,30 +84,35 @@ def generate_tokens(all_attribute_types):
     print "--- number of attributes to examine: ", NUMBER_ATTR_TO_EXAMINE
     
     for attr_type in no_punc_attr_type_list[:NUMBER_ATTR_TO_EXAMINE]:    
-        # Tokenize    
-        #TODO: switch to use pos_tag(wordpunct_tokenize("see jane run")) --> see VB, jane NN, run VB
-        # The Parts of Speech can then be used with the lemmatize()
-        # http://bbengfort.github.io/tutorials/2016/05/19/text-classification-nltk-sckit-learn.html
-        tokens = nltk.word_tokenize(attr_type)
+        # Tokenize
+        # tokens = nltk.word_tokenize(attr_type). #Original
         # print "\n** Tokens: ", tokens
         
+        # Switch to use pos_tag(wordpunct_tokenize("see jane run")) --> see VB, jane NN, run VB
+        # The Parts of Speech can then be used with the lemmatize()
+        # http://bbengfort.github.io/tutorials/2016/05/19/text-classification-nltk-sckit-learn.html
+        tokens = pos_tag(wordpunct_tokenize(attr_type))
+
+        # Incorporate lemmatization into analysis to convert tokens to base form
+        # https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html
+        # NOTE: When analyzing Attribute values, consider mapping non-standard words 
+        # including numbers, abbreviations, and dates, and mapping any such tokens to a special vocabulary, e.g.
+        # every decimal is mapped to 0.0, acronymn to AAA to keep vocabulary small
+        wnl = WordNetLemmatizer()
+        lemma_tokens = [wnl.lemmatize(x[0]) for x in tokens]
+
+
         # Remove stop words from tokens
-        filtered = [w for w in tokens if not w in stopwords.words('english')]
+        # filtered = [w for w in tokens if not w in stopwords.words('english')]  # Tokens not lemmatized
+        filtered = [w for w in lemma_tokens if not w in stopwords.words('english')]  # Tokens lemmatized
         # print "** Filter: ", filtered
 
         # Store tokens in dictionary, key=original attribute type, value=processed attribute type
         attr_token_dict[attr_type] = filtered
-
-        #TODO: Incorporate lemmatization into analysis to convert tokens to base form
-        # https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html
-        # NOTE: When analyzing Attribute values, consider mapping non-standard words 
-        # including numbers, abbreviations, and dates, and mapping any such tokens to a special vocabulary, e.g.
-        # every decimal is mapped to 0.0, acronymn to AAA to keep vocabulary small 
-
+ 
         #TODO: Consider generating list of most common words just as background information
         # Might be more interesting for Attribute values
         # nltk.FreqDist(all_words)
-
 
     return attr_token_dict
 
@@ -164,7 +172,7 @@ if __name__ == '__main__':
     # print "Token Matches: ", attr_token_matches
 
     # write results of tuples to file
-    with open("tokenization_pairing_results_"+args.attr_proportion+".csv", "w") as att_type_out:
+    with open("lemma_tokenization_pairing_results_"+args.attr_proportion+".csv", "w") as att_type_out:
         att_type_out.write('\n'.join('%s | %s | %s' % x for x in attr_token_matches))
 
 
