@@ -1,9 +1,13 @@
-from neo4j.v1 import GraphDatabase, basic_auth
 import argparse
 import os, sys
+import os.path
 import csv, unicodecsv
 import string, re
 import requests, json
+
+import datetime
+from functools import wraps
+from time import time
 
 import nltk
 from nltk.corpus import stopwords
@@ -13,15 +17,41 @@ import matplotlib.pyplot as plt
 import pandas
 
 
+def timing(f):
+    """
+    Create wrapper to report time of functions.
+    """
+    @wraps(f)
+    def wrap(*args, **kw):
+        ts = time()
+        result = f(*args, **kw)
+        te = time()
+        print 'Function: %r args:[%r, %r] took: %2.2f sec, %2.2f min' % \
+          (f.__name__, args, kw, te-ts, (te-ts)/60)
+        return result
+    return wrap
+
+
+def get_timestamp():
+    """ 
+    Get timestamp of current date and time. 
+    """
+    timestamp = '{:%Y-%m-%d_%H-%M-%S}'.format(datetime.datetime.now())
+    return timestamp
+
+
+@timing
 def read_file():
-    """ Read file of common attributes. """
-    with open(args.file_path, 'r') as f:
+    """ 
+    Read file of common attributes. 
+    """
+    with open(args.input_file_path, 'r') as f:
         content = f.readlines()
 
-    # Strip lines of newline/return characters in csv file
+    # strip lines of newline/return characters in csv file
     content = [x.strip(' \t\n\r') for x in content]
 
-    # Generate dictionary of types and their count
+    # generate dictionary of types and their count
     attribute_type_dict = {}
     for item in content:
         key, value = item.split('|')
@@ -31,7 +61,9 @@ def read_file():
 
 
 def generate_tokens(all_attribute_types):
-    """ Convert attribute types to lowercase tokens without punctuation or stopwords."""
+    """ 
+    Convert attribute types to lowercase, **lemmatized** tokens without punctuation or stopwords.
+    """
     # Notes from: http://www.cs.duke.edu/courses/spring14/compsci290/assignments/lab02.html
     lower_case_attr_types = [x.lower() for x in all_attribute_types]
 
@@ -45,10 +77,13 @@ def generate_tokens(all_attribute_types):
 
     print "-- tokenize attributes ..."
     attr_token_dict = {}
-    NUMBER_ATTR_TO_EXAMINE = 15662 # 15662 all 
+    NUMBER_ATTR_TO_EXAMINE = len(all_attribute_types)/1000    # All Attribute types = 15662
     for attr_type in no_punc_attr_type_list[:NUMBER_ATTR_TO_EXAMINE]:
         
         # Tokenize    
+        #TODO: switch to use pos_tag(wordpunct_tokenize("see jane run")) --> see VB, jane NN, run VB
+        # The Parts of Speech can then be used with the lemmatize()
+        # http://bbengfort.github.io/tutorials/2016/05/19/text-classification-nltk-sckit-learn.html
         tokens = nltk.word_tokenize(attr_type)
         # print "\n** Tokens: ", tokens
         
@@ -58,8 +93,12 @@ def generate_tokens(all_attribute_types):
 
         #TODO: Incorporate lemmatization into analysis to convert tokens to base form
         # https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html
+        # NOTE: When analyzing Attribute values, consider mapping non-standard words 
+        # including numbers, abbreviations, and dates, and mapping any such tokens to a special vocabulary, e.g.
+        # every decimal is mapped to 0.0, acronymn to AAA to keep vocabulary small 
 
         #TODO: Consider generating list of most common words just as background information
+        # Might be more interesting for Attribute values
         # nltk.FreqDist(all_words)
 
         # Store tokens in dictionary
@@ -69,11 +108,14 @@ def generate_tokens(all_attribute_types):
 
 
 def word_token_analysis(attr_token_dict):
-    """ For each token, check if it exists as a token in another attribute type."""
+    """ 
+    For each token, check if it exists as a token in another attribute type.
+    """
     matches = []
     attr_token_matches = []
     editable_dict = attr_token_dict.copy()
 
+    #TODO: 
     for attr_type, token_list in attr_token_dict.iteritems():
         # remove attribute to be examined from dict
         del editable_dict[attr_type]
@@ -97,32 +139,32 @@ def word_token_analysis(attr_token_dict):
 
 # Main 
 if __name__ == '__main__':
-    """ Profile values for each attribute type. """
+    """ 
+    Find word similarities in Attribute Types and create pairs. 
+    """    
     print "Starting to profile atttribute types."
-
-    driver = GraphDatabase.driver("bolt://localhost", auth=basic_auth("neo4j", "neo4jebi"))
 
     # Commandline arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--file_path', default="/Users/twhetzel/git/tw-biosamples-analysis/data_results/common_attributes/attr_common.csv")
-    parser.add_argument('--attr', default="Organism")
-    parser.add_argument('--num_attr_types', default=15662) # total in file is 15662
-    parser.add_argument('--num_attr_values', default=500)
+    parser.add_argument('--input_file_path', default="/Users/twhetzel/git/biosamples-data-mining/unique_attr_types_2017-06-20_14-31-00.csv")
+    # parser.add_argument('--attr', default="Organism")
+    # parser.add_argument('--num_attr_types', default=15662) # total in file is 15662
+    # parser.add_argument('--num_attr_values', default=500)
     args = parser.parse_args()
 
     # Methods
     attribute_type_dict = read_file()
     all_attribute_types = attribute_type_dict.keys()
-    # print "All Attributes: ", len(all_attribute_types)
+    print "All Attributes: ", len(all_attribute_types)
     
-    attr_token_dict = generate_tokens(all_attribute_types)
+    # attr_token_dict = generate_tokens(all_attribute_types)
 
-    attr_token_matches = word_token_analysis(attr_token_dict)
-    print type(attr_token_matches)
+    # attr_token_matches = word_token_analysis(attr_token_dict)
+    # print type(attr_token_matches)
 
-    # Write results of tuples to file
-    with open("tokenization_results.csv", "w") as att_type_out:
-        att_type_out.write('\n'.join('%s | %s | %s' % x for x in attr_token_matches))
+    # # Write results of tuples to file
+    # with open("tokenization_pairing_results.csv", "w") as att_type_out:
+    #     att_type_out.write('\n'.join('%s | %s | %s' % x for x in attr_token_matches))
 
 
 
