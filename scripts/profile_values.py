@@ -8,27 +8,22 @@ import requests, json
 import nltk
 from nltk.corpus import stopwords
 
+import glob, os
+import cPickle as pickle
 
-class Mapping:
-    def __init__(self, label, iri, confidence):
-        self.label = label
-        self.iri = iri
-        self.confidence = confidence
 
-    def __str__(self):
-        try:
-            return "Mapping:\label={label:s}, iri={iri:s}," \
-                    "confidence={confidence:s}".format(
-                    label=self.label, iri=self.iri,
-                    confidence=self.confidence
-                )
-        except UnicodeDecodeError:
-            print "Something went wrong handling mapping for " #+ self.value
+def get_file_names():
+    all_file_names = []
+    os.chdir(args.dir)
+    for file in glob.glob("*.csv"):
+        all_file_names.append(file)
+
+    return all_file_names
 
 
 def read_file():
     """ Read file of common attributes. """
-    with open(args.file_path, 'r') as f:
+    with open(args.attr_type_file_path, 'r') as f:
         content = f.readlines()
 
     # Strip lines of newline/return characters in csv file
@@ -43,39 +38,46 @@ def read_file():
     return attribute_type_dict
 
 
-def profile_attribute_types(attribute_type_dict, num_attr_types):
-    """ Profile attribute types. """
+def profile_attribute_types(attribute_type_dict):
+    """ 
+    Profile attribute types. 
+    """
+    
+    # How many attributes have an iri? Not reliable since not consistently used
+    # How many of these iris are from the same ontology based on ontology iri/namespace?
+
     attr_with_special_chars = {}
     attr_contains_numbers = {}
     attr_starts_with_numbers = {}
     attr_only_numbers = {}
     attr_num_of_tokens_distribution = {}
 
-    count = 0
     
     all_attribute_types = attribute_type_dict.keys()
+    
     for attr_type in all_attribute_types:
-        count += 1
-        # print count
+        attr_type_value_count = attribute_type_dict[attr_type]
+        
         # How many terms contain a character that is not a number or alphabetic character
-        if re.match("[^A-Za-z0-9]+", attr_type):
-            # print "** Contains special char: ", attr_type
+        # if re.match("[^A-Za-z0-9]+", attr_type):
+        if re.search("[?!@#$%^&*()]_", attr_type): 
+            print "** Contains special char: ", attr_type
             attr_with_special_chars[attr_type] = attribute_type_dict[attr_type]
 
         # How many types contain a number?
         RE_D = re.compile('\d')
         if RE_D.search(attr_type):
-            # print "Contains a number.", attr_type
+            print "Contains a number.", attr_type
             attr_contains_numbers[attr_type] = attribute_type_dict[attr_type]
 
         # How many types start with a number?
         if attr_type[:1] in '0123456789':
-            # print "Starts with a number: ", attr_type
+            print "Starts with a number: ", attr_type
             attr_starts_with_numbers[attr_type] = attribute_type_dict[attr_type]
 
         # How many types are only numbers?
         if attr_type.isdigit():
-            # print "Attribute type is a number: ", attr_type
+            print "Attribute type is a number: ", attr_type
             attr_only_numbers[attr_type] = attribute_type_dict[attr_type]
 
 
@@ -98,12 +100,12 @@ def profile_attribute_types(attribute_type_dict, num_attr_types):
         # score likelihood of term content based on what the ontology 
         # is used for
         #TODO - work on further, Zooma uri, how to compile results when >1 result is returned
-        if count % 100 == 0:  #progress indicator
-            print '...', count
+        # if count % 100 == 0:  #progress indicator
+        #     print '...', count
             # sys.stdout.write("...")
-        ols_mapping_results = _get_ols_annotations(attr_type)
-        if ols_mapping_results is not None:
-            print attr_type, ols_mapping_results
+        # ols_mapping_results = _get_zooma_annotations(attr_type)
+        # if ols_mapping_results is not None:
+        #     print attr_type, ols_mapping_results
 
  
     # Generate summary messages
@@ -114,6 +116,7 @@ def profile_attribute_types(attribute_type_dict, num_attr_types):
         pass
 
     # Numbers
+    # attribute types that contain a number
     total_samples_contain_numbers = 0
     if len(attr_contains_numbers) == 0:
         print "-- No attributes with numbers"
@@ -122,6 +125,7 @@ def profile_attribute_types(attribute_type_dict, num_attr_types):
         for k,v in attr_contains_numbers.iteritems():
             total_samples_contain_numbers = total_samples_contain_numbers + int(v)
 
+    # attribute types that start with a number
     total_samples_start_with_numbers = 0
     if len(attr_starts_with_numbers) == 0:
         print "-- No attributes start with numbers"
@@ -130,6 +134,7 @@ def profile_attribute_types(attribute_type_dict, num_attr_types):
         for k,v in attr_starts_with_numbers.iteritems():
             total_samples_start_with_numbers = total_samples_start_with_numbers + int(v)
 
+    # attribute types that are only numbers
     total_samples_only_numbers = 0
     if len(attr_only_numbers) == 0:
         print "-- No attributes are only numbers"
@@ -138,22 +143,13 @@ def profile_attribute_types(attribute_type_dict, num_attr_types):
         for k,v in attr_only_numbers.iteritems():
             total_samples_only_numbers = total_samples_only_numbers + int(v)
 
+    # attribute type token distribution
+    print "\n-- Attribute length distribution (count):"
+    for k,v in attr_num_of_tokens_distribution.iteritems():
+        print k, len(v)
 
 
-
-def profile_attribute_values(attribute_type_dict, attr, num_attr_values):
-    """ Profile attribute values for a given attribute type."""
-    print "Profiling attribute values..."
-
-    # Get attribute name and count from file
-    attr_count = attribute_type_dict[attr]  
-
-    # How many attributes have an iri?
-
-    # How many of these iris are from the same ontology based on ontology iri/namespace?
-
-
-def _get_ols_annotations(attr_type, ontology=None):
+def _get_zooma_annotations(attr_type, ontology=None):
     """ Get annotations using Zooma. """
     url = "http://www.ebi.ac.uk/spot/zooma/v2/api/services/annotate?" \
           "propertyValue={attr_type:s}&" \
@@ -189,24 +185,29 @@ def _get_ols_annotations(attr_type, ontology=None):
 
 
 if __name__ == '__main__':
-    """ Profile values for each attribute type. """
-    print "Starting to profile atttribute types."
-
-    driver = GraphDatabase.driver("bolt://localhost", auth=basic_auth("neo4j", "neo4jebi"))
+    """ 
+    Profile attribute values for each attribute type. 
+    """
+    print "Starting to profile atttribute values."
 
     # Commandline arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--file_path', default="/Users/twhetzel/git/tw-biosamples-analysis/data_results/common_attributes/attr_common.csv")
-    parser.add_argument('--attr', default="Organism")
-    parser.add_argument('--num_attr_types', default=15662) # total in file is 15662
-    parser.add_argument('--num_attr_values', default=500)
+    parser.add_argument('--dir', default="/Users/twhetzel/git/biosamples-data-mining/data_results/attr_type_values-data_results/")
+    parser.add_argument('--attr_type_file_path', default="/Users/twhetzel/git/biosamples-data-mining/data_results/unique_attr_types_2017-06-20_14-31-00.csv")
     args = parser.parse_args()
 
+    # Methods
+    # get list of files that contain values (n<=10000) for each attr type
+    all_file_names = get_file_names()
+
+    # get attr_type file with count of attr per type
     attribute_type_dict = read_file()
 
-    profile_attribute_types(attribute_type_dict, args.num_attr_types)
+    # profile attr types for characteristics
+    profile_attribute_types(attribute_type_dict)
 
-    # profile_attribute_values(attribute_type_dict, args.attr, args.num_attr_values)
+    # profile attr type values for characteristics
+    # profile_attribute_type_values(attribute_type_dict, all_file_names)
 
 
 
