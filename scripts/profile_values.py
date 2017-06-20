@@ -21,7 +21,7 @@ def get_file_names():
     return all_file_names
 
 
-def read_file():
+def read_attr_type_file():
     """ Read file of common attributes. """
     with open(args.attr_type_file_path, 'r') as f:
         content = f.readlines()
@@ -60,7 +60,7 @@ def profile_attribute_types(attribute_type_dict):
         
         # How many terms contain a character that is not a number or alphabetic character
         # if re.match("[^A-Za-z0-9]+", attr_type):
-        if re.search("[?!@#$%^&*()]_", attr_type): 
+        if re.search("[?!@#$%^&*()]_", attr_type):   # Is there a way to detect 3'
             print "** Contains special char: ", attr_type
             attr_with_special_chars[attr_type] = attribute_type_dict[attr_type]
 
@@ -103,9 +103,9 @@ def profile_attribute_types(attribute_type_dict):
         # if count % 100 == 0:  #progress indicator
         #     print '...', count
             # sys.stdout.write("...")
-        # ols_mapping_results = _get_zooma_annotations(attr_type)
-        # if ols_mapping_results is not None:
-        #     print attr_type, ols_mapping_results
+        # zooma_mapping_results = _get_zooma_annotations(attr_type)
+        # if zooma_mapping_results is not None:
+        #     print attr_type, zooma_mapping_results
 
  
     # Generate summary messages
@@ -150,7 +150,9 @@ def profile_attribute_types(attribute_type_dict):
 
 
 def _get_zooma_annotations(attr_type, ontology=None):
-    """ Get annotations using Zooma. """
+    """ 
+    Get annotations using Zooma. 
+    """
     url = "http://www.ebi.ac.uk/spot/zooma/v2/api/services/annotate?" \
           "propertyValue={attr_type:s}&" \
           "filter=required:[none]," \
@@ -175,12 +177,37 @@ def _get_zooma_annotations(attr_type, ontology=None):
             print result['annotatedProperty']['propertyValue'], result['semanticTags'][0], result['confidence']
 
 
-    #         mapping = Mapping(
-                
-    #         )
-    # print "* * Mapping: ", mapping
-    # return mapping 
+def profile_attribute_type_values(attribute_type_dict, all_file_names):
+    """
+    For each attribute type, profile the values found for this type.
+    """
+    all_attribute_types = attribute_type_dict.keys()
 
+    count = 0
+    for k,v in attribute_type_dict.iteritems():
+        count += 1
+        if count < 10:
+            print k,v
+
+    for attr_type in all_attribute_types:
+        attr_type_value_count = attribute_type_dict[attr_type]
+        # print "Attribute type ", attr_type, "has %s values " % attr_type_value_count
+
+        # format attribute type the same as attribute filename 
+        attribute_type_filename = attr_type.lower()
+        attribute_type_filename = attribute_type_filename.replace(" ", "_")
+        attribute_type_filename = attribute_type_filename+".csv"
+
+        # read attribute file
+        with open(args.dir+attribute_type_filename, "r") as attr_value_file:
+            content = attr_value_file.readlines()
+            # strip lines of newline/return characters in csv file
+            content = [x.strip(' \t\n\r') for x in content]
+            # print "File contents: ", attr_type, #"\n", content, "\n\n"
+            for item in content:
+                # print "Content Item: ", item
+                value, count, iri = item.split('\t')
+                # print "Split: ", value.strip(),"\n"
 
 
 
@@ -201,13 +228,13 @@ if __name__ == '__main__':
     all_file_names = get_file_names()
 
     # get attr_type file with count of attr per type
-    attribute_type_dict = read_file()
+    attribute_type_dict = read_attr_type_file()
 
     # profile attr types for characteristics
-    profile_attribute_types(attribute_type_dict)
+    # profile_attribute_types(attribute_type_dict)
 
     # profile attr type values for characteristics
-    # profile_attribute_type_values(attribute_type_dict, all_file_names)
+    profile_attribute_type_values(attribute_type_dict, all_file_names)
 
 
 
