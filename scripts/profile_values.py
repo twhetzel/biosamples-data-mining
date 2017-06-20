@@ -105,11 +105,6 @@ def profile_attribute_types(attribute_type_dict, num_attr_types):
         if ols_mapping_results is not None:
             print attr_type, ols_mapping_results
 
-        # TODO
-        # For each token in each attr_type, are any tokens found in other attr_types?
-        # _word_token_analysis(all_attribute_types) 
-        # --> See token_analysis.py script for this analysis
-
  
     # Generate summary messages
     # Special Characters
@@ -188,28 +183,7 @@ def _get_ols_annotations(attr_type, ontology=None):
                 
     #         )
     # print "* * Mapping: ", mapping
-    # return mapping
-
-
-def _word_token_analysis(all_attribute_types):
-    # Notes from: http://www.cs.duke.edu/courses/spring14/compsci290/assignments/lab02.html
-    lower_case_attr_types = [x.lower() for x in all_attribute_types]
-    # print "LC: ", lower_case_attr_types
-
-    no_punc_attr_type_list = []
-    for attr_type in lower_case_attr_types:
-        no_punctuation_attr_type = attr_type.translate(None, string.punctuation)
-        # print "No Punc: ", no_punctuation_attr_type
-        no_punc_attr_type_list.append(no_punctuation_attr_type)
-
-    # Tokenize 
-    tokens = nltk.word_tokenize(no_punc_attr_type_list)
-    print "** Tokens: ", tokens
-
-    for attr_type in no_punc_attr_type_list[:20]:
-        # print "Attr_type: ", attr_type
-        pass
-                
+    # return mapping 
 
 
 
