@@ -59,8 +59,7 @@ def profile_attribute_types(attribute_type_dict):
         attr_type_value_count = attribute_type_dict[attr_type]
         
         # How many terms contain a character that is not a number or alphabetic character
-        # if re.match("[^A-Za-z0-9]+", attr_type):
-        if re.search("[?!@#$%^&*()]_", attr_type):   # Is there a way to detect 3'
+        if re.search("[?!@#$%^&*()]_", attr_type):   # Is there a way to detect the prime in 3'
             print "** Contains special char: ", attr_type
             attr_with_special_chars[attr_type] = attribute_type_dict[attr_type]
 
@@ -183,13 +182,13 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
     """
     all_attribute_types = attribute_type_dict.keys()
 
-    count = 0
-    for k,v in attribute_type_dict.iteritems():
-        count += 1
-        if count < 10:
-            print k,v
+    attr_type_count = 0
+    values_with_special_chars = {}
 
     for attr_type in all_attribute_types:
+        attr_type_count += 1
+        # print "Count: ", attr_type_count
+
         attr_type_value_count = attribute_type_dict[attr_type]
         # print "Attribute type ", attr_type, "has %s values " % attr_type_value_count
 
@@ -198,16 +197,38 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         attribute_type_filename = attribute_type_filename.replace(" ", "_")
         attribute_type_filename = attribute_type_filename+".csv"
 
-        # read attribute file
-        with open(args.dir+attribute_type_filename, "r") as attr_value_file:
-            content = attr_value_file.readlines()
-            # strip lines of newline/return characters in csv file
-            content = [x.strip(' \t\n\r') for x in content]
-            # print "File contents: ", attr_type, #"\n", content, "\n\n"
-            for item in content:
-                # print "Content Item: ", item
-                value, count, iri = item.split('\t')
-                # print "Split: ", value.strip(),"\n"
+        if attr_type_count < 3:
+            # read attribute file
+            with open(args.dir+attribute_type_filename, "r") as attr_value_file:
+                print "Opening file ", attribute_type_filename
+                content = attr_value_file.readlines()
+                # strip lines of newline/return characters in csv file
+                content = [x.strip(' \t\n\r') for x in content]
+                # print "File contents: ", attr_type, #"\n", content, "\n\n"
+                for item in content:
+                    # print "Content Item: ", item
+                    value, count, iri = item.split('\t')
+                    # print "Split: ", value.strip(), count.strip(), iri.strip(), "\n"
+
+                    #TODO: Profile value for characteristics
+                    values_with_special_chars = _check_for_special_characters(value, attribute_type_filename)
+    
+    # print summary reports
+    print "Number of values with special characters: ", len(values_with_special_chars)
+
+
+# Profiling methods
+def _check_for_special_characters(value, attribute_type_filename):
+    # For review of values, create dict with filename as key, and list of values w/special char as dict value
+    values_with_special_chars = {}
+    flagged_values = []
+    if re.search("[?!@#$%^&*()]_", value):   # Is there a way to detect 3'
+            print "** Value contains special char: ", value
+            flagged_values.append(values)
+            values_with_special_chars[attribute_type_filename] = flagged_values
+    else:
+        print "No special character found in ", value
+    return values_with_special_chars
 
 
 
