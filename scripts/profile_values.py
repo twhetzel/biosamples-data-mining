@@ -11,6 +11,25 @@ from nltk.corpus import stopwords
 import glob, os
 import cPickle as pickle
 
+import decimal
+
+
+class Profiler:
+    """
+    Provides methods to calculate characteristics of attribute types and values.
+    """
+    def __init__(self, data):
+        self.data = data
+
+    def check_for_numbers(self):
+        RE_D = re.compile('\d')
+        if RE_D.search(self.data):
+            # print "-- contains a number", self.data
+            # return len(self.data)
+            return True
+        # else:
+        #     print "Value does not contain a number: ", self.data
+
 
 def get_file_names():
     all_file_names = []
@@ -181,13 +200,19 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
     For each attribute type, profile the values found for this type.
     """
     all_attribute_types = attribute_type_dict.keys()
-
     attr_type_count = 0
-    values_with_special_chars = {}
 
     for attr_type in all_attribute_types:
         attr_type_count += 1
         # print "Count: ", attr_type_count
+
+        values_with_special_chars = {}
+        values_contain_numbers = {}
+        values_starts_with_numbers = {}
+        values_only_numbers = {}
+
+        count_values_with_numbers = 0
+        flagged_values_contain_numbers = []
 
         attr_type_value_count = attribute_type_dict[attr_type]
         # print "Attribute type ", attr_type, "has %s values " % attr_type_value_count
@@ -197,7 +222,8 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         attribute_type_filename = attribute_type_filename.replace(" ", "_")
         attribute_type_filename = attribute_type_filename+".csv"
 
-        if attr_type_count < 3:
+        if attr_type_count < 3:  # OR switch to args param to pass attr to examine?
+            print "Results for Attribute Type ", attr_type, "("+str(attr_type_count)+")"
             # read attribute file
             with open(args.dir+attribute_type_filename, "r") as attr_value_file:
                 print "Opening file ", attribute_type_filename
@@ -207,28 +233,64 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
                 # print "File contents: ", attr_type, #"\n", content, "\n\n"
                 for item in content:
                     # print "Content Item: ", item
-                    value, count, iri = item.split('\t')
-                    # print "Split: ", value.strip(), count.strip(), iri.strip(), "\n"
+                    value, val_count, iri = item.split('\t')
+                    # print "Split: ", value.strip(), count.strip(), iri.strip(), "\n" # Do these need strip()?
 
-                    #TODO: Profile value for characteristics
+                    #TODO: Use Profiler class instead of methods
+                    value_profiler = Profiler(value)
+
+                    #TODO: add this check to the Profiler class
                     values_with_special_chars = _check_for_special_characters(value, attribute_type_filename)
-    
-    # print summary reports
-    print "Number of values with special characters: ", len(values_with_special_chars)
 
+
+                    if value_profiler.check_for_numbers():
+                        flagged_values_contain_numbers.append(value)
+                        count_values_with_numbers += int(val_count)
+                        # print "Value contains a number ", value
+                        # print "Count of Val with a number: ", val_count, "\nTotal val count: ", count_values_with_numbers
+
+
+                    # check for values with numbers
+                    # print "check for numbers...", value
+                    if not value.isalpha():
+                        values_contain_numbers = _check_for_numbers(value, attribute_type_filename, values_contain_numbers)
+
+    
+            # print summary reports
+            # print "-- Number of values with special characters: ", len(values_with_special_chars)
+            print "-- Number of values with numbers: ", count_values_with_numbers, "versus ", attribute_type_dict[attr_type]
+            print "---- Percentage as numbers: ", ("%.2f" % (count_values_with_numbers/float(attribute_type_dict[attr_type])*100))
 
 # Profiling methods
 def _check_for_special_characters(value, attribute_type_filename):
     # For review of values, create dict with filename as key, and list of values w/special char as dict value
-    values_with_special_chars = {}
+    values_with_special_chars = {} #move this!
     flagged_values = []
     if re.search("[?!@#$%^&*()]_", value):   # Is there a way to detect 3'
             print "** Value contains special char: ", value
             flagged_values.append(values)
             values_with_special_chars[attribute_type_filename] = flagged_values
-    else:
-        print "No special character found in ", value
+    # else:
+    #     print "-- No special character found in ", value
     return values_with_special_chars
+
+
+def _check_for_numbers(value, attribute_type_filename, values_contain_numbers):
+    # print "Checking value for numbers...", value
+    # values_contain_numbers = {}
+    # values_starts_with_numbers = {}
+    # values_only_numbers = {}
+
+    flagged_values_contain_numbers = []
+
+    # check if value contains numbers
+    RE_D = re.compile('\d')
+    if RE_D.search(value):
+        # print "-- contains a number", value
+        flagged_values_contain_numbers.append(value)
+        values_contain_numbers[attribute_type_filename] = flagged_values_contain_numbers
+
+    return values_contain_numbers
 
 
 
