@@ -21,6 +21,12 @@ class Profiler:
     def __init__(self, data):
         self.data = data
 
+    def check_for_special_characters(self):
+        if re.search("[?!@#$%^&*()]_", self.data):   # Is there a way to detect 3'
+                print "** Value contains special char: ", self.data
+        return True
+
+
     def check_for_numbers(self):
         RE_D = re.compile('\d')
         if RE_D.search(self.data):
@@ -212,6 +218,8 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         values_only_numbers = {}
 
         count_values_with_numbers = 0
+        count_values_with_special_characters = 0
+        flagged_values_contain_special_characters = []
         flagged_values_contain_numbers = []
 
         attr_type_value_count = attribute_type_dict[attr_type]
@@ -222,7 +230,7 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         attribute_type_filename = attribute_type_filename.replace(" ", "_")
         attribute_type_filename = attribute_type_filename+".csv"
 
-        if attr_type_count < 3:  # OR switch to args param to pass attr to examine?
+        if attr_type_count < 4:  # OR switch to args param to pass attr to examine?
             print "Results for Attribute Type ", attr_type, "("+str(attr_type_count)+")"
             # read attribute file
             with open(args.dir+attribute_type_filename, "r") as attr_value_file:
@@ -240,7 +248,11 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
                     value_profiler = Profiler(value)
 
                     #TODO: add this check to the Profiler class
-                    values_with_special_chars = _check_for_special_characters(value, attribute_type_filename)
+                    # values_with_special_chars = _check_for_special_characters(value, attribute_type_filename)
+
+                    if value_profiler.check_for_special_characters():
+                        flagged_values_contain_special_characters.append(value)
+                        count_values_with_special_characters += int(val_count)
 
 
                     if value_profiler.check_for_numbers():
@@ -257,7 +269,7 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
 
     
             # print summary reports
-            # print "-- Number of values with special characters: ", len(values_with_special_chars)
+            print "-- Number of values with special characters: ", count_values_with_special_characters
             print "-- Number of values with numbers: ", count_values_with_numbers, "versus ", attribute_type_dict[attr_type]
             print "---- Percentage as numbers: ", ("%.2f" % (count_values_with_numbers/float(attribute_type_dict[attr_type])*100))
 
