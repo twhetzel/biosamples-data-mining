@@ -12,6 +12,7 @@ import glob, os
 import cPickle as pickle
 
 import decimal
+import datetime
 
 
 class Profiler:
@@ -23,26 +24,46 @@ class Profiler:
 
     def check_for_special_characters(self):
         if re.search("[?!@#$%^&*()]_", self.data):   # Is there a way to detect 3'
-                print "** Value contains special char: ", self.data
-        return True
-
+            return True
 
     def check_for_numbers(self):
         RE_D = re.compile('\d')
         if RE_D.search(self.data):
-            # print "-- contains a number", self.data
-            # return len(self.data)
             return True
-        # else:
-        #     print "Value does not contain a number: ", self.data
+
+    def check_if_starts_with_number(self):
+        if str(self.data)[0] in '0123456789':
+            return True
+
+    def check_if_only_numbers(self):
+        if isinstance(self.data, int) or isinstance(self.data, float):
+            return True
+
+
+
+# Methods
+def get_timestamp():
+    """ 
+    Get timestamp of current date and time. 
+    """
+    timestamp = '{:%Y-%m-%d_%H-%M-%S}'.format(datetime.datetime.now())
+    return timestamp
 
 
 def get_file_names():
+    """
+    Get list of all filenames to examine.
+    """
     all_file_names = []
+    cwd = os.getcwd()
+    # Change to dir with result files to analyze
     os.chdir(args.dir)
+    
     for file in glob.glob("*.csv"):
         all_file_names.append(file)
 
+    # Return to current working directory
+    os.chdir(cwd)
     return all_file_names
 
 
@@ -77,7 +98,6 @@ def profile_attribute_types(attribute_type_dict):
     attr_only_numbers = {}
     attr_num_of_tokens_distribution = {}
 
-    
     all_attribute_types = attribute_type_dict.keys()
     
     for attr_type in all_attribute_types:
@@ -208,19 +228,28 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
     all_attribute_types = attribute_type_dict.keys()
     attr_type_count = 0
 
+    TIMESTAMP = get_timestamp()
+    outfile = open("attr_type_values_profiling_results_"+TIMESTAMP+".csv", "w")
+    csvout = csv.writer(outfile)
+
+    csvout.writerow(["Count", "Attr", "SC", "SC%", "CN", "CN%",  "SN", "SN%", "ON", "ON%"])
+
     for attr_type in all_attribute_types:
         attr_type_count += 1
-        # print "Count: ", attr_type_count
 
         values_with_special_chars = {}
         values_contain_numbers = {}
         values_starts_with_numbers = {}
         values_only_numbers = {}
 
-        count_values_with_numbers = 0
         count_values_with_special_characters = 0
+        count_values_with_numbers = 0
+        count_values_starts_with_numbers = 0
+        count_values_only_numbers = 0
         flagged_values_contain_special_characters = []
         flagged_values_contain_numbers = []
+        flagged_values_starts_with_numbers = []
+        flagged_values_only_numbers = []
 
         attr_type_value_count = attribute_type_dict[attr_type]
         # print "Attribute type ", attr_type, "has %s values " % attr_type_value_count
@@ -230,48 +259,53 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         attribute_type_filename = attribute_type_filename.replace(" ", "_")
         attribute_type_filename = attribute_type_filename+".csv"
 
-        if attr_type_count < 4:  # OR switch to args param to pass attr to examine?
-            print "Results for Attribute Type ", attr_type, "("+str(attr_type_count)+")"
+        if attr_type_count < 6:  # OR switch to args param to pass attr to examine?
+            print "\nResults for Attribute Type ", attr_type, "("+str(attr_type_count)+")"
             # read attribute file
             with open(args.dir+attribute_type_filename, "r") as attr_value_file:
-                print "Opening file ", attribute_type_filename
+                
                 content = attr_value_file.readlines()
-                # strip lines of newline/return characters in csv file
                 content = [x.strip(' \t\n\r') for x in content]
-                # print "File contents: ", attr_type, #"\n", content, "\n\n"
+                
                 for item in content:
-                    # print "Content Item: ", item
                     value, val_count, iri = item.split('\t')
-                    # print "Split: ", value.strip(), count.strip(), iri.strip(), "\n" # Do these need strip()?
+                    # print "Line: ", value.strip(), val_count.strip(), iri.strip(), "\n" # Do these need strip()?
 
-                    #TODO: Use Profiler class instead of methods
                     value_profiler = Profiler(value)
-
-                    #TODO: add this check to the Profiler class
-                    # values_with_special_chars = _check_for_special_characters(value, attribute_type_filename)
 
                     if value_profiler.check_for_special_characters():
                         flagged_values_contain_special_characters.append(value)
                         count_values_with_special_characters += int(val_count)
 
-
                     if value_profiler.check_for_numbers():
                         flagged_values_contain_numbers.append(value)
                         count_values_with_numbers += int(val_count)
-                        # print "Value contains a number ", value
-                        # print "Count of Val with a number: ", val_count, "\nTotal val count: ", count_values_with_numbers
 
+                    if value_profiler.check_if_starts_with_number():
+                        flagged_values_starts_with_numbers.append(value)
+                        count_values_starts_with_numbers += int(val_count)
 
-                    # check for values with numbers
-                    # print "check for numbers...", value
-                    if not value.isalpha():
-                        values_contain_numbers = _check_for_numbers(value, attribute_type_filename, values_contain_numbers)
+                    if value_profiler.check_if_only_numbers():
+                        flagged_values_only_numbers.append(value)
+                        count_values_only_numbers += int(val_count)
 
-    
+            # print "Values that start with numbers: \n", flagged_values_starts_with_numbers
+
             # print summary reports
-            print "-- Number of values with special characters: ", count_values_with_special_characters
-            print "-- Number of values with numbers: ", count_values_with_numbers, "versus ", attribute_type_dict[attr_type]
-            print "---- Percentage as numbers: ", ("%.2f" % (count_values_with_numbers/float(attribute_type_dict[attr_type])*100))
+            csvout.writerow([str(attr_type_count), attr_type, \
+                str(count_values_with_special_characters), \
+                str(("%.2f" % (count_values_with_special_characters/float(attribute_type_dict[attr_type])*100))), \
+                str(count_values_with_numbers), \
+                str(("%.2f" % (count_values_with_numbers/float(attribute_type_dict[attr_type])*100))), \
+                str(count_values_starts_with_numbers), \
+                str(("%.2f" % (count_values_starts_with_numbers/float(attribute_type_dict[attr_type])*100))), \
+                str(count_values_only_numbers),
+                str(("%.2f" % (count_values_only_numbers/float(attribute_type_dict[attr_type])*100)))
+            ])
+
+    outfile.close()
+    print "\n** Profiling report generated."
+
 
 # Profiling methods
 def _check_for_special_characters(value, attribute_type_filename):
@@ -310,13 +344,14 @@ if __name__ == '__main__':
     """ 
     Profile attribute values for each attribute type. 
     """
-    print "Starting to profile atttribute values."
+    print "Starting to profile atttribute values..."
 
     # Commandline arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--dir', default="/Users/twhetzel/git/biosamples-data-mining/data_results/attr_type_values-data_results/")
     parser.add_argument('--attr_type_file_path', default="/Users/twhetzel/git/biosamples-data-mining/data_results/unique_attr_types_2017-06-20_14-31-00.csv")
     args = parser.parse_args()
+
 
     # Methods
     # get list of files that contain values (n<=10000) for each attr type
@@ -330,6 +365,5 @@ if __name__ == '__main__':
 
     # profile attr type values for characteristics
     profile_attribute_type_values(attribute_type_dict, all_file_names)
-
 
 
