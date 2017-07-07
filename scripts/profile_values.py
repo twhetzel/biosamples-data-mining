@@ -368,7 +368,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dir', default="/Users/twhetzel/git/biosamples-data-mining/data_results/attr_type_values-data_results/")
     parser.add_argument('--attr_type_file_path', default="/Users/twhetzel/git/biosamples-data-mining/data_results/unique_attr_types_2017-06-20_14-31-00.csv")
-    parser.add_argument('--num_attr_review', help="Number of Attributes to analyze their values", default=2)
+    parser.add_argument('--num_attr_review', help="Number of Attributes to analyze their values", default=1600)
     args = parser.parse_args()
 
 
