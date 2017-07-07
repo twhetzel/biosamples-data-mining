@@ -32,6 +32,7 @@ class Profiler:
             return True
 
     def check_if_starts_with_number(self):
+        #TODO: Multiply value by -1 to make positive or ...
         if str(self.data)[0] in '0123456789':
             return True
 
@@ -232,7 +233,9 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
     outfile = open("attr_type_values_profiling_results_"+TIMESTAMP+".csv", "w")
     csvout = csv.writer(outfile)
 
-    csvout.writerow(["Count", "Attr", "SC", "SC%", "CN", "CN%",  "SN", "SN%", "ON", "ON%"])
+    csvout.writerow(["Count", "Attr", "Special Char(CNT)", "Special Char(%)", \
+        "Contains Nums (CNT)", "Contains Nums(%)",  "Starts wNumber(CNT)", "Starts wNumber(%)", \
+        "Only Nums(CNT)", "Only Nums(%)"])
 
     for attr_type in all_attribute_types:
         attr_type_count += 1
@@ -259,8 +262,8 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         attribute_type_filename = attribute_type_filename.replace(" ", "_")
         attribute_type_filename = attribute_type_filename+".csv"
 
-        if attr_type_count < 6:  # OR switch to args param to pass attr to examine?
-            print "\nResults for Attribute Type ", attr_type, "("+str(attr_type_count)+")"
+        if attr_type_count < 100:  # OR switch to args param to pass attr to examine?
+            print "\n(attr_type_count) Results for Attribute Type ", attr_type, "("+str(attr_type_count)+")"
             # read attribute file
             with open(args.dir+attribute_type_filename, "r") as attr_value_file:
                 
@@ -281,13 +284,16 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
                         flagged_values_contain_numbers.append(value)
                         count_values_with_numbers += int(val_count)
 
-                    if value_profiler.check_if_starts_with_number():
-                        flagged_values_starts_with_numbers.append(value)
-                        count_values_starts_with_numbers += int(val_count)
+                    # only check for these cases if any values contain numbers
+                    if len(flagged_values_contain_numbers) > 0:
+                        if value_profiler.check_if_only_numbers():
+                            flagged_values_only_numbers.append(value)
+                            count_values_only_numbers += int(val_count)
+                    
+                        if value_profiler.check_if_starts_with_number():
+                            flagged_values_starts_with_numbers.append(value)
+                            count_values_starts_with_numbers += int(val_count)
 
-                    if value_profiler.check_if_only_numbers():
-                        flagged_values_only_numbers.append(value)
-                        count_values_only_numbers += int(val_count)
 
             # print "Values that start with numbers: \n", flagged_values_starts_with_numbers
 
@@ -353,17 +359,18 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
 
-    # Methods
-    # get list of files that contain values (n<=10000) for each attr type
+    # Main Methods
+    # Get list of files that contain values for each attr type. 
+    # NOTE: The query to get values has a limit to get only 10,000 values 
     all_file_names = get_file_names()
 
-    # get attr_type file with count of attr per type
+    # Get attr_type file with count of attr per type
     attribute_type_dict = read_attr_type_file()
 
-    # profile attr types for characteristics
+    # Generate profiles for attr types
     # profile_attribute_types(attribute_type_dict)
 
-    # profile attr type values for characteristics
+    # Generate profiles for attr type values 
     profile_attribute_type_values(attribute_type_dict, all_file_names)
 
 
