@@ -23,6 +23,7 @@ class Profiler:
         self.data = data
 
     def check_for_special_characters(self):
+        # NOTE: Might want to check if not a digit or character
         if re.search("[?!@#$%^&*()]_", self.data):   # Is there a way to detect 3'
             return True
 
@@ -30,15 +31,19 @@ class Profiler:
         RE_D = re.compile('\d')
         if RE_D.search(self.data):
             return True
+ 
+    def check_if_only_numbers(self):
+        if all(c in "0123456789.-E" for c in self.data):
+            return True
+
 
     def check_if_starts_with_number(self):
-        #TODO: Multiply value by -1 to make positive or ...
-        if str(self.data)[0] in '0123456789':
-            return True
-
-    def check_if_only_numbers(self):
-        if isinstance(self.data, int) or isinstance(self.data, float):
-            return True
+        if str(self.data)[0] == '-':
+            if (self.data)[1] in '0123456789.':
+                return True
+        else:
+            if str(self.data)[0] in '0123456789':
+                return True
 
 
 
@@ -121,6 +126,7 @@ def profile_attribute_types(attribute_type_dict):
             attr_starts_with_numbers[attr_type] = attribute_type_dict[attr_type]
 
         # How many types are only numbers?
+        #TODO: Need to account for value that are decimal point numbers, e.g. 12.5
         if attr_type.isdigit():
             print "Attribute type is a number: ", attr_type
             attr_only_numbers[attr_type] = attribute_type_dict[attr_type]
@@ -262,8 +268,8 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         attribute_type_filename = attribute_type_filename.replace(" ", "_")
         attribute_type_filename = attribute_type_filename+".csv"
 
-        if attr_type_count < 100:  # OR switch to args param to pass attr to examine?
-            print "\n(attr_type_count) Results for Attribute Type ", attr_type, "("+str(attr_type_count)+")"
+        if attr_type_count < 10:  # OR switch to args param to pass attr to examine?
+            print "\n** Results for Attribute Type ", attr_type, "("+str(attr_type_count)+")"
             # read attribute file
             with open(args.dir+attribute_type_filename, "r") as attr_value_file:
                 
@@ -286,16 +292,18 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
 
                     # only check for these cases if any values contain numbers
                     if len(flagged_values_contain_numbers) > 0:
+                        # print "Checking if values are only numbers..."
                         if value_profiler.check_if_only_numbers():
                             flagged_values_only_numbers.append(value)
                             count_values_only_numbers += int(val_count)
                     
-                        if value_profiler.check_if_starts_with_number():
-                            flagged_values_starts_with_numbers.append(value)
-                            count_values_starts_with_numbers += int(val_count)
+                    if value_profiler.check_if_starts_with_number():
+                        flagged_values_starts_with_numbers.append(value)
+                        count_values_starts_with_numbers += int(val_count)
 
 
             # print "Values that start with numbers: \n", flagged_values_starts_with_numbers
+            print "Values that are ONLY numbers: \n", flagged_values_only_numbers
 
             # print summary reports
             csvout.writerow([str(attr_type_count), attr_type, \
