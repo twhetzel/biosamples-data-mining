@@ -39,8 +39,12 @@ class Profiler:
 
     def check_if_starts_with_number(self):
         if str(self.data)[0] == '-':
-            if (self.data)[1] in '0123456789.':
-                return True
+            if len(self.data) > 1:
+                if (self.data)[1] in '0123456789.':
+                    return True
+            else:
+                #TODO: Log this case in some way 
+                pass
         else:
             if str(self.data)[0] in '0123456789':
                 return True
@@ -268,7 +272,7 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         attribute_type_filename = attribute_type_filename.replace(" ", "_")
         attribute_type_filename = attribute_type_filename+".csv"
 
-        if attr_type_count < 10:  # OR switch to args param to pass attr to examine?
+        if attr_type_count <= int(args.num_attr_review):
             print "\n** Results for Attribute Type ", attr_type, "("+str(attr_type_count)+")"
             # read attribute file
             with open(args.dir+attribute_type_filename, "r") as attr_value_file:
@@ -303,7 +307,7 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
 
 
             # print "Values that start with numbers: \n", flagged_values_starts_with_numbers
-            print "Values that are ONLY numbers: \n", flagged_values_only_numbers
+            # print "Values that are ONLY numbers: \n", flagged_values_only_numbers
 
             # print summary reports
             csvout.writerow([str(attr_type_count), attr_type, \
@@ -364,6 +368,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dir', default="/Users/twhetzel/git/biosamples-data-mining/data_results/attr_type_values-data_results/")
     parser.add_argument('--attr_type_file_path', default="/Users/twhetzel/git/biosamples-data-mining/data_results/unique_attr_types_2017-06-20_14-31-00.csv")
+    parser.add_argument('--num_attr_review', help="Number of Attributes to analyze their values", default=2)
     args = parser.parse_args()
 
 
