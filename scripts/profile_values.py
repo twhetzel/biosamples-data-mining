@@ -53,6 +53,95 @@ class Profiler:
                 return True
 
 
+    def check_for_boolean_value(self):
+        formatted_value = self.data.lower().strip()
+        # print "Boolean Check: ", "\""+self.data+"\"", "\""+formatted_value+"\""
+        if formatted_value == 'true' or formatted_value == 'false' \
+        or formatted_value == 'y' or formatted_value == 'n' \
+        or formatted_value == 'yes' or formatted_value == 'no':
+            return True
+
+    #TODO: Call this method
+    def check_for_unknowns(self):
+        formatted_value = self.data.lower().strip()
+
+        if formatted_value == 'unknown' or formatted_value == 'unspecified' \
+        or formatted_value == 'not provided' or formatted_value == 'not determined' \
+        or formatted_value == 'not available' or formatted_value == 'not given':
+            return True
+
+
+    #TODO: Call this method --> For Attribute Types
+    def check_for_measurement_attribute_types(self):
+        formatted_value = self.data.lower().strip()
+
+        # Check for attribute types like 100g or 50um or 4nf kb or 5 year or 9 bp or ppm
+        #TODO: Add check for sequence things, e.g. 16s, prime, types with only acgt, fastq, 
+        # cdna, probe, rna, sequenc, vector, 
+        if formatted_value == '???':
+            pass
+
+
+    #TODO: Call this method --> For Attribute Types
+     def check_for_age_mentions(self):
+        formatted_value = self.data.lower().strip()
+
+        if 'age' or 'day' or 'differen' or 'time' in formatted_value:
+            return True
+
+
+    #TODO: Call this method --> For Attribute types
+    def check_for_antibody_mentions(self):
+        formatted_value = self.data.lower().strip()
+
+        if 'antibody' in formatted_value:
+            return True
+
+
+    #TODO: Call this method --> For Attribute types
+    def check_for_weight_mentions(self):
+        formatted_value = self.data.lower().strip()
+
+        #TODO: account for mass bmi
+        if 'weight' in formatted_value:
+            return True
+
+
+    #TODO: Call this method --> For Attribute types
+    def check_for_id_mentions(self):
+        formatted_value = self.data.lower().strip()
+
+        if 'id' in formatted_value:
+            return True
+
+
+    #TODO: Call this method --> For Attribute types
+    def check_for_cell_mentions(self):
+        formatted_value = self.data.lower().strip()
+
+        if 'cell' in formatted_value:
+            return True
+
+
+    #TODO: Call this method --> For Attribute types
+    def check_for_clinical_mentions(self):
+        formatted_value = self.data.lower().strip()
+
+        if 'clinical' or 'patient' in formatted_value:
+            return True
+
+
+    #TODO: Call this method --> For Attribute types
+    def check_for_disease_mentions(self):
+        formatted_value = self.data.lower().strip()
+
+        if 'disease' in formatted_value:
+            return True
+
+
+    # Other token clusters: donor, embryo, (Env, Environment, Environmental), Facs, Gen, Grow, 
+    # Histol, Host, Infect, Organi, Prote, Samp, Strain, Treatm, Vioscreen, 
+
 
 # Methods
 def get_timestamp():
@@ -248,7 +337,7 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
 
     csvout.writerow(["Count", "Attr", "Special Char(CNT)", "Special Char(%)", \
         "Contains Nums (CNT)", "Contains Nums(%)",  "Starts wNumber(CNT)", "Starts wNumber(%)", \
-        "Only Nums(CNT)", "Only Nums(%)"])
+        "Only Nums(CNT)", "Only Nums(%)", "Boolean(CNT)", "Boolean(%)"])
 
     for attr_type in all_attribute_types:
         attr_type_count += 1
@@ -257,15 +346,19 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         values_contain_numbers = {}
         values_starts_with_numbers = {}
         values_only_numbers = {}
+        values_boolean = {}
 
         count_values_with_special_characters = 0
         count_values_with_numbers = 0
         count_values_starts_with_numbers = 0
         count_values_only_numbers = 0
+        count_values_boolean = 0
         flagged_values_contain_special_characters = []
         flagged_values_contain_numbers = []
         flagged_values_starts_with_numbers = []
         flagged_values_only_numbers = []
+        flagged_values_boolean = []
+
 
         attr_type_value_count = attribute_type_dict[attr_type]
         # print "Attribute type ", attr_type, "has %s values " % attr_type_value_count
@@ -308,9 +401,15 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
                         flagged_values_starts_with_numbers.append(value)
                         count_values_starts_with_numbers += int(val_count)
 
+                    if value_profiler.check_for_boolean_value():
+                        flagged_values_boolean.append(value)
+                        count_values_boolean += int(val_count)
+
 
             # print "Values that start with numbers: \n", flagged_values_starts_with_numbers
-            # print "Values that are ONLY numbers: \n", flagged_values_only_numbers
+            if flagged_values_boolean:
+                print "Values that are Booleans: \n", flagged_values_boolean
+
 
             # print summary reports
             csvout.writerow([str(attr_type_count), attr_type, \
@@ -321,7 +420,9 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
                 str(count_values_starts_with_numbers), \
                 str(("%.2f" % (count_values_starts_with_numbers/float(attribute_type_dict[attr_type])*100))), \
                 str(count_values_only_numbers),
-                str(("%.2f" % (count_values_only_numbers/float(attribute_type_dict[attr_type])*100)))
+                str(("%.2f" % (count_values_only_numbers/float(attribute_type_dict[attr_type])*100))), \
+                str(count_values_boolean),
+                str(("%.2f" % (count_values_boolean/float(attribute_type_dict[attr_type])*100)))
             ])
 
     outfile.close()
