@@ -24,7 +24,10 @@ class Profiler:
 
     def check_for_special_characters(self):
         # NOTE: Might want to check if not a digit or character
-        if re.search("[?!@#$%^&*()]_", self.data):   # Is there a way to detect 3'
+        # NOTE: Might want to handle decimal place separate since it is a valid part of a number
+        # NOTE: May want to have separate patterns for certain characters since they may make sense as 
+        # part of a number _or_ string for an attribute type _or_ value, but not all combinations
+        if re.search("[:!-/@#=%&_.^$*?+'[\](){}]", self.data):
             return True
 
     def check_for_numbers(self):
@@ -114,7 +117,7 @@ def profile_attribute_types(attribute_type_dict):
         attr_type_value_count = attribute_type_dict[attr_type]
         
         # How many terms contain a character that is not a number or alphabetic character
-        if re.search("[?!@#$%^&*()]_", attr_type):   # Is there a way to detect the prime in 3'
+        if re.search("[?!@#$%^&*()]_.:-", attr_type):   # Is there a way to detect the prime in 3'
             print "** Contains special char: ", attr_type
             attr_with_special_chars[attr_type] = attribute_type_dict[attr_type]
 
@@ -368,7 +371,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--dir', default="/Users/twhetzel/git/biosamples-data-mining/data_results/attr_type_values-data_results/")
     parser.add_argument('--attr_type_file_path', default="/Users/twhetzel/git/biosamples-data-mining/data_results/unique_attr_types_2017-06-20_14-31-00.csv")
-    parser.add_argument('--num_attr_review', help="Number of Attributes to analyze their values", default=1600)
+    parser.add_argument('--num_attr_review', help="Number of Attributes to analyze their values", default=16000)
     args = parser.parse_args()
 
 
