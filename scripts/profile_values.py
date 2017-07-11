@@ -71,17 +71,37 @@ class Profiler:
             return True
 
 
-    #TODO: Call this method --> For Attribute Types
     def check_for_measurement_attribute_types(self):
         formatted_value = self.data.lower().strip()
 
         # Check for attribute types like 100g or 50um or 4nf kb or 5 year or 9 bp or ppm or ul
-        #TODO: Add check for sequence things, e.g. 16s, prime, types with only acgt, fastq, 
-        # cdna, probe, rna, sequenc, vector, 
-        if formatted_value == '???':
-            pass
+        measurement_related_tokens = ['g', 'um', 'kb', 'year', 'bp', 'ppm', 'ul']
+        for token in measurement_related_tokens:
+            if (' ' + token + ' ') in (' ' + formatted_value + ' '):
+                return True
+ 
+
+    # Mainly for Attribute types
+    def check_for_sequence_mentions(self):
+        formatted_value = self.data.lower().strip()
+
+        sequence_related_tokens = ['16s', 'prime', 'fastq', 'cdna', 'probe', 'rna', 'vector', 'sequenc']
+        for token in sequence_related_tokens:
+            if (' ' + token + ' ') in (' ' + formatted_value + ' '):
+                return True
 
 
+    def check_for_sequence_strings(self):
+        formatted_value = self.data.lower().strip()
+
+        for token in formatted_value.split():
+            #NOTE: This is a little noisy, but definitely picks up strings that are just sequences
+            sequence_string_characters = set('agct')
+            if set(token) <= sequence_string_characters:
+                return True
+
+
+    # Mainly for Attribute types
     def check_for_age_mentions(self):
         formatted_value = self.data.lower().strip()
         age_related_tokens = ['age', 'day', 'differen', 'time']
@@ -91,14 +111,14 @@ class Profiler:
             if (' ' + token + ' ') in (' ' + formatted_value + ' '):
                 return True
 
-
+    # Mainly for Attribute types
     def check_for_antibody_mentions(self):
         formatted_value = self.data.lower().strip()
 
         if 'antibody' in formatted_value:
             return True
 
-
+    # Mainly for Attribute types
     def check_for_weight_mentions(self):
         formatted_value = self.data.lower().strip()
 
@@ -107,32 +127,33 @@ class Profiler:
             if (' ' + token + ' ') in (' ' + formatted_value + ' '):
                     return True
 
-
-    #TODO: Call this method --> For Attribute types
+    # Mainly for Attribute types
     def check_for_id_mentions(self):
         formatted_value = self.data.lower().strip()
 
-        if 'id' in formatted_value:
+        if (' ' + 'id' + ' ') in (' ' + formatted_value + ' '):
             return True
 
 
-    #TODO: Call this method --> For Attribute types
+    # Mainly for Attribute types
     def check_for_cell_mentions(self):
         formatted_value = self.data.lower().strip()
 
-        if 'cell' in formatted_value:
+        if (' ' + 'cell' + ' ') in (' ' + formatted_value + ' '):
             return True
 
 
-    #TODO: Call this method --> For Attribute types
+    # Mainly for Attribute types
     def check_for_clinical_mentions(self):
         formatted_value = self.data.lower().strip()
 
-        if 'clinical' or 'patient' in formatted_value:
-            return True
+        clinical_related_tokens = ['clinical', 'patient']
+        for token in clinical_related_tokens:
+            if (' ' + token + ' ') in (' ' + formatted_value + ' '):
+                return True
 
 
-    #TODO: Call this method --> For Attribute types
+    # Mainly for Attribute types
     def check_for_disease_mentions(self):
         formatted_value = self.data.lower().strip()
 
@@ -340,7 +361,9 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         "Contains Nums (CNT)", "Contains Nums(%)",  "Starts wNumber(CNT)", "Starts wNumber(%)", \
         "Only Nums(CNT)", "Only Nums(%)", "Boolean(CNT)", "Boolean(%)", \
         "Age Related(CNT)", "Age Related(%)", "Antibody Related(CNT)", "Antibody Related(%)", \
-        "Weight Related(CNT)", "Weight Related(%)"])
+        "Weight Related(CNT)", "Weight Related(%)", "ID Related(CNT)", "ID Related(%)", \
+        "Clinical Related(CNT)", "Clinical Related(%)", "Disease Related(CNT)", "Disease Related(%)", \
+        "Sequence Related(CNT)", "Sequence Related(%)", "Seq Strings(CNT)", "Seq Strings(%)"])
 
     for attr_type in all_attribute_types:
         attr_type_count += 1
@@ -353,6 +376,11 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         values_age = {}
         values_antibody = {}
         values_weight = {}
+        values_id = {}
+        values_clinical = {}
+        values_disease = {}
+        values_sequence = {}
+        values_sequence_strings = {}
 
         count_values_with_special_characters = 0
         count_values_with_numbers = 0
@@ -362,6 +390,11 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         count_values_age = 0
         count_values_antibody = 0
         count_values_weight = 0
+        count_values_id = 0
+        count_values_clinical = 0
+        count_values_disease = 0
+        count_values_sequence = 0
+        count_values_sequence_strings = 0
 
         flagged_values_contain_special_characters = []
         flagged_values_contain_numbers = []
@@ -371,6 +404,11 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         flagged_values_age = []
         flagged_values_antibody = []
         flagged_values_weight = []
+        flagged_values_id = []
+        flagged_values_clinical = []
+        flagged_values_disease = []
+        flagged_values_sequence = []
+        flagged_values_sequence_strings = []
 
 
         attr_type_value_count = attribute_type_dict[attr_type]
@@ -391,7 +429,7 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
                 
                 for item in content:
                     value, val_count, iri = item.split('\t')
-                    # print "Line: ", value.strip(), val_count.strip(), iri.strip(), "\n" # Do these need strip()?
+                    # print "** Line: ", value.strip(), val_count.strip(), iri.strip() # Do these need strip()?
 
                     value_profiler = Profiler(value)
 
@@ -430,11 +468,30 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
                         flagged_values_weight.append(value)
                         count_values_weight += int(val_count)
 
+                    if value_profiler.check_for_id_mentions():
+                        flagged_values_id.append(value)
+                        count_values_id += int(val_count)
+
+                    if value_profiler.check_for_clinical_mentions():
+                        flagged_values_clinical.append(value)
+                        count_values_clinical += int(val_count)
+
+                    if value_profiler.check_for_disease_mentions():
+                        flagged_values_disease.append(value)
+                        count_values_disease += int(val_count)
+
+                    if value_profiler.check_for_sequence_mentions():
+                        flagged_values_sequence.append(value)
+                        count_values_sequence += int(val_count)
+
+                    if value_profiler.check_for_sequence_strings():
+                        flagged_values_sequence_strings.append(value)
+                        count_values_sequence_strings += int(val_count)
 
 
             # print "Values that start with numbers: \n", flagged_values_starts_with_numbers
-            if flagged_values_weight:
-                print "Values that are Age Related: \n", flagged_values_weight
+            if flagged_values_sequence_strings:
+                print "Values that are Sequence Related: \n", flagged_values_sequence_strings
 
 
             # print summary reports
@@ -454,7 +511,17 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
                 str(count_values_antibody),
                 str(("%.2f" % (count_values_antibody/float(attribute_type_dict[attr_type])*100))), \
                 str(count_values_weight),
-                str(("%.2f" % (count_values_weight/float(attribute_type_dict[attr_type])*100)))
+                str(("%.2f" % (count_values_weight/float(attribute_type_dict[attr_type])*100))), \
+                str(count_values_id),
+                str(("%.2f" % (count_values_id/float(attribute_type_dict[attr_type])*100))), \
+                str(count_values_clinical),
+                str(("%.2f" % (count_values_clinical/float(attribute_type_dict[attr_type])*100))), \
+                str(count_values_disease),
+                str(("%.2f" % (count_values_disease/float(attribute_type_dict[attr_type])*100))), \
+                str(count_values_sequence),
+                str(("%.2f" % (count_values_sequence/float(attribute_type_dict[attr_type])*100))), \
+                str(count_values_sequence_strings),
+                str(("%.2f" % (count_values_sequence_strings/float(attribute_type_dict[attr_type])*100)))
             ])
 
     outfile.close()
