@@ -75,22 +75,23 @@ class Profiler:
     def check_for_measurement_attribute_types(self):
         formatted_value = self.data.lower().strip()
 
-        # Check for attribute types like 100g or 50um or 4nf kb or 5 year or 9 bp or ppm
+        # Check for attribute types like 100g or 50um or 4nf kb or 5 year or 9 bp or ppm or ul
         #TODO: Add check for sequence things, e.g. 16s, prime, types with only acgt, fastq, 
         # cdna, probe, rna, sequenc, vector, 
         if formatted_value == '???':
             pass
 
 
-    #TODO: Call this method --> For Attribute Types
-     def check_for_age_mentions(self):
+    def check_for_age_mentions(self):
         formatted_value = self.data.lower().strip()
+        age_related_tokens = ['age', 'day', 'differen', 'time']
 
-        if 'age' or 'day' or 'differen' or 'time' in formatted_value:
-            return True
+        for token in age_related_tokens:
+            # https://stackoverflow.com/questions/5319922/python-check-if-word-is-in-a-string
+            if (' ' + token + ' ') in (' ' + formatted_value + ' '):
+                return True
 
 
-    #TODO: Call this method --> For Attribute types
     def check_for_antibody_mentions(self):
         formatted_value = self.data.lower().strip()
 
@@ -98,13 +99,13 @@ class Profiler:
             return True
 
 
-    #TODO: Call this method --> For Attribute types
     def check_for_weight_mentions(self):
         formatted_value = self.data.lower().strip()
 
-        #TODO: account for mass bmi
-        if 'weight' in formatted_value:
-            return True
+        weight_related_tokens = ['weight', 'bmi']
+        for token in weight_related_tokens:
+            if (' ' + token + ' ') in (' ' + formatted_value + ' '):
+                    return True
 
 
     #TODO: Call this method --> For Attribute types
@@ -337,7 +338,9 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
 
     csvout.writerow(["Count", "Attr", "Special Char(CNT)", "Special Char(%)", \
         "Contains Nums (CNT)", "Contains Nums(%)",  "Starts wNumber(CNT)", "Starts wNumber(%)", \
-        "Only Nums(CNT)", "Only Nums(%)", "Boolean(CNT)", "Boolean(%)"])
+        "Only Nums(CNT)", "Only Nums(%)", "Boolean(CNT)", "Boolean(%)", \
+        "Age Related(CNT)", "Age Related(%)", "Antibody Related(CNT)", "Antibody Related(%)", \
+        "Weight Related(CNT)", "Weight Related(%)"])
 
     for attr_type in all_attribute_types:
         attr_type_count += 1
@@ -347,17 +350,27 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         values_starts_with_numbers = {}
         values_only_numbers = {}
         values_boolean = {}
+        values_age = {}
+        values_antibody = {}
+        values_weight = {}
 
         count_values_with_special_characters = 0
         count_values_with_numbers = 0
         count_values_starts_with_numbers = 0
         count_values_only_numbers = 0
         count_values_boolean = 0
+        count_values_age = 0
+        count_values_antibody = 0
+        count_values_weight = 0
+
         flagged_values_contain_special_characters = []
         flagged_values_contain_numbers = []
         flagged_values_starts_with_numbers = []
         flagged_values_only_numbers = []
         flagged_values_boolean = []
+        flagged_values_age = []
+        flagged_values_antibody = []
+        flagged_values_weight = []
 
 
         attr_type_value_count = attribute_type_dict[attr_type]
@@ -405,10 +418,23 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
                         flagged_values_boolean.append(value)
                         count_values_boolean += int(val_count)
 
+                    if value_profiler.check_for_age_mentions():
+                        flagged_values_age.append(value)
+                        count_values_age += int(val_count)
+
+                    if value_profiler.check_for_antibody_mentions():
+                        flagged_values_antibody.append(value)
+                        count_values_antibody += int(val_count)
+
+                    if value_profiler.check_for_weight_mentions():
+                        flagged_values_weight.append(value)
+                        count_values_weight += int(val_count)
+
+
 
             # print "Values that start with numbers: \n", flagged_values_starts_with_numbers
-            if flagged_values_boolean:
-                print "Values that are Booleans: \n", flagged_values_boolean
+            if flagged_values_weight:
+                print "Values that are Age Related: \n", flagged_values_weight
 
 
             # print summary reports
@@ -422,7 +448,13 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
                 str(count_values_only_numbers),
                 str(("%.2f" % (count_values_only_numbers/float(attribute_type_dict[attr_type])*100))), \
                 str(count_values_boolean),
-                str(("%.2f" % (count_values_boolean/float(attribute_type_dict[attr_type])*100)))
+                str(("%.2f" % (count_values_boolean/float(attribute_type_dict[attr_type])*100))), \
+                str(count_values_age),
+                str(("%.2f" % (count_values_age/float(attribute_type_dict[attr_type])*100))), \
+                str(count_values_antibody),
+                str(("%.2f" % (count_values_antibody/float(attribute_type_dict[attr_type])*100))), \
+                str(count_values_weight),
+                str(("%.2f" % (count_values_weight/float(attribute_type_dict[attr_type])*100)))
             ])
 
     outfile.close()
