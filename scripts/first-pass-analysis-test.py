@@ -35,7 +35,7 @@ def get_timestamp():
 @timing
 def get_all_attribute_types_and_values(driver):
     """ 
-    Get all unique attribute types and values for each type. 
+    Get all unique attribute types and values (Limit=10,000) for each type due to performance issues. 
     """
     print "Generating file of unique attribute types..."
     
@@ -46,7 +46,7 @@ def get_all_attribute_types_and_values(driver):
         csvout = csv.writer(outfile)
         
         with driver.session() as session:
-            # Get all attribute types
+            # Get all unique attribute types
             results = session.run(
                 "MATCH (:Sample)-[u:hasAttribute]->(a:Attribute) \
                 RETURN a.type AS type, COUNT(u) AS usage_count \
@@ -60,7 +60,9 @@ def get_all_attribute_types_and_values(driver):
 
                 print "Generating file of values for attribute type..."
 
-                # For each attribute type, get all values
+                # For each attribute type, get all values with LIMIT for initial work
+                #NOTE: For Profiling, use the query below to group similar values and types for efficiency.
+                # For Curation, the Sample Accession will be needed in the RETURN
                 attribute_type_name = result["type"]
                 with driver.session() as session2:
                     attr_type_values = session2.run(
