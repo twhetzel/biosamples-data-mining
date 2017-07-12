@@ -45,7 +45,7 @@ def get_timestamp():
 
 def read_file():
     """ 
-    Read file of common attributes. 
+    Read file containing list of all common attributes found in BioSamples. 
     """
     with open(args.input_file_path, 'r') as f:
         content = f.readlines()
