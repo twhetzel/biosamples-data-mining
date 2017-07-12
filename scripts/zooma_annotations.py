@@ -67,7 +67,7 @@ def get_zooma_annotations(attribute_type_dict, ontology=None):
                             print result['annotatedProperty']['propertyValue'], result['semanticTags'][0], result['confidence'], result['derivedFrom']['uri'], result['provenance']['evidence']
                             csvout.writerow([attr_type, result['annotatedProperty']['propertyValue'], result['semanticTags'][0], result['confidence'], result['derivedFrom']['uri'], result['provenance']['evidence']])
                     else:
-                        print "No reponse"
+                        print "No response"
                         csvout.writerow([attr_type, "none", "none", "none", "none", "none"])
             except requests.exceptions.RequestException as e:
                 print e
