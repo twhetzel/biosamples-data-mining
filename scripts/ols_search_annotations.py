@@ -65,7 +65,7 @@ def get_ols_results(attribute_type_dict, ontology=None):
         attr_type_count += 1
 
         if attr_type_count <= int(args.num_attr_review):
-            print "\n** Attribute Type: ", attr_type, attribute_type_dict[attr_type]
+            print "\n** Attribute Type: ("+ str(attr_type_count) +")", attr_type, attribute_type_dict[attr_type]
 
             # prepare file for output of attribute value information
             attribute_type_filename = attr_type.lower()
@@ -80,10 +80,9 @@ def get_ols_results(attribute_type_dict, ontology=None):
             csvout = unicodecsv.writer(outfile)
 
             url = " http://www.ebi.ac.uk/ols/api/search?q={attr_type:s}&" \
-                "groupField=true".format(attr_type=attr_type)
+                "groupField=true&queryFields=label,synonym".format(attr_type=attr_type)
 
-            csvout.writerow([attr_type, attribute_type_dict[attr_type]])
-            csvout.writerow(["Ontology", "Number of Results"])
+            csvout.writerow(["Ontology", "Number of Results", attr_type, attribute_type_dict[attr_type]])
 
             try:
                 response = requests.get(url)
