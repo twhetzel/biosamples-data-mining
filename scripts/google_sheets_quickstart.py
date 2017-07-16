@@ -1,4 +1,5 @@
-# https://developers.google.com/sheets/api/quickstart/python
+# Docs: https://developers.google.com/sheets/api/quickstart/python
+# Configured with Google Project 
 
 from __future__ import print_function
 import httplib2
@@ -50,7 +51,8 @@ def get_credentials():
         print('Storing credentials to ' + credential_path)
     return credentials
 
-def main():
+
+def get_google_sheets_data():
     """Shows basic usage of the Sheets API.
 
     Creates a Sheets API service object and prints the names and majors of
@@ -67,7 +69,7 @@ def main():
     # spreadsheetId = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
     # rangeName = 'Class Data!A2:E'
     spreadsheetId = '1efkNOXUaJidvu3Xpy9SPLs1oQErJ0NcbeIL83b9nUXw'
-    rangeName = 'Ontology Topics!A2:C'
+    rangeName = 'Ontology Topics!A2:C' #ontology name, prefix, topics
  
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheetId, range=rangeName).execute()
@@ -83,10 +85,13 @@ def main():
             # Print columns A and E, which correspond to indices 0 and 4.
             # print('%s, %s' % (row[0], row[4]))
 
-            #TODO: Some columns can have more than one comma-separated value
-            print('{0}, {1}, {2}'.format(row[0], row[1], row[2]))
+            # print('{0}, {1}, {2}'.format(row[0], row[1], row[2]))
+            ontology_name = row.pop(0)
+            ontology_prefix = row.pop(0)
+            topics = row
+            print('{0}, {1}, {2}'.format(ontology_name, ontology_prefix, topics))
 
 
 if __name__ == '__main__':
-    main()
+    get_google_sheets_data()
 
