@@ -111,10 +111,10 @@ class Profiler:
             if (' ' + token + ' ') in (' ' + formatted_value + ' '):
                 return True
 
+
     # Mainly for Attribute types
     def check_for_antibody_mentions(self):
         formatted_value = self.data.lower().strip()
-
         if 'antibody' in formatted_value:
             return True
 
@@ -161,7 +161,7 @@ class Profiler:
             return True
 
 
-    # Other token clusters: donor, embryo, (Env, Environment, Environmental), Facs, Gen, Grow, 
+    # Other Attribute Type token clusters: donor, embryo, (Env, Environment, Environmental), Facs, Gen, Grow, 
     # Histol, Host, Infect, Organi, Prote, Samp, Strain, Treatm, Vioscreen, 
 
 
@@ -318,32 +318,32 @@ def profile_attribute_types(attribute_type_dict):
         print k, len(v)
 
 
-def _get_zooma_annotations(attr_type, ontology=None):
-    """ 
-    Get annotations using Zooma. 
-    """
-    url = "http://www.ebi.ac.uk/spot/zooma/v2/api/services/annotate?" \
-          "propertyValue={attr_type:s}&" \
-          "filter=required:[none]," \
-          "filter=ontologies:{ontology:s}".format(attr_type=attr_type, ontology=ontology)
+# def _get_zooma_annotations(attr_type, ontology=None):
+#     """ 
+#     Get annotations using Zooma. 
+#     """
+#     url = "http://www.ebi.ac.uk/spot/zooma/v2/api/services/annotate?" \
+#           "propertyValue={attr_type:s}&" \
+#           "filter=required:[none]," \
+#           "filter=ontologies:{ontology:s}".format(attr_type=attr_type, ontology=ontology)
 
-    print attr_type, "\n",url
-    response = requests.get(url)
-    mapping = None
-    print attr_type, response
-    if response.status_code == 200:
-        resource = json.loads(response.content)
-        # print "Resource: ", len(resource)
-        if resource:
-            # Why take only the first response from Zooma if multiples are returned? 
-            result = resource[0]
-            print "\nResult: ", result
-            # print "\n\n** Result Fields: ", result['annotatedProperty']['propertyValue']
+#     print attr_type, "\n",url
+#     response = requests.get(url)
+#     mapping = None
+#     print attr_type, response
+#     if response.status_code == 200:
+#         resource = json.loads(response.content)
+#         # print "Resource: ", len(resource)
+#         if resource:
+#             # Why take only the first response from Zooma if multiples are returned? 
+#             result = resource[0]
+#             print "\nResult: ", result
+#             # print "\n\n** Result Fields: ", result['annotatedProperty']['propertyValue']
             
-            # Add these:
-            # result['derivedFrom']['uri']
+#             # Add these:
+#             # result['derivedFrom']['uri']
             
-            print result['annotatedProperty']['propertyValue'], result['semanticTags'][0], result['confidence']
+#             print result['annotatedProperty']['propertyValue'], result['semanticTags'][0], result['confidence']
 
 
 def profile_attribute_type_values(attribute_type_dict, all_file_names):
@@ -351,7 +351,7 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
     For each attribute type, profile the values found for this type.
     """
     all_attribute_types = attribute_type_dict.keys()
-    attr_type_count = 0
+    attr_type_counter = 0
 
     TIMESTAMP = get_timestamp()
     outfile = open("attr_type_values_profiling_results_"+TIMESTAMP+".csv", "w")
@@ -366,7 +366,7 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         "Sequence Related(CNT)", "Sequence Related(%)", "Seq Strings(CNT)", "Seq Strings(%)"])
 
     for attr_type in all_attribute_types:
-        attr_type_count += 1
+        attr_type_counter += 1
 
         values_with_special_chars = {}
         values_contain_numbers = {}
@@ -419,8 +419,12 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         attribute_type_filename = attribute_type_filename.replace(" ", "_")
         attribute_type_filename = attribute_type_filename+".csv"
 
-        if attr_type_count <= int(args.num_attr_review):
-            print "\n** Results for Attribute Type ", attr_type, "("+str(attr_type_count)+")"
+        if attr_type_counter <= int(args.num_attr_review):
+            print "\n** Results for Attribute Type ", attr_type, "("+str(attr_type_counter)+")"
+            #TODO: Add args for content to profile, e.g. attr_type, values, or all
+            #TODO: Add if args set to profile attr_type, then build out tests of Profiler methods
+
+            #TODO: Add if args set to profile values, then execute code below
             # read attribute file
             with open(args.dir+attribute_type_filename, "r") as attr_value_file:
                 
@@ -495,7 +499,7 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
 
 
             # print summary reports
-            csvout.writerow([str(attr_type_count), attr_type, \
+            csvout.writerow([str(attr_type_counter), attr_type, \
                 str(count_values_with_special_characters), \
                 str(("%.2f" % (count_values_with_special_characters/float(attribute_type_dict[attr_type])*100))), \
                 str(count_values_with_numbers), \
