@@ -264,18 +264,6 @@ def profile_attribute_types(attribute_type_dict):
             attr_type_list.append(attr_type)
             attr_num_of_tokens_distribution[num_attr_tokens] = attr_type_list
 
-
-        # How many types match an ontology, check using Zooma, and 
-        # score likelihood of term content based on what the ontology 
-        # is used for
-        #TODO - work on further, Zooma uri, how to compile results when >1 result is returned
-        # if count % 100 == 0:  #progress indicator
-        #     print '...', count
-            # sys.stdout.write("...")
-        # zooma_mapping_results = _get_zooma_annotations(attr_type)
-        # if zooma_mapping_results is not None:
-        #     print attr_type, zooma_mapping_results
-
  
     # Generate summary messages
     # Special Characters
@@ -316,34 +304,6 @@ def profile_attribute_types(attribute_type_dict):
     print "\n-- Attribute length distribution (count):"
     for k,v in attr_num_of_tokens_distribution.iteritems():
         print k, len(v)
-
-
-# def _get_zooma_annotations(attr_type, ontology=None):
-#     """ 
-#     Get annotations using Zooma. 
-#     """
-#     url = "http://www.ebi.ac.uk/spot/zooma/v2/api/services/annotate?" \
-#           "propertyValue={attr_type:s}&" \
-#           "filter=required:[none]," \
-#           "filter=ontologies:{ontology:s}".format(attr_type=attr_type, ontology=ontology)
-
-#     print attr_type, "\n",url
-#     response = requests.get(url)
-#     mapping = None
-#     print attr_type, response
-#     if response.status_code == 200:
-#         resource = json.loads(response.content)
-#         # print "Resource: ", len(resource)
-#         if resource:
-#             # Why take only the first response from Zooma if multiples are returned? 
-#             result = resource[0]
-#             print "\nResult: ", result
-#             # print "\n\n** Result Fields: ", result['annotatedProperty']['propertyValue']
-            
-#             # Add these:
-#             # result['derivedFrom']['uri']
-            
-#             print result['annotatedProperty']['propertyValue'], result['semanticTags'][0], result['confidence']
 
 
 def profile_attribute_type_values(attribute_type_dict, all_file_names):
