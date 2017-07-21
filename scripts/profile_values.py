@@ -61,7 +61,7 @@ class Profiler:
         or formatted_value == 'yes' or formatted_value == 'no':
             return True
 
-    #TODO: Call this method
+
     def check_for_unknowns(self):
         formatted_value = self.data.lower().strip()
 
@@ -219,13 +219,15 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
     outfile = open("attr_type_values_profiling_results_"+TIMESTAMP+".csv", "w")
     csvout = csv.writer(outfile)
 
-    csvout.writerow(["Count", "Attr", "Special Char(CNT)", "Special Char(%)", \
-        "Contains Nums (CNT)", "Contains Nums(%)",  "Starts wNumber(CNT)", "Starts wNumber(%)", \
-        "Only Nums(CNT)", "Only Nums(%)", "Boolean(CNT)", "Boolean(%)", \
+    csvout.writerow(["Count", "Attr", "Value Special Char(CNT)", "Value Special Char(%)", \
+        "Value Contains Nums (CNT)", "Value Contains Nums(%)",  "Value Starts wNumber(CNT)", "Value Starts wNumber(%)", \
+        "Value Only Nums(CNT)", "Value Only Nums(%)", "Value Boolean(CNT)", "Value Boolean(%)", \
+        "Value Unknown(cnt)", "Value Unknown(%)", \
         "Age Related(CNT)", "Age Related(%)", "Antibody Related(CNT)", "Antibody Related(%)", \
-        "Weight Related(CNT)", "Weight Related(%)", "ID Related(CNT)", "ID Related(%)", \
-        "Clinical Related(CNT)", "Clinical Related(%)", "Disease Related(CNT)", "Disease Related(%)", \
-        "Sequence Related(CNT)", "Sequence Related(%)", "Seq Strings(CNT)", "Seq Strings(%)"])
+        "Value Weight Related(CNT)", "Value Weight Related(%)", "Value ID Related(CNT)", "Value ID Related(%)", \
+        "Value Clinical Related(CNT)", "Value Clinical Related(%)", "Value Disease Related(CNT)", "Value Disease Related(%)", \
+        "Value Sequence Related(CNT)", "Value Sequence Related(%)", "Value Seq Strings(CNT)", "Value Seq Strings(%)"])
+
 
     for attr_type in all_attribute_types:
         attr_type_counter += 1
@@ -235,6 +237,7 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         values_starts_with_numbers = {}
         values_only_numbers = {}
         values_boolean = {}
+        values_unknown = {}
         values_age = {}
         values_antibody = {}
         values_weight = {}
@@ -249,6 +252,7 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         count_values_starts_with_numbers = 0
         count_values_only_numbers = 0
         count_values_boolean = 0
+        count_values_unknown = 0
         count_values_age = 0
         count_values_antibody = 0
         count_values_weight = 0
@@ -263,6 +267,7 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
         flagged_values_starts_with_numbers = []
         flagged_values_only_numbers = []
         flagged_values_boolean = []
+        flagged_values_unknown = []
         flagged_values_age = []
         flagged_values_antibody = []
         flagged_values_weight = []
@@ -322,6 +327,10 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
                         flagged_values_boolean.append(value)
                         count_values_boolean += int(val_count)
 
+                    if value_profiler.check_for_unknowns():
+                        flagged_values_unknown.append(value)
+                        count_values_unknown += int(val_count)
+
                     if value_profiler.check_for_age_mentions():
                         flagged_values_age.append(value)
                         count_values_age += int(val_count)
@@ -356,8 +365,8 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
 
 
             # print "Values that start with numbers: \n", flagged_values_starts_with_numbers
-            if flagged_values_sequence_strings:
-                print "Values that are Sequence Related: \n", flagged_values_sequence_strings
+            if flagged_values_unknown:
+                print "Values that are Unknown Related: \n", flagged_values_unknown
 
 
             # print summary reports
@@ -372,6 +381,8 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
                 str(("%.2f" % (count_values_only_numbers/float(attribute_type_dict[attr_type])*100))), \
                 str(count_values_boolean),
                 str(("%.2f" % (count_values_boolean/float(attribute_type_dict[attr_type])*100))), \
+                str(count_values_unknown),
+                str(("%.2f" % (count_values_unknown/float(attribute_type_dict[attr_type])*100))), \
                 str(count_values_age),
                 str(("%.2f" % (count_values_age/float(attribute_type_dict[attr_type])*100))), \
                 str(count_values_antibody),
