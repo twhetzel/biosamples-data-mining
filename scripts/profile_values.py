@@ -67,7 +67,8 @@ class Profiler:
 
         if formatted_value == 'unknown' or formatted_value == 'unspecified' \
         or formatted_value == 'not provided' or formatted_value == 'not determined' \
-        or formatted_value == 'not available' or formatted_value == 'not given':
+        or formatted_value == 'not available' or formatted_value == 'not given' \
+        or formatted_value == '?':
             return True
 
 
