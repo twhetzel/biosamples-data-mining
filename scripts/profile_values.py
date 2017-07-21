@@ -405,39 +405,6 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
     print "\n** Profiling report generated."
 
 
-# Profiling methods
-def _check_for_special_characters(value, attribute_type_filename):
-    # For review of values, create dict with filename as key, and list of values w/special char as dict value
-    values_with_special_chars = {} #move this!
-    flagged_values = []
-    if re.search("[?!@#$%^&*()]_", value):   # Is there a way to detect 3'
-            print "** Value contains special char: ", value
-            flagged_values.append(values)
-            values_with_special_chars[attribute_type_filename] = flagged_values
-    # else:
-    #     print "-- No special character found in ", value
-    return values_with_special_chars
-
-
-def _check_for_numbers(value, attribute_type_filename, values_contain_numbers):
-    # print "Checking value for numbers...", value
-    # values_contain_numbers = {}
-    # values_starts_with_numbers = {}
-    # values_only_numbers = {}
-
-    flagged_values_contain_numbers = []
-
-    # check if value contains numbers
-    RE_D = re.compile('\d')
-    if RE_D.search(value):
-        # print "-- contains a number", value
-        flagged_values_contain_numbers.append(value)
-        values_contain_numbers[attribute_type_filename] = flagged_values_contain_numbers
-
-    return values_contain_numbers
-
-
-
 if __name__ == '__main__':
     """ 
     Profile attribute values for each attribute type. 
