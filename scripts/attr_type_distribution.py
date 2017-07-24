@@ -52,62 +52,112 @@ def read_attr_type_file():
     return attribute_type_dict
 
 
-def generate_word_distribution(attribute_type_dict):
-    """ 
-    Generate word length distribution of attribute types. 
+def generate_distribution(attribute_type_dict):
+    """
+    Generate token count and length distribution. 
+    Goal is to use this information to find attribute types that are concatenations of 
+    individual words, e.g. Dietatsampling, Celllineage
     """
 
-    attr_num_of_tokens_distribution = {}
+    all_attr_distribution = []
     all_attribute_types = attribute_type_dict.keys()
     attr_type_counter = 0
 
     TIMESTAMP = get_timestamp()
 
-    all_attr_type_len_list = [] # List of all lengths of attribute tokens
-    
+
     for attr_type in all_attribute_types:
         attr_type_counter += 1
-        attr_type_value_count = attribute_type_dict[attr_type]
+        formatted_attr_type = attr_type.lower()
+        formatted_attr_type = formatted_attr_type.replace(" ", "_")
 
         if attr_type_counter <= int(args.num_attr_review):
-            # Count how many tokens exist in each type and plot by length
-            attr_type_list = []
+            token_distribution = {}
+
             num_attr_tokens = len(re.findall(r'\w+', attr_type))
+            token_distribution["token_count"] = num_attr_tokens
+
+
+            token_lengths_list = []
+            attr_distribution = {}
+
+            for token in attr_type.split():
+                token_length_dict = {}
+                token_length_dict[token] = len(token)
             
-            all_attr_type_len_list.append(num_attr_tokens)
+                token_lengths_list.append(token_length_dict)
 
-            # print attr_type, num_attr_tokens
-            if num_attr_tokens in attr_num_of_tokens_distribution:
-                # Append this attr_type to the list of values of this length, ie where num_attr_tokens is the key
-                attr_type_list = attr_num_of_tokens_distribution[num_attr_tokens]
-                attr_type_list.append(attr_type)
-                # print attr_type_list
-            else:
-                # Add key and attr_type to list of values
-                attr_type_list.append(attr_type)
-                attr_num_of_tokens_distribution[num_attr_tokens] = attr_type_list
+            token_distribution["token_lengths"] = token_lengths_list
 
-    # attribute type token distribution
-    print "\n-- Attribute length distribution (count):"
-    for k,v in attr_num_of_tokens_distribution.iteritems():
-        print k, len(v)
+            attr_distribution[formatted_attr_type] = token_distribution
+
+            all_attr_distribution.append(attr_distribution)
+    
+    return all_attr_distribution
 
 
+def calculate_token_count_distribution(all_attr_distribution):
+    """
+    Plot distribution of token count per attribute type.
+    """
+    all_attr_type_count_list = [] # List of all counts of attribute tokens
+    all_attr_token_length_list = [] # List of all lengths of attribute tokens
+
+    for attr_type_obj in all_attr_distribution:
+        key = attr_type_obj.keys()
+        token_count = attr_type_obj[key[0]]["token_count"]
+        all_attr_type_count_list.append(token_count)
+
+        for token_key in attr_type_obj[key[0]]["token_lengths"]:
+            for token,token_length in token_key.iteritems():
+                all_attr_token_length_list.append(token_length)
+
+
+    # Prepare to plot token count distribution
     # Convert to ndarray, https://docs.scipy.org/doc/numpy/user/basics.creation.html
-    print len(all_attr_type_len_list)
-    x = np.array(all_attr_type_len_list)
-    # print x
+    # print len(all_attr_type_count_list)
+    x_token_counts = np.array(all_attr_type_count_list)
 
+    # print len(all_attr_token_length_list)
+    x_token_lengths = np.array(all_attr_token_length_list)
+
+
+    _plot_attr_token_counts(x_token_counts)
+    _plot_attr_token_lengths(x_token_lengths)
+
+
+def _plot_attr_token_counts(x_token_counts):
+    """ 
+    Plot histogram of token counts. 
+    """
     # Generate Histogram, https://matplotlib.org/users/screenshots.html
     num_bins = 30
     fig, ax = plt.subplots()
-    n, bins, patches = ax.hist(x, num_bins, normed=0, log=True)
+    n, bins, patches = ax.hist(x_token_counts, num_bins, normed=0, log=True)
+    # ax.plot(bins, '--')
+    ax.set_xlabel('Token Count')
+    ax.set_ylabel('Bin Size')
+    ax.set_title(r'Attribute Type Token Count')
+
+    # Tweak spacing to prevent clipping of ylabel
+    fig.tight_layout()
+    plt.show()
+
+
+def _plot_attr_token_lengths(x_token_lengths):
+    """ 
+    Plot histogram of token lengths. 
+    """
+    # Generate Histogram, https://matplotlib.org/users/screenshots.html
+    num_bins = 30
+    fig, ax = plt.subplots()
+    n, bins, patches = ax.hist(x_token_lengths, num_bins, normed=0, log=True)
     # ax.plot(bins, '--')
     ax.set_xlabel('Token Length')
     ax.set_ylabel('Bin Size')
-    ax.set_title(r'Attribute Type Word Length')
+    ax.set_title(r'Attribute Type Token Length')
 
-    # # Tweak spacing to prevent clipping of ylabel
+    # Tweak spacing to prevent clipping of ylabel
     fig.tight_layout()
     plt.show()
 
@@ -129,7 +179,8 @@ if __name__ == '__main__':
     # Get attr_type file with count of attr per type
     attribute_type_dict = read_attr_type_file()
 
-    # Generate word length distribution of attribute types
-    generate_word_distribution(attribute_type_dict)
+    # Generate token length distribution
+    all_attr_distribution = generate_distribution(attribute_type_dict)
 
-
+    # Calculate token count distribution
+    calculate_token_count_distribution(all_attr_distribution)
