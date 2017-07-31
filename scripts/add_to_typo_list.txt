@@ -231,85 +231,77 @@ Lable,Label
 Disssolved,Dissolved
 Tmp,Temperature
 Samplingsite,Sampling site
-Qtlstatus,Qtl status
-Eventprogression
-Mislabeledprobabove0point35
-Mislabeledprobabove0point30
-Sampletype
-Speciman
-Seqid
-Numberofcd4positivecd38positivehladrpositive
-Matchid
-Milliseimenpercentimeter
-Lesionscore
-Biomaterialpurity
-Animalid
-Numberofindividuals
-Immunophenotype
-Seedstockid
-Matdepthcryosectionmmscaled
-Mislabeledprobabove0point75
-Mislabeledprobabove0point70
-Zipcode
-Numberofmonocytes
-Mutagenesis
-Timetotnbs
-Deodorantantiperspirant
-Differentiationgrade
-Movement24h
-Developmenta
-Cowid
-Timepointc
-Timepointf
-Colonoscopytimepoint
-Babygender
-Primerplate
-Totalindividualweeks
-Firstname
-Totalpetrolumhydrocarbon
-Romidepsin0016
-Totalexposureduration
-Temperatureunit
-Timetometastas
-Celcius
-Pmid19597147
-Seasoncollected
-Lymphnode
-Hostindividual
-Ambiguoustimepoint
-Temperaturesoilhigh
-Histone
-Uniqueattribute
-Bristolscore
-Lymphnodes
-Immunopreciate
-Clinicalstage
-Controlid
-Bardcode
-Differenation
-Geneticvariationtype
-Shortdisplayname
-Protien
-Exposuredurationphase2
-Exposuredurationphase1
-Bodypart
-Fecaltoxin
-Plaqueindex
-Timepoint0
-Vendorname
-Mislabeledprobabove0point85
-Cuture
-Ancestory
-Diseasesubtype
-Bodymassindex
-Descrption
-Eatcandy
-Genotpe
-Immunomagnetic
-Panacur48hr
-Ratio260280
-Slocus
-Carbonatenodule
+******* Qtlstatus,Qtl status
+Eventprogression,Event progression
+Mislabeledprobabove0point35,Mislabeled probe above 0 point 35
+Mislabeledprobabove0point30,Mislabeled probe above 0 point 30
+Sampletype,Sample type
+Speciman,Specimen
+Seqid,Sequence identifier
+******* Numberofcd4positivecd38positivehladrpositive,Number of cd4 positive cd38 positive hla dr positive
+Matchid,Match id
+******* Milliseimenpercentimeter
+Lesionscore,Lesion score
+Biomaterialpurity,Biomaterial purity
+Animalid,Animal id
+Numberofindividuals,Number of individuals
+Seedstockid,Seed stock id
+******* Matdepthcryosectionmmscaled,Mat depth cryosection mm scaled
+Mislabeledprobabove0point75,Mislabeled probe above 0 point 75
+Mislabeledprobabove0point70,Mislabeled probe above 0 point 70
+Numberofmonocytes,Number of monocytes
+Timetotnbs,Time to tnbs
+Deodorantantiperspirant,Deodorant antiperspirant
+Differentiationgrade,Differentiation grade
+Movement24h,Movement 24h
+Developmenta,Developmental
+Cowid,Cow id
+******* Timepointc
+******* Timepointf
+Colonoscopytimepoint,Colonoscopy timepoint
+Babygender,Baby gender
+Primerplate,Primer plate
+Totalindividualweeks,Total individual weeks
+******* Totalpetrolumhydrocarbon,Total petrolium hydrocarbon
+Romidepsin0016,Romidepsin 0016
+Totalexposureduration,Total exposure duration
+Temperatureunit,Temperature unit
+******* Timetometastas,Time to metastas
+Pmid19597147,Pmid 19597147
+Seasoncollected,Season collected
+Hostindividual,Host individual
+Ambiguoustimepoint,Ambiguous timepoint
+Temperaturesoilhigh,Temperature soil high
+Uniqueattribute,Unique attribute
+Bristolscore,Bristol score
+Immunopreciate,Immunoprecipitate
+Clinicalstage,Clinical stage
+Controlid,Control id
+Bardcode,Barcode
+Differenation,Differentiation
+Geneticvariationtype,Genetic variation type
+Shortdisplayname,Short display name
+Protien,Protein
+Exposuredurationphase2,Exposure duration phase 2
+Exposuredurationphase1,Exposure duration phase 1
+Bodypart,Body part
+Fecaltoxin,Fecal toxin
+Plaqueindex,Plaque index
+Timepoint0,Timepoint 0
+Vendorname,Vendor name
+Mislabeledprobabove0point85,Mislabeled probe above 0 point 85
+Cuture,Culture
+Ancestory,Ancestery
+Diseasesubtype,Disease subtype
+Bodymassindex,Body mass index
+Descrption,Description
+Eatcandy,Eat candy
+Genotpe,Genotype
+******* Immunomagnetic
+Panacur48hr,Panacur 48 hr
+Ratio260280,Ratio 260280
+******* Slocus
+Carbonatenodule,Carbonate nodule
 Unnamed3
 Control1
 Source1
