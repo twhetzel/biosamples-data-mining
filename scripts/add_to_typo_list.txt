@@ -1,184 +1,180 @@
-Ograinzation
-Embruos
-Experimentname
-Condtions
-Testsubstance
-Micromoleperkilogram
-Beestingallergies
-Perineuralspread
-Teethbrushing
-Vitb12
-Fluvaccine
-Nephroctomy
-Micromoleperkilogram
-Silt463
-Numberofmdc
-Forwardprimer
-Romidepsin0004
-Precpt
-Vaginalcytokines
-Pos
-Discription
-Tet
-Dcsign
-Cervico
-Sequencingid
-Smokeconcentration
-Libraryplateid
-Percentcover
-Micromol
-Plate96well
-Day1
-Clinicaltreatment
-Org
-Shortname
-After0h2h4h12h24h
-Last12
-Nonoate
-Tumorgrade12
-Bodyweightend
-Cancersitecoarse
-Clincial
-Aluminium
-Mislabeledprobabove0point65
-Sampleannotation
-Targ
-Subfrag2
-Technlogy
-Colonytype
-Backround
-Treatmenttype2
-Treatmenttype3
-Varation
-Cntry
-Pseudoanabaeana
-Claysand
-Internalid
-Patientdied
-Variaion
-Treatement
-Day180
-Cellcount
-Motherorbaby
-Diarrheaever
-Bacteriopl
-Dailyexposureduration
-Targetdescription
-Spinalcordinjury
-Doner
-Exptl
-Smokingregimen
-Inifitaltimepoint
-Timecourse
-Mouseid
-Clinicalhistory
-Diveristy
-Prescriptionforfacialacne
-Celllineage
-Longitud
-Gographic
-Repliate
-Swablocation
-Dietatsampling
-Tacedinaline30min
-Day28
-Footeczematreat
-Diseaselocati
-Familyrelationship
-Invivovitro
-Individualid
-Partpermillion
-Environnmental
-Devstage
-Cigaretteproductcategory
-Peanutallergy
-Romidepsin025
-Subjectid
-Libraryprepid
-Samplingdate
-Laterfreshphenol
-Frozen70frozenn2rna
-Fat1000kcal
-Indiv
-Perterbation
-Develepmental
-Syringae
-Percentcd69positive
-Cd4positivetcellsubsetsinblood
-Stageage
-Rnaextractedfrom
-Commentonclass
-Num
-Sampleprepid
-Immortilization
-Librarybatch
-Pattren
-Secondaryenzyme
-Tissu
-Mousenumber
-Vender
-Fiber1000kcalg
-Peaklistid
-Meth
-Day30
-Demultiplexbarcode
-Tisse
-Dlbcl5
-Heals4wks
-Adultacclimationtemperature
-Sitetype
-Millionsofyears
-Birthweight
-Neighbourhood
-Dinoflagellates20
-Biop
-Surg
-Brainid
-Postexacerbationtreatment
-Behavi
-Clinicalinformation
-Diease
-Beforeafterantibiotics
-Treatmentreps
-Samplingmethod
-Mousewt
-Otherinfo
-Biopsysi
-Softwareversion
-Otherallergies
-Environmentalhistory
-Perct
-Survivaltime
-Ventdays
-Aroucana
-Sequencechemistry
-Developmentalstage
-Arrayexpress
-Comcentration
-Mislabeledprobabove0point25
-Mislabeledprobabove0point20
-Perc
-Librarybarcode
-Samplingpoint
-Deepth
-After5
-Ststus
-Healthstatus
-Stddev
-Testresult
-Steroides
-Skinconditions
-Contruct
-Decription
-Animalspecies
-Cellulose8
-Tansgenic
-Timpoint
-Titlee
-Patientid
-Hostsex
-Evironmental
-Sampleidnumber
+Ograinzation,Organization
+Embruos,Embryos
+Experimentname,Experiment name
+Condtions,Conditions
+Testsubstance,Test substance
+Micromoleperkilogram,Micromole per kilogram
+Beestingallergies,Bee sting allergies
+Perineuralspread,Perineural spread
+Teethbrushing,Teeth brushing
+Vitb12,Vitamin B12
+Fluvaccine,Flu vaccine
+Nephroctomy,Nephrectomy
+Micromoleperkilogram,Micromole per kilogram
+Silt463,Silt 463
+Numberofmdc,Number of mdc
+Forwardprimer,Forward primer
+Romidepsin0004,Romidepsin 0004
+Precpt,Precptitation
+Vaginalcytokines,Vaginal cytokines
+Pos,Positive
+Discription,Description
+Tet,Tetracycline
+Dcsign,Design
+Sequencingid,Sequencing id
+Smokeconcentration,Smoke concentration
+Libraryplateid,Library plate id
+Percentcover,Percent cover
+Micromol,Micro mol
+Plate96well,Plate 96 well
+Day1,Day 1
+Clinicaltreatment,Clinical treatment
+Org,Organization
+Shortname,Short name
+After0h2h4h12h24h,After 0 hr 2hr 4hr 12 hr 24 hr
+Last12,Last 12
+Nonoate,Neonate
+Tumorgrade12,Tumor grade 12
+Bodyweightend,Body weight end
+Cancersitecoarse,Cancer site coarse
+Clincial,Clinical
+Mislabeledprobabove0point65,Mislabeled probe above 0 point 65
+Sampleannotation,Sample annotation
+Targ,Target
+Subfrag2,Subfragment 2
+Technlogy,Technology
+Colonytype,Colony type
+Backround,Background
+Treatmenttype2,Treatment type 2
+Treatmenttype3,Treatment type 3
+Varation,Variation
+Cntry,Country
+Claysand,Clays and
+Internalid,Internal id
+Patientdied,Patient died
+Variaion,Variation
+Treatement,Treatment
+Day180,Day 180
+Cellcount,Cell count
+Motherorbaby,Mother or baby
+Diarrheaever,Diarrhea ever
+Bacteriopl,Bacterioplankton
+Hna,high nucleic acid
+Lna,low nucleic acid
+Dailyexposureduration,Daily exposure duration
+Targetdescription,Target description
+Spinalcordinjury,Spinal cord injury
+Doner,Donor
+Exptl,Experimental
+Smokingregimen,Smoking regimen
+Inifitaltimepoint,Initial timepoint
+Mouseid,Mouse id
+Clinicalhistory,Clinical history
+Diveristy,Diversity
+Prescriptionforfacialacne,Prescription for facial acne
+Celllineage,Cell lineage
+Longitud,Longitude
+Gographic,Geographic
+Repliate,Replicate
+Swablocation,Swab location
+Dietatsampling,Diet at sampling
+Tacedinaline30min,Tacedinaline 30 min
+Day28,Day 28
+Footeczematreat,Foot eczema treatment
+Diseaselocati,Disease location
+Familyrelationship,Family relationship
+Invivovitro,In vivo vitro
+Individualid,Individual id
+Partpermillion,Part per million
+Environnmental,Environmental
+Devstage,Developmental stage
+Cigaretteproductcategory,Cigarette product category
+Peanutallergy,Peanut allergy
+Romidepsin025,Romidepsin 025
+Subjectid,Subject id
+Libraryprepid,Library prep id
+Samplingdate,Sampling date
+Laterfreshphenol,Later fresh phenol
+Frozen70frozenn2rna,Frozen 70 frozen 2 rna
+Fat1000kcal,Fat 1000 kcal
+Indiv,Individual
+Perterbation,Perturbation
+Develepmental,Developmental
+Syringae,Syringe
+Percentcd69positive,Percent cd69 positive
+Cd4positivetcellsubsetsinblood,Cd4 positive tcell subsets in blood
+Stageage,Stage
+Rnaextractedfrom,Rna extracted from
+Commentonclass,Comment on class
+Num,Number
+Sampleprepid,Sample prep id
+Immortilization,Immortalization
+Librarybatch,Library batch
+Pattren,Pattern
+Secondaryenzyme,Secondary enzyme
+Tissu,Tissue
+Mousenumber,Mouse number
+Vender,Vendor
+Fiber1000kcalg,Fiber 1000 kcal g
+Peaklistid,Peak list id
+Day30,Day 30
+Demultiplexbarcode,Demultiplex barcode
+Tisse,Tissue
+Dlbcl5,Dlbcl 5
+Heals4wks,Heals 4 wks
+Adultacclimationtemperature,Adult acclimation temperature
+Sitetype,Site type
+Millionsofyears,Millions of years
+Birthweight,Birth weight
+Dinoflagellates20,Dinoflagellates 20
+Biop,Biopsy
+Surg,Surgery
+Brainid,Brain id
+Postexacerbationtreatment,Post exacerbation treatment
+Behavi,Behavior
+Clinicalinformation,Clinical information
+Diease,Disease
+Beforeafterantibiotics,Before after antibiotics
+Treatmentreps,Treatment replicates
+Samplingmethod,Sampling method
+Mousewt,Mouse weight
+Otherinfo,Other info
+Biopsysi,Biopsy site
+Softwareversion,Software version
+Otherallergies,Other allergies
+Environmentalhistory,Environmental history
+Perct,Percent
+Survivaltime,Survival time
+Ventdays,Vent days
+Aroucana,Araucana
+Sequencechemistry,Sequence chemistry
+Developmentalstage,Developmental stage
+Arrayexpress,Array express
+Comcentration,Concentration
+Mislabeledprobabove0point25,Mislabeled probe above 0 point 25
+Mislabeledprobabove0point20,Mislabeled probe above 0 point 20
+Perc,Percent
+Librarybarcode,Library barcode
+Samplingpoint,Sampling point
+Deepth,Depth
+After5,After 5
+Ststus,Status
+Healthstatus,Health status
+Stddev,Standfard deviation
+Testresult,Test result
+Steroides,Steroids
+Skinconditions,Skin conditions
+Contruct,Construct
+Decription,Description
+Animalspecies,Animal species
+Cellulose8,Cellulose 8
+Tansgenic,Transgenic
+Timpoint,Timepoint
+Titlee,Title
+Patientid,Patient id
+Hostsex,Host sex
+Evironmental,Environmental
+Sampleidnumber,Sample id number
 Ulcerloc
 Totalfat
 Endogeneous
