@@ -219,21 +219,19 @@ Cogclassifier,Cog classifier
 Tumourlocalisation,Tumor localization
 Barcodename,Barcode name
 Treament,Treatment
-Number1
-Steroides
-Hivviralload
-Baermanntemperature
-Environemental
-Papillomavirus
-Pmid20520727
-Chromosomaltranslocation
-Biopsysite
-Lable
-Disssolved
-Gestion
-Tmp
-Samplingsite
-Qtlstatus
+Number1,Number 1
+Steroides,Steroids
+Hivviralload,Hiv viral load
+Baermanntemperature,Baermann temperature
+Environemental,Environmental
+Pmid20520727,Pmid 20520727
+Chromosomaltranslocation,Chromosomal translocation
+Biopsysite,Biopsy site
+Lable,Label
+Disssolved,Dissolved
+Tmp,Temperature
+Samplingsite,Sampling site
+Qtlstatus,Qtl status
 Eventprogression
 Mislabeledprobabove0point35
 Mislabeledprobabove0point30
