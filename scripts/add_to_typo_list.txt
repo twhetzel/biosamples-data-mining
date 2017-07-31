@@ -175,53 +175,50 @@ Patientid,Patient id
 Hostsex,Host sex
 Evironmental,Environmental
 Sampleidnumber,Sample id number
-Ulcerloc
-Totalfat
-Endogeneous
-Mixedtissues
-Donor1
-Barcoded
-Moxifloxacin10
-Parentalid
-Growthcondition
-Feedingbroad
-Dateoffiltrationwith0point2micrometerfilter
-Enviromental
-Responsibel
-Pmid20520727
-Seqbatch
-Mislabeledprobabove0point55
-Staturestemangle7
-Deliverymode
-Preperation
-Phaeophytine
-Panacur0hr
-Homa30
-Bacteria5way
-Colletion
-Campusdining
-Residencecdiff
-Relaspe
-Drnum
-Cpsinmouth
-Numreads
-Betasatellite
-Antibody2
-Medicationtoday
-Preservationtype
-Mislabeledprobabove0point05
-Abberation1
-Preg
-Sampleantibioticdisturbance
-Myid
-Biosourcetype
-Clade2
-Clade1
-Enviromental
-Cogclassifier
-Tumourlocalisation
-Barcodename
-Treament
+Ulcerloc,Ulcer location
+Totalfat,Total fat
+Endogeneous,Endogenous
+Mixedtissues,Mixed tissues
+Donor1,Donor 1
+Moxifloxacin10,Moxifloxacin 10
+Parentalid,Parental id
+Growthcondition,Growth condition
+Feedingbroad,Feeding broad
+Dateoffiltrationwith0point2micrometerfilter,Date of filtration with 0 point 2 micrometer filter
+Enviromental,Envirommental
+Responsibel,Responsible
+Pmid20520727,Pmid 20520727
+Seqbatch,Sequence batch
+Mislabeledprobabove0point55,Mislabeled probe above 0 point 55
+Staturestemangle7,Stature stem angle 7
+Deliverymode,Delivery mode
+Preperation,Preparation
+Phaeophytine,Phaeophytin
+Panacur0hr,Panacur 0 hr
+Bacteria5way,Bacteria 5 way
+Colletion,Collection
+Campusdining,Campus dining
+Residencecdiff,Residence Clostridium difficile
+Relaspe,Relapse
+Drnum,Doctor number
+Cpsinmouth,Cps in mouth
+Numreads,Number reads
+Antibody2,Antibody 2
+Medicationtoday,Medication today
+Preservationtype,Preservation type
+Mislabeledprobabove0point05,Mislabeled probe above 0 point 05
+Abberation1,Abberation 1
+Preg,Pregnant
+Sampleantibioticdisturbance,Sample antibiotic disturbance
+Myid,My id
+Biosourcetype,Biosource type
+Clade2,Clade 2
+Clade1,Clade 1
+Enviromental,Environmental
+Cogclassifier,Cog classifier
+Tumourlocalisation,Tumor localization
+Barcodename,Barcode name
+Treament,Treatment
 Number1
 Steroides
 Hivviralload
