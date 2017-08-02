@@ -1128,5 +1128,13 @@ spp
 rc
 Uditotal
 v
+Cyclo
+Sacchar
+Mosqbitesizeperceive
+Cariesgroup1cfcf2cfca3cacf4caca
+Hanssampleid
+Pctcreplaced
+Mosqresponsetoday
+Subsrc
 
 
