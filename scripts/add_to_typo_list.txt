@@ -238,7 +238,7 @@ Mislabeledprobabove0point30,Mislabeled probe above 0 point 30
 Sampletype,Sample type
 Speciman,Specimen
 Seqid,Sequence identifier
-******* Numberofcd4positivecd38positivehladrpositive,Number of cd4 positive cd38 positive hla dr positive
+******* Numberofcd4positivecd38positivehladrpositive,Number of cd4 positive cd38 positive hla-dr positive
 Matchid,Match id
 ******* Milliseimenpercentimeter
 Lesionscore,Lesion score
@@ -412,232 +412,216 @@ Platformchemistry,Platform chemistry
 Guiderna,Guide rna
 Crispri,Crispr
 Round2,Round 2
-Developemental
-Donorsource
-Belowground
-Oct34
-Percentofccr5positiveofcd4positive
-Vandor
-Cyclo
-After96h
-Daypostgavage
-Sacchar
-Sexdetails
-Mislabeledprobabove0point40
-Mislabeledprobabove0point45
-Organismpa
-Hostiptal
-Stocknumber
-Totsugar
-Daysfromhosp
-Differentiationstate
-Reverseprimersequence
-Sequncing
-Supernatantexposurefrequency
-Percenttumoraltcells
-Physcial
-Prospectivepouchitis
-Traveledoutofus
-Exposuretype
-Celllinedatabase
-Initialtimepoint
-Stainorline
-Foreheadtimeseries
-Sequnces
-Libarary
-Bioimpedance
-Mosqbitesizeperceive
-Fruitandjuice
-Dateprocessed
-Diseasetype
-Primaryenzyme
-Indoorenvironment
-Flossteeth
-Sampledescription
-Riskstatus
-Samplename
-Bodyproduct
-Primarytumorstaging
-Cariesgroup1cfcf2cfca3cacf4caca
-Postitive
-Extractionmethod
-Phosphoenrichment
-Familyid
-Biologicalrepeat
-Beestings
-Antibody1
-Birthdate
-Tacedinaline360min
-Measuremenet
-Assemblyversion
-Resonse
-Hormonalbirthcontrol
-Timeofsurvival
-Milliliterperliter
-Relativehumiditysoillow
-Collectiontime
-Descr
-Dnaconc
-Antigenform
-Freetext
-Proplastid
-Readtype
-Deindexing
-Peptidepvaluethreshold
-Concentrationentity
-Temperture
-Humam
-Healthworker
-Longdisplayname
-Label114
-Rootcaries
-Tumourkeratinisation
-Factor5
-Detail2
-Detail1
-Strain2
-Strain1
-Day1am
-Brood2
-Larvae2
-Lower95
-Coord
-Transgene2
-Clinicalhistory10
-Carbon14
-Carbon13
-Outbreeding
-Digetion
-Retriction
-Rawreads
-Physiologicalprocess
-Copynumber
-Biowardrobe
-Defintion
-Ampliconconcentration
-Reagent131
-Reagent130
-Treenumber
-Familyincome
-Averagesoiltemperature
-Refernece
-Tumoursurfaceulceration
-Regionid
-Embryonictemperature
-Datesequenced
-Chromosomalaberration
-Temperatuere
-Hivstatus
-Chromosome17
-Subfrag
-Smoketype
-Petsinhouse
-Financialstatus
-Taxid
-Timestamp
-Treatment1
-Metronidazole2
-Vancomycin3
-Texture6300
-Ghrelin30
-Uniqueid
-Weekssincestart
-Genome5
-Genome4
-Movetocurrentlocation
-Romidepsin000039
-Timefrominoculationindays
-Exepriment
-Virulencemarker
-Epiptope
-Breslowthickness
-Projectid
-Molecue
-Nsample
-Subsample1
-Vvaginal
-Biopsytime
-Enviironmental
-Reproductiv
-Idantibioticdisturbance
-Percentcd38positivehladrpositiveofcd4positive
-Reverseprimer
-Alcoholuse
-Hanssampleid
-Hospitaladmission
-Operatorvariation
-Labeled15n
-Postexposurewell
-Individualgeneticcharacteristi
-Litternumber
-Tcellreceptortype
-Bufexamac6h
-Childage
-Postexposureduration
-Culturetime
-95percenct
-Cellspermilliliter
-Samplematerial
-Condtiion
-Testitem1concentration
-Abundance106
-Dnasei
-Cardiacoutput
-Primer1
-Initialtimepoi
-Antibiotics3mo
-Metagenomiccontent
-Humanindex
-1000g
-Manupulation
-Sequencecountabove10000
-Romidepsin0006
-Aflatoxinb1
-Pasaages
-Secondarycauseofdeath
-Invovlement
-Pctcreplaced
-Agarosemigrationtemperature
-Distantmetastasis
-Suborderorinfraorderorfamilycommonenglish
-Hydrogenperoxide
-Linkerprimersequence
-Permil
-Istumor
-Icudays
-Opticaldensity
-Sampleday
-Percentcd69positiveofcd4positive
-Heals12wks
-Mosqresponsetoday
-Donormethanogencategory
-Oldsampleid
-Replicateof
-Diseasestage
-Fitration
-Fieldnumber
-Initialtime
-Diseasefactor
-Inflammationstatus
-Methoxychlor
-Testtype
-Urea815g
-Treatment3
-Filenumber
-Micromolecarbonperliter
-Dailymultivitamin
-Enrichmant
-Phospatase
-Replicate196h
-Replicate2
-Weeklyexposurefrequency
-Incubationtime
-After24h48h72h96h
-Replicate196h
-Diabtype
-Genotype29
-Subsrc
-Timeunit
+Developemental,Developmental
+Donorsource,Donor source
+Belowground,Below ground
+Oct34,Oct3/4 antibody
+Percentofccr5positiveofcd4positive,Percent of ccr5 positive of cd4 positive
+Vandor,Vendor
+After96h,After 96 hours
+Daypostgavage,Day post gavage
+Sexdetails,Sex details
+Mislabeledprobabove0point40,Mislabeled probe above 0 point 40
+Mislabeledprobabove0point45,Mislabeled probe above 0 point 45
+Organismpa,Organism part
+Hostiptal,Hospital
+Stocknumber,Stock number
+Totsugar,Total sugar
+Daysfromhosp,Days from hosp
+Differentiationstate,Differentiation state
+Reverseprimersequence,Reverse primer sequence
+Sequncing,Sequencing
+Supernatantexposurefrequency,Supernatant exposure frequency
+Percenttumoraltcells,Percent tumor altered cells
+Physcial,Physical
+Prospectivepouchitis,Prospective pouchitis
+Traveledoutofus,Traveled out of us
+Exposuretype,Exposure type
+Celllinedatabase,Cellline database
+Initialtimepoint,Initial timepoint
+Stainorline,Stain or line
+Foreheadtimeseries,Forehead timeseries
+Sequnces,Sequences
+Libarary,Library
+Fruitandjuice,Fruit and juice
+Dateprocessed,Date processed
+Diseasetype,Disease type
+Primaryenzyme,Primary enzyme
+Indoorenvironment,Indoor environment
+Flossteeth,Floss teeth
+Sampledescription,Sample description
+Riskstatus,Risk status
+Samplename,Sample name
+Bodyproduct,Body product
+Primarytumorstaging,Primary tumor staging
+Postitive,Positive
+Extractionmethod,Extraction method
+Phosphoenrichment,Phospho enrichment
+Familyid,Family id
+Biologicalrepeat,Biological repeat
+Beestings,Bee stings
+Antibody1,Antibody 1
+Tacedinaline360min,Tacedinaline 360 min
+Measuremenet,Measurement
+Assemblyversion,Assembly version
+Resonse,Response
+Hormonalbirthcontrol,Hormonal birth control
+Timeofsurvival,Time of survival
+Milliliterperliter,Milliliter per liter
+Relativehumiditysoillow,Relative humidity soil low
+Collectiontime,Collection time
+Descr,Description
+Dnaconc,Dna concentration
+Antigenform,Antigen form
+Freetext,Free text
+Proplastid,Proplast id
+Readtype,Read type
+Peptidepvaluethreshold,Peptide pvalue threshold
+Concentrationentity,Concentration entity
+Temperture,Temperature
+Humam,Human
+Healthworker,Health worker
+Longdisplayname,Long display name
+Label114,Label 114
+Rootcaries,Root caries
+Tumourkeratinisation,Tumor keratinization
+Factor5,Factor 5
+Detail2,Detail 2
+Detail1,Detail 1
+Strain2,Strain 2
+Strain1,Strain 1
+Day1am,Day 1 am
+Brood2,Brood 2
+Larvae2,Larvae 2
+Lower95,Lower 95
+Coord,Coordinate
+Transgene2,Transgene 2
+Clinicalhistory10,Clinical history 10
+Carbon14,Carbon-14
+Carbon13,Carbon-13
+Digetion,Digestion
+Retriction,Restriction
+Rawreads,Raw reads
+Physiologicalprocess,Physiological process
+Copynumber,Copy number
+Defintion,Definition
+Ampliconconcentration,Amplicon concentration
+Reagent131,Reagent 131
+Reagent130,Reagent 130
+Treenumber,Treen umber
+Familyincome,Family income
+Averagesoiltemperature,Average soil temperature
+Refernece,Reference
+Tumoursurfaceulceration,Tumor surface ulceration
+Regionid,Region id
+Embryonictemperature,Embryonic temperature
+Datesequenced,Date sequenced
+Chromosomalaberration,Chromosomal aberration
+Temperatuere,Temperature
+Hivstatus,Hiv status
+Chromosome17,Chromosome 17
+Subfrag,Subfragment
+Smoketype,Smoke type
+Petsinhouse,Pets in house
+Financialstatus,Financial status
+Taxid,Taxonomy id
+Treatment1,Treatment 1
+Metronidazole2,Metronidazole 2
+Vancomycin3,Vancomycin 3
+Texture6300,Texture 6300
+Ghrelin30,Ghrelin 30
+Uniqueid,Unique id
+Weekssincestart,Weeks since start
+Genome5,Genome 5
+Genome4,Genome 4
+Movetocurrentlocation,Move to current location
+Romidepsin000039,Romidepsin 000039
+Timefrominoculationindays,Time from inoculation in days
+Exepriment,Experiment
+Virulencemarker,Virulence marker
+Epiptope,Epitope
+Breslowthickness,Breslow thickness
+Projectid,Project id
+Molecue,Molecule
+Nsample,N sample
+Subsample1,Subsample 1
+Vvaginal,Vaginal
+Biopsytime,Biopsy time
+Enviironmental,Environmental
+Reproductiv,Reproductive
+Idantibioticdisturbance,Id antibiotic disturbance
+Percentcd38positivehladrpositiveofcd4positive,Percent cd38 positive hla-dr positive of cd4 positive
+Reverseprimer,Reverse primer
+Alcoholuse,Alcohol use
+Hospitaladmission,Hospital admission
+Operatorvariation,Operator variation
+Labeled15n,Labeled 15n
+Postexposurewell,Post exposure well
+Individualgeneticcharacteristi,Individual genetic characteristics
+Litternumber,Litter number
+Tcellreceptortype,T-cell receptor type
+Bufexamac6h,Bufexamac 6h
+Childage,Child age
+Postexposureduration,Post exposure duration
+Culturetime,Culture time
+95percenct,95 percenct
+Cellspermilliliter,Cells per milliliter
+Samplematerial,Sample material
+Condtiion,Condition
+Testitem1concentration,Test item 1 concentration
+Abundance106,Abundance 106
+Dnasei,deoxyribonuclease I
+Cardiacoutput,Cardiac output
+Primer1,Primer 1
+Initialtimepoi,Initial timepoint
+Antibiotics3mo,Antibiotics 3 month
+Metagenomiccontent,Metagenomic content
+Humanindex,Human index
+1000g,1000 g
+Manupulation,Manipulation
+Sequencecountabove10000,Sequence count above 10000
+Romidepsin0006,Romidepsin 0006
+Aflatoxinb1,Aflatoxin b1
+Pasaages,Passages
+Secondarycauseofdeath,Secondary cause of death
+Invovlement,Involvement
+Agarosemigrationtemperature,Agarose migration temperature
+Distantmetastasis,Distant metastasis
+Suborderorinfraorderorfamilycommonenglish,Suborder or infraorder or family common english
+Hydrogenperoxide,Hydrogen peroxide
+Linkerprimersequence,Linker primer sequence
+Permil,per milliliter
+Istumor,Is tumor
+Icudays,Icu days
+Opticaldensity,Optical density
+Sampleday,Sample day
+Percentcd69positiveofcd4positive,Percent cd69 positive of cd4 positive
+Heals12wks,Heals 12 weeks
+Donormethanogencategory,Donor methanogen category
+Oldsampleid,Old sample id
+Replicateof,Replicate of
+Diseasestage,Disease stage
+Fitration,Filtration
+Fieldnumber,Field number
+Initialtime,Initial time
+Diseasefactor,Disease factor
+Inflammationstatus,Inflammation status
+Testtype,Test type
+Urea815g,Urea 815 gram
+Treatment3,Treatment 3
+Filenumber,File number
+Micromolecarbonperliter,Micromole carbon per liter
+Dailymultivitamin,Daily multivitamin
+Enrichmant,Enrichment
+Phospatase,Phosphatase
+Replicate196h,Replicate 196 hour
+Replicate2,Replicate 2
+Weeklyexposurefrequency,Weekly exposure frequency
+Incubationtime,Incubation time
+After24h48h72h96h,After 24 hour 48 hour 72 hour 96 hour
+Replicate196h,Replicate 196 hour
+Diabtype,Diabetes type
+Genotype29,Genotype 29
 Indexprimer2
 Damid
 Percentl
