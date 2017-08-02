@@ -1812,6 +1812,8 @@ Biowardrobe
 Timestamp
 Methoxychlor
 Timeunit
+Borehole
+Supersite
 
 
 
