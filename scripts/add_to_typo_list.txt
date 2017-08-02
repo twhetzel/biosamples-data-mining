@@ -844,99 +844,91 @@ Silt220,Silt 220
 Tunnelhumidity,Tunnel humidity
 Numberofmdcexp,Number of mdcexp
 Drymatter9,Dry matter 9
-Percentmrpositiveofmdc
-Cdiff
-Numer
-Growt
-Porewater
-Ofdeliveryabx
-Barcodewell
-Sand2002000
-Rotation3yrs
-Productcode
-Tiime
-Datefounddead
-Tacedinaline10min
-Supergroup
-Porttemp
-Aminoadipic
-Exon20
-Genome2
-Weightstatus
-Mislabeledprobabove0point80
-Vector3
-Manufactuer
-Weight08
-Weight09
-Fertilizeration
-Weight04
-Weight05
-Weight06
-Mitochondrialgenotype
-Samplemenstruationdisturbance
-Shipmentnumber
-Statureleafangle7
-Basediameter9
-Matrlineal
-Bloodfeeding
-Tineapedistreat
-Tranfected
-Birthwtwhosd
-Labversion
-Bodyweightstart
-Temp1
-Temp2
-Physicalcharacteristi
-Organismstatus
-Barcodesequence
-Geneticvariation
-Restrictionenzyme
-Monthcollected
-Hosttaxonid
-Paasage
-Mulitlocus
-Individul
-Icuevent
-Filetype
-Sedimentment
-Develpomentalstage
-Exon2
-Bodyhabitat
-Libraryprotocol
-Weight28
-Weight24
-Male1
-Mosqbitelocperceive
-Tubeid
-Larvae1
-Survivalaftertwoyears
-Samplingtime
-Newilluminadatagenerated
-Shellfishallergy
-Radiosensitizing
-Houseid
-Colection
-Samplingsi
-Infectionfect
-Garlicspicetoday
-Romidepsin6h
-Total16s
-Wellposition
-Envionmental
-Sortedflag
-Attachmentloss
-Sucrlose
-Numberofcd4tcells
-Atribute
-Timeseries
-Numberofcd4positivealpha4beta7positive
-Fat04
-Salnity
-Tumorstaging
-Diseasefreeinterval
-Orovider
-Atribute
-Timetometastasis
+Percentmrpositiveofmdc,Percent mr positive of mdc
+Cdiff,Clostridium difficile
+Numer,Number
+Growt,Growth
+Barcodewell,Barcode well
+Sand2002000,Sand 2002000
+Rotation3yrs,Rotation 3 years
+Productcode,Product code
+Tiime,Time
+Datefounddead,Date found dead
+Tacedinaline10min,Tacedinaline 10 minunte
+Exon20,Exon 20
+Genome2,Genome 2
+Weightstatus,Weight status
+Mislabeledprobabove0point80,Mislabeled probe above 0 point 80
+Vector3,Vector 3
+Manufactuer,Manufacturer
+Weight08,Weight 08
+Weight09,Weight 09
+Fertilizeration,Fertilization
+Weight04,Weight 04
+Weight05,Weight 05
+Weight06,Weight 06
+Mitochondrialgenotype,Mitochondrial genotype
+Samplemenstruationdisturbance,Sample menstruation disturbance
+Shipmentnumber,Shipment number
+Statureleafangle7,Stature leaf angle 7
+Basediameter9,Base diameter 9
+Matrlineal,Matrilineal
+Bloodfeeding,Blood feeding
+Tineapedistreat,Tinea pedis treatment
+Tranfected,Transfected
+Labversion,Lab version
+Bodyweightstart,Body weight start
+Temp1,Temperature 1
+Temp2,Temperature 2
+Physicalcharacteristi,Physical characteristics
+Organismstatus,Organism status
+Barcodesequence,Barcode sequence
+Geneticvariation,Genetic variation
+Restrictionenzyme,Restriction enzyme
+Monthcollected,Month collected
+Hosttaxonid,Host taxonomy identifier
+Paasage,Passage
+Mulitlocus,Multilocus
+Individul,Individual
+Icuevent,Icu event
+Filetype,File type
+Sedimentment,Sediment
+Develpomentalstage,Developmental stage
+Exon2,Exon 2
+Bodyhabitat,Body habitat
+Libraryprotocol,Library protocol
+Weight28,Weight 28
+Weight24,Weight 24
+Male1,Male 1
+Tubeid,Tube identifier
+Larvae1,Larvae 1
+Survivalaftertwoyears,Survival after two years
+Samplingtime,Sampling time
+Newilluminadatagenerated,New illumina data generated
+Shellfishallergy,Shell fish allergy
+Houseid,House identifier
+Colection,Collection
+Samplingsi,Sampling site
+Infectionfect,Infection
+Garlicspicetoday,Garlic spice today
+Romidepsin6h,Romidepsin 6 hour
+Total16s,Total 16s
+Wellposition,Well position
+Envionmental,Environmental
+Sortedflag,Sorted flag
+Attachmentloss,Attachment loss
+Sucrlose,Sucralose
+Numberofcd4tcells,Number of cd4 t-cells
+Atribute,Attribute
+Timeseries,Time series
+Numberofcd4positivealpha4beta7positive,Number of cd4 positive alpha4 beta7 positive
+Fat04,Fat 04
+Salnity,Salinity
+Tumorstaging,Tumor staging
+Diseasefreeinterval,Disease free interval
+Orovider,Provider
+Atribute,Attribute
+Timetometastasis,Time to metastasis
 Supernatanttotalexposureduration
 Scriptaid100
 Biosourceprovider
