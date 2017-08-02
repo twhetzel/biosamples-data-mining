@@ -700,167 +700,150 @@ Resistantresponsivepercentagenecrosis,Resistant responsive percent age necrosis
 Spikeinpool,Spike in pool
 Isolate148,Isolate 148
 Postexposureplate,Post exposure plate
-Extracapsularspreading
-Uniquename
-Samplesicknessdisturbance
-Geneticmodificati
-Showersoaptoday
-Mothersecretorstatus
-Ebfsubgroup
-Totalhighqualityseq
-Rnaextract
-Supernatantcelltreatmentsubstance
-Btitreatment
-Repicates
-Seapoint
-Primers1
-Functionnal
-Officenumber
-Weight30
-Index2
-Linetype
-Supercontrol
-Alcoholusetoday
-Envirnonmental
-Smokecigarettes
-Artificialtanning
-Genome1
-Catolog
-Chromosone17
-Texture6point3
-Bodysite
-Protiens
-Clarkstage
-Idmenstruationdisturbance
-Pasage
-Diferentiation
-Brushteeth
-Hostcolony
-Othermedication
-Antibiotics0
-Currentalcohol
-Cystathionine1
-Cystathionine2
-Sampleplate
-Feedweek1
-Feedweek3
-Genspecies
-Progesteronereceptorstatus
-Overexpressing
-Clinicalrecord
-Visittype
-Lactoseintolerant
-Mislabeledprobabove0point95
-Daysposttransplant
-Mislabeledprobabove0point99
-Antiboy
-Beercider
-Developmentstage
-Librray
-Extracapsularspread
-Chromosomalabnormality
-Relhumidityavg
-Lesiontype
-Romidepsin0063
-Samplesource
-Mosqattractmeasuretotal
-Oncampushousing
-Personalidsicknessdisturbance
-Blankextraction
-Fileprefix
-Localication
-Historycdiff
-Developemntal
-Cellularcomponent
-Dnasample
-Fatherid
-Biomaterialtype
-Tranduction
-Transfectionnotes
-Internalnames
-Photoactivatable
-Soilprocessing
-Exposureduration
-Srvid
-Biologicalreplicate
-Storagetemperature
-Cancersite
-Compound1
-Compound2
-Ethnicgroup
-Dnatemplate
-Homecooked
-Denturelow
-Sequencingfacility
-Testresult4
-Timetolpadmin
-Exerciseroutine
-Peptidezscorethreshold
-Rejectionpathologyscore
-Doid14563
-Backfat
-Plateid
-Testsubstanceconcentration
-Readcounts
-Chromosomalaberrationclassificati
-Etectoxindetected
-Insertlength
-Colordescription
-Overallsurvival
-Compoundnamesupplier
-Relativehumiditysoilhigh
-Tumorpercentage
-Descriptione
-Bodysites
-Numberoflangerhans
-Solidfood
-Strainorlinedatabase
-5primeadaptercomplete
-Brood1
-Tisssue
-Mosqattractmeasuretoday
-Shortid
-Menopausalstatus
-Vitamintoday
-Radiographicerosions
-Differentialanalysis
-Precipitation48
-Targetedtype
-Bodysite
-Oralmucosa
-Volarright
-Palmright
-Footright
-Concentrationunitother
-Volumeunit
-Librarysequence
-Bmiwhozscore
-Tissus
-Brreast
-Depth12
-Treatphase1
-Treatphase2
-Stdev
-Enrolltime
-Copepoddepthsampled
-Pulmonarycapillarywedgepressure
-Version221
-Cabonatenodulemineralogy
-Compou
-Menstru3
-Menstru1
-Mouserecipientarrivalcage
-Tumourside
-Clinicalhistory9
-Clinicalhistory8
-Pmid15599763
-Replicat
-Hajavacode
-Sequencingtechnology
-Silt220
-Tunnelhumidity
-Numberofmdcexp
-Drymatter9
+Extracapsularspreading,Extracapsular spreading
+Uniquename,Unique name
+Samplesicknessdisturbance,Sample sickness disturbance
+Geneticmodificati,Genetic modification
+Showersoaptoday,Shower soap today
+Mothersecretorstatus,Mother secretor status
+Ebfsubgroup,Ebf subgroup
+Totalhighqualityseq,Total high quality sequence
+Rnaextract,Rna extract
+Supernatantcelltreatmentsubstance,Supernatant cell treatment substance
+Btitreatment,Bti treatment
+Repicates,Replicates
+Seapoint,Sea point
+Primers1,Primers 1
+Functionnal,Functional
+Officenumber,Office number
+Weight30,Weight 30
+Index2,Index 2
+Linetype,Line type
+Alcoholusetoday,Alcohol use today
+Envirnonmental,Environmental
+Smokecigarettes,Smoke cigarettes
+Artificialtanning,Artificial tanning
+Genome1,Genome 1
+Catolog,Catalog
+Chromosone17,Chromosome 17
+Texture6point3,Texture 6 point 3
+Protiens,Proteins
+Clarkstage,Clark stage
+Idmenstruationdisturbance,Id menstruation disturbance
+Pasage,Passage
+Diferentiation,Differentiation
+Brushteeth,Brush teeth
+Hostcolony,Host colony
+Othermedication,Other medication
+Antibiotics0,Antibiotics 0
+Currentalcohol,Current alcohol
+Cystathionine1,Cystathionine 1
+Cystathionine2,Cystathionine 2
+Sampleplate,Sample plate
+Feedweek1,Feed week 1
+Feedweek3, Feed week 3
+Genspecies,Genus species
+Progesteronereceptorstatus,Progesterone receptor status
+Clinicalrecord,Clinical record
+Visittype,Visit type
+Lactoseintolerant,Lactose intolerant
+Mislabeledprobabove0point95,Mislabeled probe above 0 point 95
+Daysposttransplant,Days posttransplant
+Mislabeledprobabove0point99,Mislabeled probe above 0 point 99
+Antiboy,Antibody
+Beercider,Beer cider
+Developmentstage,Developmental stage
+Librray,Libray
+Extracapsularspread,Extracapsular spread
+Chromosomalabnormality,Chromosomal abnormality
+Relhumidityavg,Relative humidity avgerage
+Lesiontype,Lesion type
+Romidepsin0063,Romidepsin 0063
+Samplesource,Sample source
+Oncampushousing,Oncampus housing
+Personalidsicknessdisturbance,Personal id sickness disturbance
+Blankextraction,Blank extraction
+Fileprefix,File prefix
+Historycdiff,History clostridium difficile
+Developemntal,Developmental
+Cellularcomponent,Cellular component
+Dnasample,Dna sample
+Fatherid,Father id
+Biomaterialtype,Biomaterial type
+Tranduction,Transduction
+Transfectionnotes,Transfection notes
+Internalnames,Internal names
+Soilprocessing,Soil processing
+Exposureduration,Exposure duration
+Biologicalreplicate,Biological replicate
+Storagetemperature,Storage temperature
+Cancersite,Cancer site
+Compound1,Compound 1
+Compound2,Compound 2
+Ethnicgroup,Ethnic group
+Dnatemplate,Dna template
+Denturelow,Denture low
+Sequencingfacility,Sequencing facility
+Testresult4,Test result 4
+Timetolpadmin,Time to lpadmin
+Exerciseroutine,Exercise routine
+Rejectionpathologyscore,Rejection pathology score
+Backfat,Back fat
+Plateid,Plate id
+Testsubstanceconcentration,Test substance concentration
+Readcounts,Read counts
+Etectoxindetected,Etec toxin detected
+Insertlength,Insert length
+Colordescription,Color description
+Overallsurvival,Overall survival
+Compoundnamesupplier,Compound name supplier
+Relativehumiditysoilhigh,Relative humidity soil high
+Tumorpercentage,Tumor percentage
+Descriptione,Description
+Numberoflangerhans,Number of langerhans
+Solidfood,Solid food
+Strainorlinedatabase,Strain or line database
+5primeadaptercomplete,5prime adapter complete
+Brood1,Brood 1
+Tisssue,Tissue
+Shortid,Short id
+Menopausalstatus,Menopausal status
+Vitamintoday,Vitamin today
+Radiographicerosions,Radiographic erosions
+Differentialanalysis,Differential analysis
+Precipitation48,Precipitation 48
+Targetedtype,Targeted type
+Oralmucosa,Oral mucosa
+Volarright,Volar right
+Palmright,Palm right
+Footright,Foot right
+Concentrationunitother,Concentration unit other
+Volumeunit,Volume unit
+Librarysequence,Library sequence
+Bmiwhozscore,Bmi whozscore
+Tissus,Tissuse
+Brreast,Breast
+Depth12,Depth 12
+Treatphase1,Treatphase 1
+Treatphase2,Treatphase 2
+Stdev,standard deviation
+Enrolltime,Enroll time
+Copepoddepthsampled,Copepod depth sampled
+Pulmonarycapillarywedgepressure,Pulmonary capillary wedge pressure
+Version221,Version 221
+Cabonatenodulemineralogy,Cabonate nodule mineralogy
+Compou,Compound
+Mouserecipientarrivalcage,Mouse recipient arrival cage
+Tumourside,Tumour side
+Clinicalhistory9,Clinical history 9
+Clinicalhistory8,Clinical history 8
+Pmid15599763,Pmid 15599763
+Replicat,Replicate
+Sequencingtechnology,Sequencing technology
+Silt220,Silt 220
+Tunnelhumidity,Tunnel humidity
+Numberofmdcexp,Number of mdcexp
+Drymatter9,Dry matter 9
 Percentmrpositiveofmdc
 Cdiff
 Numer
@@ -1134,7 +1117,6 @@ Diseasestatedatabase
 Organismpart
 Referencesample
 Coronalcaries
-Peptidezscorethreshold
 Diseaseoutcome
 Rotation1yr
 Primers2
