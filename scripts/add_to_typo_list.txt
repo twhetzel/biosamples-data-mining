@@ -302,118 +302,116 @@ Panacur48hr,Panacur 48 hr
 Ratio260280,Ratio 260280
 ******* Slocus
 Carbonatenodule,Carbonate nodule
-Unnamed3
-Control1
-Source1
-Filename2
-Leafwidth7
-Treatcode
-Muther
-Metres
-Ionbarcode
-Treatment1st
-Seqrun
-Version211
-Bufexamac10000
-Day60
-Beadbeater
-Flowerspp
-Barcoderc
-Indexprimer1
-Agedays
-Phosph
-Reagent121
-Categoryb
-100um
-Falindex
-U87mg
-Ulcerdur
-Transectid
-Lean28
-Lean20
-Lean24
-Sivstatus
-Precipsnow
-Groupa
-Thecate
-Panobinostat00469
-Nanodrop260230
-Uditotal
-Index1seq
-Souce
-Correlation2
-Parent2
-Parent1
-With10
-Donor2
-Infant2
-Infant1
-Lean08
-Lean04
-Groupv
-Bodyside
-Fat24
-Agarosemigrationttime
-Millimoleperkilogram
-Lattitude
-Logitude
-Anitbody
-Mapalgorithm
-Proteinscorethreshold
-Round1
-Palmsize
-Environmetal
-Developmentalstage2
-P53status
-Chancemortalityin10
-Dominanthand
-Tumourorigin
-Drinkalcohol
-Samplingtimepoint
-Numberofcd4positiveccr5positive
-Replcate
-Protonpump
-Transcriptionallyactivehumanpapillomavirusintumor
-Precip
-Tunneltemp
-Mislabeledprobabove0point60
-Biosourcety
-Day100
-Sourcesink
-Source2
-Tisue
-Phase1
-Phase2
-Enviornmental
-Csection
-Fragmentsize
-Totalchlorine
-Palmtimeserie
-Bestoverallresponse
-Sampleid
-Sunallergies
-Day15
-Productcategory
-Cryosectionreplicate
-Condtitions
-Stutus
-Severecdi0
-Adapter3
-Makeunique
-Palmtimeseries
-Wavelength630
-Biosourcecataloguenumber
-Transectcount9
-Manufacturer2
-Primarycauseofdeath
-Hoursofsleep
-Familiy
-Exposuretime
-Manufacturer1
-Platformchemistry
-Guiderna
-Crispri
-Round2
+Unnamed3,Unnamed 3
+Control1,Control 1
+Source1,Source 1
+Filename2,Filename 2
+Leafwidth7,Leaf width 7
+Treatcode,Treatment code
+Muther,Mother
+Metres,Meters
+Ionbarcode,Ion barcode
+Treatment1st,Treatment 1ist
+Seqrun,Sequence run
+Version211,Version 211
+Bufexamac10000,Bufexamac 10000
+Day60,Day 60
+Flowerspp,Flower spp
+Barcoderc,Barcode rc
+Indexprimer1,Index primer 1
+Agedays,Age days
+Phosph,Phosphorus
+Reagent121,Reagent 121
+Categoryb,Category b
+100um,100 um
+Falindex,fractional allelic loss (FAL) index
+U87mg,U87 mg
+Ulcerdur, Ulcer dur
+Transectid,Transect id
+Lean28,Lean 28
+Lean20,Lean 20
+Lean24,Lean 24
+Sivstatus,Siv status
+Precipsnow,Precipitation snow
+Preciprain,Precipitation rain
+Groupa,Group a
+Panobinostat00469,Panobinostat 00469
+Nanodrop260230,Nanodrop 260230
+Index1seq,Index 1 sequence
+Souce,Source
+Correlation2,Correlation 2
+Parent2,Parent 2
+Parent1,Parent 1
+With10,With 10
+Donor2,Donor 2
+Infant2,Infant 2
+Infant1,Infant 1
+Lean 08
+Lean04,Lean 04
+Groupv,Group v
+Bodyside,Body side
+Fat24,Fat 24
+Agarosemigrationttime,Agarose migration time
+Millimoleperkilogram,Millimole per kilogram
+Lattitude,Latitude
+Logitude,Longitude
+Anitbody,Antibody
+Mapalgorithm,Map algorithm
+Proteinscorethreshold,Protein score threshold
+Round1,Round 1
+Palmsize,Palm size
+Environmetal,Environmental
+Developmentalstage2,Developmental stage 2
+P53status,P53 status
+Chancemortalityin10,Chance mortality in 10
+Dominanthand,Dominant hand
+Tumourorigin,Tumor origin
+Drinkalcohol,Drink alcohol
+Samplingtimepoint,Sampling time point
+Numberofcd4positiveccr5positive,Number of cd4 positive ccr5 positive
+Replcate,Replicate
+Protonpump,Proton pump
+Transcriptionallyactivehumanpapillomavirusintumor,Transcriptionally active human papillomavirus in tumor
+Precip,Precipitation
+Tunneltemp,Tunnel temperature
+Mislabeledprobabove0point60,Mislabeled probe above 0 point 60
+Biosourcety,Biosource type
+Day100,Day 100
+Sourcesink,Source sink
+Source2,Source 2
+Tisue,Tissue
+Phase1,Phase 1
+Phase2,Phase 2
+Enviornmental,Environmental
+Csection,Caesarean section
+Fragmentsize,Fragment size
+Totalchlorine,Total chlorine
+Palmtimeserie,Palm time series
+Bestoverallresponse,Best overall response
+Sampleid,Sample id
+Sunallergies,Sun allergies
+Day15,Day 15
+Productcategory,Product category
+Cryosectionreplicate,Cryosection replicate
+Condtitions,Conditions
+Stutus,Status
+Severecdi0,Severe cdi (Clostridium difficile infection) 0
+Adapter3,Adapter 3
+Makeunique,Make unique
+Palmtimeseries,Palm time series
+Wavelength630,Wavelength 630
+Biosourcecataloguenumber,Biosource catalog number
+Transectcount9,Transect count 9
+Manufacturer2,Manufacturer 2
+Primarycauseofdeath,Primary cause of death
+Hoursofsleep,Hours of sleep
+Familiy,Family
+Exposuretime,Exposure time
+Manufacturer1,Manufacturer 1
+Platformchemistry,Platform chemistry
+Guiderna,Guide rna
+Crispri,Crispr
+Round2,Round 2
 Developemental
 Donorsource
 Belowground
