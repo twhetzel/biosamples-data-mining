@@ -622,89 +622,84 @@ After24h48h72h96h,After 24 hour 48 hour 72 hour 96 hour
 Replicate196h,Replicate 196 hour
 Diabtype,Diabetes type
 Genotype29,Genotype 29
-Indexprimer2
-Damid
-Percentl
-Percentclay
-Geographiclocation
-Testitemphase2
-Suplemmentation
-Serovarovar
-Temperaturesoillow
-Bloodmeal
-Smple
-Eryth
-Genome3
-Size500
-Breastmilk
-Eletroporated
-Raceethnicity
-Celltype
-Drainagemethod
-At24h
-Genome1
-Index1
-Hostspecies
-Alternativeidentifier
-Samplebarcode
-Recidivefreesurvival
-Sournce
-Samplenumbercu
-Totalnodes
-Estrogenreceptorstatus
-Prcoedure
-Peptidezscorethreshold
-Ratio260230
-Clinicalgroup
-Metagenomicspecies
-Gastroinstest
-Glutenintolerant
-Biosamplemodel
+Indexprimer2,Index primer 2
+Percentl,Percent
+Percentclay,Percent clay
+Geographiclocation,Geographic location
+Testitemphase2,Test item phase 2
+Suplemmentation,Supplementation
+Serovarovar,Serovar
+Temperaturesoillow,Temperature soil low
+Bloodmeal,Blood meal
+Smple,Sample
+Eryth,Erythrocyte
+Genome3,Genome 3
+Size500,Size 500
+Breastmilk,Breast milk
+Eletroporated,Electroporated
+Raceethnicity,Race ethnicity
+Celltype,Cell type
+Drainagemethod,Drainage method
+At24h,At 24 hour
+Genome1,Genome 1
+Index1,Index 1
+Hostspecies,Host species
+Alternativeidentifier,Alternative identifier
+Samplebarcode,Sample barcode
+Recidivefreesurvival,Recidive-free survival
+Sournce,Source
+Samplenumbercu,Sample number
+Totalnodes,Total nodes
+Estrogenreceptorstatus,Estrogen receptor status
+Prcoedure,Procedure
+Peptidezscorethreshold,Peptide z-score threshold
+Ratio260230,Ratio 260230
+Clinicalgroup,Clinical group
+Metagenomicspecies,Metagenomic species
+Gastroinstest,Gastroinstestinal
+Glutenintolerant,Gluten intolerant
+Biosamplemodel,Biosample model
 Numetectoxingenesdetected
-Growthphase
-Borehole
-Materialtype
-Samplesite
-Nsftvid
-Nitrogen15
-Organsimpart
-Sequencingtargetid
-Differention
-Romidepsin01
-Crassostreahongkongensis
-Alcoholabuse
-Stautus
-Biometri
-Superbodysiteoralskinunknownsevaginaanalsaureola
-Agedayswhenrbwasdiagnosedandmicewassacrificed
-Chromosomalaberrationclassification
-Straininformation
-Periodtilldevelopmentofdistantmetastases
-Protein1000kcal
-Responsetodrugtreatment
-Samplingtimeafterlesion
-Plotid
-Fragantproductuse
-Obtainedby
-Anatomicsite
-Soiltemperature
-Minus5cm
-Log10etectoxingenes
-Nasalscrapesweight
-Tansfected
-Genotype33
-Supersite
-Tonguetimeseries
-Metastasisduringfollowupperiod
-Quantityunit
-Deveopmental
-Foresttype
-Devolopmetal
-Precptsumex
-Resistantresponsivepercentagenecrosis
-Spikeinpool
-Isolate148
-Postexposureplate
+Growthphase,Growth phase
+Materialtype,Material type
+Samplesite,Sample site
+Nitrogen15,Nitrogen-15
+Organsimpart,Organism part
+Sequencingtargetid,Sequencing target id
+Differention,Differentiation
+Romidepsin01,Romidepsin 01
+Crassostreahongkongensis,Crassostrea hongkongensis
+Alcoholabuse,Alcohol abuse
+Stautus,Status
+Biometri,Biometric
+Agedayswhenrbwasdiagnosedandmicewassacrificed,Age days when rb was diagnosed and mice was sacrificed
+Chromosomalaberrationclassification,Chromosomal aberration classification
+Straininformation,Strain information
+Periodtilldevelopmentofdistantmetastases,Period till development of distant metastases
+Protein1000kcal,Protein 1000 kcal
+Responsetodrugtreatment,Response to drug treatment
+Samplingtimeafterlesion,Sampling time after lesion
+Plotid,Plot id
+Fragantproductuse,Fragant product use
+Obtainedby,Obtained by
+Anatomicsite,Anatomic site
+Soiltemperature,Soil temperature
+Minus5cm,Minus 5cm
+Log10etectoxingenes,Log10 etec toxin genes
+Nasalscrapesweight,Nasal scrapes weight
+Tansfected,Transfected
+Genotype33,Genotype 33
+Tonguetimeseries,Tongue time series
+Metastasisduringfollowupperiod,Metastasis during followup period
+Quantityunit,Quantity unit
+Deveopmental,Developmental
+Foresttype,Forest type
+Devolopmetal,Developmetal
+Numetectoxingenesdetected,Number etec toxin genes detected
+Resistantresponsivepercentagenecrosis,Resistant responsive percent age necrosis
+Spikeinpool,Spike in pool
+Isolate148,Isolate 148
+Postexposureplate,Post exposure plate
 Extracapsularspreading
 Uniquename
 Samplesicknessdisturbance
