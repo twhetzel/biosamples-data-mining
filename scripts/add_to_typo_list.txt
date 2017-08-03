@@ -929,145 +929,135 @@ Diseasefreeinterval,Disease free interval
 Orovider,Provider
 Atribute,Attribute
 Timetometastasis,Time to metastasis
-Supernatanttotalexposureduration
-Scriptaid100
-Biosourceprovider
-Transfertoroomtemptimepoint
-Manufactuer
-Arrayid
-Actualid
+Supernatanttotalexposureduration,Supernatant total exposure duration
+Scriptaid100,Scriptaid 100
+Biosourceprovider,Biosource provider
+Transfertoroomtemptimepoint,Transfer to room temp timepoint
+Manufactuer,Manufacturer
+Arrayid,Array identifier
+Actualid,Actual identifier
 Organismrelationship
-Targetedcelltype
-Donorid
-Taxonomyfiltering
-Sampletimepoint
-Sampledna
-Individualchromosomalabnormality
-Minpeptidelength
-Rotation5yrs
-Organismpart
-Weekdescription
-Organiccarbon
-Lymphnodestatus
-Avgesen9
-Uploaddate
-Eventdistantmetastases
-Pcrnegative
-Mothersecretorstatus
-Metastasisfreesurvivaldelay
-Obtainedby
-Diseaselocation
-Strainorline
-Guttimeseries
-Gastrointest
-Minpeptidelength
-Percentdcsignpositiveofmdc
-Seedlot
-Strainid
-Enddiastolicdiameter
-Lvcholesterol
-Antibodydescription
-Cariesfree0
-Cariesactive1
-Differentition
-Envrionmental
-Poisonivyoakallergies
-Strain2229
-Organismpartdatabase
-Testitem2concentration
-Bioprojectaccession
-Protocolcompliance
-Hormonotherapy
-Metastasisfreesurvivalevent
-Mosqbiteitchperceive
-Genotype2
-Othersupplements
-Swabresultmrsainhumans
-Maxcanopyheight9
-Immunprecipitation
-Riskgroup
-Rotation2yrs
-Cigarettebrand
-Studyid
-Coreid
-Develolpmental
-Size250125
-Column96well
-Bioprojectid
-Dailyexposuretime
-Otherspecialdiet
-Culturetemperature
-Cellsubtype
-Transdueced
-Materialsample
-Passagenumber
-Overthecounterfacialacne
-Supernatantexposuretype
-Celluar
-Strage
-Developement
-Exerciseindoorsoutdoors
-Seasonalallergies
-Fragsize
-Intensity116
-Comp4wks
-Countryorregion
-Anytimeseries
-Replicateindividual
-Birthyear
-Frameshifted
-Mislabeledprobabove0point90
-Primersequence
-Labexpid
-Doxcycline
-Percentrelativehumiditysoil100
-Transfertoroomtempdate
-Day8pm
-Samplenum
-Barcodeid
-Sampleregion
-Percentalpha4beta7positiveofcd4positive
-Organsim
-Genericdescription
-Percentweightchange
-Supernatanttestsubstanceconcentration
-Parentstrainbackground
-Numberofcd4positivecd69positive
-Optimaldebulking
-Fullsamplename
-Exposurerunid
-Fragantproductusetoday
-Indexprimer2
-Constuction
-Addsugar
-Inout
-Suborderorinfraorderorfamily
-Genoype
-Romidepsin10
-Romidepsin0025
-Deliverymethod
-Differentation
-Strainorli
-Sourcesamplebarcode
-Suscpetibility
-Weightchanges
-Startweek
-Develpomental
-Basecalling
-Nodespositive
-Her2pos
-Bmi185249
-Dietregime
-Superovulated
-Stopweek
-Romidepsin0002
-Diseasestaging
-Daysfasting
-Foodingut
-Testperiod
-Cellmassmorphology
-Ethinicity
-Inividuals
+Targetedcelltype,Targeted cell type
+Donorid,Donor identifier
+Taxonomyfiltering,Taxonomy filtering
+Sampletimepoint,Sample timepoint
+Sampledna,Sample dna
+Individualchromosomalabnormality,Individual chromosomal abnormality
+Minpeptidelength,Minimum peptide length
+Rotation5yrs,Rotation 5 years
+Organismpart,Organism part
+Weekdescription,Week description
+Organiccarbon,Organic carbon
+Lymphnodestatus,Lymphnode status
+Uploaddate,Upload date
+Eventdistantmetastases,Event distant metastases
+Pcrnegative,Pcr negative
+Mothersecretorstatus,Mother secretor status
+Metastasisfreesurvivaldelay,Metastasis free survival delay
+Obtainedby,Obtained by
+Diseaselocation,Disease location
+Strainorline,Strain or line
+Guttimeseries,Gut time series
+Gastrointest,Gastrointestinal
+Percentdcsignpositiveofmdc,Percent dc sign positive of mdc
+Strainid,Strain identifier
+Enddiastolicdiameter,End diastolic diameter
+Lvcholesterol,Lv cholesterol
+Antibodydescription,Antibody description
+Cariesfree0,Caries free 0
+Cariesactive1,Caries active 1
+Differentition,Differentiation
+Envrionmental,Environmental
+Poisonivyoakallergies,Poison ivy oak allergies
+Strain2229,Strain 2229
+Organismpartdatabase,Organism part database
+Testitem2concentration,Test item 2 concentration
+Bioprojectaccession,Bioproject accession
+Protocolcompliance,Protocol compliance
+Metastasisfreesurvivalevent,Metastasis free survival event
+Genotype2,Genotype 2
+Othersupplements,Other supplements
+Swabresultmrsainhumans,Swab result mrsa in humans
+Maxcanopyheight9,Max canopy height 9
+Immunprecipitation,Immunoprecipitation
+Riskgroup,Risk group
+Rotation2yrs,Rotation 2 years
+Cigarettebrand,Cigarette brand
+Studyid,Study identifier
+Coreid,Core identifier
+Develolpmental,Developmental
+Size250125,Size 250125
+Column96well,Column 96 well
+Bioprojectid,Bioproject identifier
+Dailyexposuretime,Daily exposure time
+Otherspecialdiet,Other special diet
+Culturetemperature,Culture temperature
+Cellsubtype,Cell subtype
+Transdueced,Transduced
+Materialsample,Material sample
+Passagenumber,Passage number
+Overthecounterfacialacne,Over the counter facial acne
+Supernatantexposuretype,Supernatant exposure type
+Celluar,Cellular
+Strage,Stage
+Developement,Development
+Exerciseindoorsoutdoors,Exercise indoors outdoors
+Seasonalallergies,Seasonal allergies
+Fragsize,Fragment size
+Intensity116,Intensity 116
+Countryorregion,Country or region
+Anytimeseries,Any time series
+Replicateindividual,Replicate individual
+Birthyear,Birth year
+Mislabeledprobabove0point90,Mislabeled probe above 0 point 90
+Primersequence,Primer sequence
+Doxcycline,Deoxcycline
+Percentrelativehumiditysoil100,Percent relative humidity soil 100
+Transfertoroomtempdate,Transfer to room temperature date
+Day8pm,Day 8pm
+Samplenum,Sample number
+Barcodeid,Barcode identifier
+Sampleregion,Sample region
+Percentalpha4beta7positiveofcd4positive,Percent alpha4 beta7 positive of cd4 positive
+Organsim,Organism
+Genericdescription,Generic description
+Percentweightchange,Percent weight change
+Supernatanttestsubstanceconcentration,Supernatant test substance concentration
+Parentstrainbackground,Parent strain background
+Numberofcd4positivecd69positive,Number of cd4 positive cd69 positive
+Optimaldebulking,Optimal debulking
+Fullsamplename,Full sample name
+Exposurerunid,Exposure run identifier
+Fragantproductusetoday,Fragant product use today
+Indexprimer2,Index primer 2
+Constuction,Construction
+Addsugar,Add sugar
+Inout,In out
+Suborderorinfraorderorfamily,Suborder or infraorder or family
+Genoype,Genotype
+Romidepsin10,Romidepsin 10
+Romidepsin0025,Romidepsin 0025
+Deliverymethod,Delivery method
+Differentation,Differentiation
+Strainorli,Strain or line
+Sourcesamplebarcode,Source sample barcode
+Suscpetibility,Susceptibility
+Weightchanges,Weight changes
+Startweek,Start week
+Develpomental,Developmental
+Basecalling,Base calling
+Nodespositive,Nodes positive
+Her2pos,Her2 positive
+Dietregime,Diet regime
+Stopweek,Stop week
+Romidepsin0002,Romidepsin 0002
+Diseasestaging,Disease staging
+Daysfasting,Days fasting
+Foodingut,Food in gut
+Testperiod,Test period
+Cellmassmorphology,Cell mass morphology
+Ethinicity,Ethnicity
+Inividuals,Individuals
 Day013714306090365
 Antibodystimulation
 Expsoure
@@ -1106,7 +1096,6 @@ Diarrhaattp
 Bmiclass
 Tumourgrading
 Diseasestatedatabase
-Organismpart
 Referencesample
 Coronalcaries
 Diseaseoutcome
