@@ -1,5 +1,7 @@
 import math
-import random 
+import random
+import datetime
+import csv
 
 
 """
@@ -8,6 +10,14 @@ for the book A Programmer's Guide to Data Mining"
 http://www.guidetodatamining.com
 
 """
+
+def get_timestamp():
+    """ 
+    Get timestamp of current date and time. 
+    """
+    timestamp = '{:%Y-%m-%d_%H-%M-%S}'.format(datetime.datetime.now())
+    return timestamp
+
 
 def getMedian(alist):
     """get median of list"""
@@ -161,12 +171,17 @@ class kClusterer:
 
     def showMembers(self):
         """Display the results"""
+        TIMESTAMP = get_timestamp()
+        outfile = open("/Users/twhetzel/git/biosamples-data-mining/data_results/clustering_result_data/kmeans_clustering_results-attr_type_values_profiling_results_"+TIMESTAMP+".csv", "w")
+
         for centroid in range(len(self.centroids)):
              print ("\n\nClass %i\n========" % centroid)
+             outfile.write("\n\nClass %i\n========" % centroid)
              for name in [self.data[0][i]  for i in range(len(self.data[0]))
                           if self.memberOf[i] == centroid]:
                  print (name)
-        
+                 outfile.write(name)
+        outfile.close()
 ##
 ## RUN THE K-MEANS CLUSTERER ON THE DOG DATA USING K = 3
 ###
@@ -174,6 +189,8 @@ class kClusterer:
 # km = kClusterer('dogs.csv', 3)
 
 # km = kClusterer('test_attr_value_profiles.csv', 6)
-km = kClusterer('test_attr_value_profiles_wTestAttrProfiles.csv', 9)
+TIMESTAMP = get_timestamp()
+# km = kClusterer('test_attr_value_profiles_wTestAttrProfiles.csv', 7)
+km = kClusterer('data_to_cluster-attr_type_values_profiling_results_2017-07-21_13-46-21.csv', 7)
 km.kCluster()
 km.showMembers()
