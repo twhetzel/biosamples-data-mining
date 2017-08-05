@@ -98,7 +98,7 @@ def read_attr_type_file():
 
 
 @timing
-def ols_search(attribute_type_dict, ontology=None):
+def ols_search(attribute_type_dict):
     """ 
     Get search results from OLS.
     """
@@ -121,11 +121,8 @@ def ols_search(attribute_type_dict, ontology=None):
     save_directory_path = "/Users/twhetzel/git/biosamples-data-mining/data_results"
     data_directory = "OLSSearchResults"
     completeName = os.path.join(save_directory_path, data_directory, filename)
-    
-    # open file to write data -> this will prob move outside loop when generating all data
+
     outfile = open(completeName, "w")
-    # csvout = unicodecsv.writer(outfile)
-    csvout = csv.writer(outfile)
 
     all_attribute_types = attribute_type_dict.keys()
     attr_type_count = 0
@@ -153,7 +150,7 @@ def ols_search(attribute_type_dict, ontology=None):
                 ols_result_obj[formatted_attr_type] = ols_term_result_obj
     
     # write ols search results for attr_trype to file
-    csvout.writerow([ols_result_obj])
+    json.dump(ols_result_obj, outfile)
     outfile.close()
 
 
