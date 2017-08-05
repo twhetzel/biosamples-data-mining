@@ -7,6 +7,8 @@ import csv, unicodecsv
 import itertools
 import os
 
+import google_sheets_quickstart
+
 
 class DataFormatter:
     """
@@ -40,19 +42,13 @@ class DataFormatter:
                 result_obj[label_key] = term_result[label_key]
             if iri_key in keys:
                 result_obj[iri_key] = term_result[iri_key]
+            result_obj["ontology_topics"] = ontology_topics[term_result[op_key]]
             results_list.append(result_obj)
 
         value_obj["number_of_ols_results"] = self.num_results
         value_obj["results"] = results_list
 
         return value_obj
-
-
-def get_ontology_topics():
-    """
-    Use Google Sheets API to get ontology topic data.
-    """
-    pass
 
 
 def timing(f):
@@ -76,6 +72,14 @@ def get_timestamp():
     """
     timestamp = '{:%Y-%m-%d_%H-%M-%S}'.format(datetime.datetime.now())
     return timestamp
+
+
+def get_ontology_topics():
+    """
+    Use Google Sheets API to get ontology topic data.
+    """
+    ontology_topics_dict = google_sheets_quickstart.get_google_sheets_data()
+    return ontology_topics_dict
 
 
 def read_attr_type_file():
@@ -198,6 +202,10 @@ if __name__ == '__main__':
     parser.add_argument('--attr_type_file_path', default="/Users/twhetzel/git/biosamples-data-mining/data_results/unique_attr_types_2017-06-20_14-31-00.csv")
     parser.add_argument('--num_attr_review', help="Number of Attributes to search OLS", default=16000)
     args = parser.parse_args()
+
+    # Get ontology topics from Google Sheet
+    global ontology_topics
+    ontology_topics = get_ontology_topics()
 
     # Get attr_type file with count of attr per type
     attribute_type_dict = read_attr_type_file()
