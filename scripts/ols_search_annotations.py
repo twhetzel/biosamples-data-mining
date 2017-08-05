@@ -8,6 +8,22 @@ import itertools
 import os
 
 
+class DataFormatter:
+    """
+    Format results into JSON for further analysis.
+    """
+
+    def __init__(self, data):
+        self.data = data
+
+
+def get_ontology_topics():
+    """
+    Use Google Sheets API to get ontology topic data.
+    """
+    pass
+
+
 def timing(f):
     """
     Create wrapper to report time of functions.
@@ -51,12 +67,32 @@ def read_attr_type_file():
 
 
 @timing
-def get_ols_results(attribute_type_dict, ontology=None):
+def ols_search(attribute_type_dict, ontology=None):
     """ 
     Get search results from OLS.
     """
 
+    # Search with entire attr type with &local=true&exact=true, 
+    params1 = "&local=true&exact=true"
+    # if no results found, search with each token (not stopword) &local=true&exact=true
+    # if no results, search with entire attr type, &local=true&exact=false
+    params2 = "&local=true&exact=false"
+    # if no results, search each token (not stopword) &local=true&exact=false
+
+    # Results: Get first 10 results returned
+    # format fields into list of Json objects
+
+
+    # prepare file for output of attribute value information
     TIMESTAMP = get_timestamp()
+    filename = "attr_type_ols_search_results_"+TIMESTAMP+".csv"
+    save_directory_path = "/Users/twhetzel/git/biosamples-data-mining/data_results"
+    data_directory = "OLSSearchResults"
+    completeName = os.path.join(save_directory_path, data_directory, filename)
+    
+    # open file to write data -> this will prob move outside loop when generating all data
+    outfile = open(completeName, "w")
+    csvout = unicodecsv.writer(outfile)
 
     all_attribute_types = attribute_type_dict.keys()
     attr_type_count = 0
@@ -64,45 +100,56 @@ def get_ols_results(attribute_type_dict, ontology=None):
     for attr_type in all_attribute_types:
         attr_type_count += 1
 
+        csvout.writerow(["Ontology", "Number of Results", attr_type, attribute_type_dict[attr_type]])
+
+        attribute_type_formatted = attr_type.lower()
+        attribute_type_formatted = attribute_type_formatted.replace(" ", "_")
+
         if attr_type_count <= int(args.num_attr_review):
             print "\n** Attribute Type: ("+ str(attr_type_count) +")", attr_type, attribute_type_dict[attr_type]
 
-            # prepare file for output of attribute value information
-            attribute_type_filename = attr_type.lower()
-            attribute_type_filename = attribute_type_filename.replace(" ", "_")
-            attribute_type_filename = attribute_type_filename+"_"+TIMESTAMP+".csv"
-            save_directory_path = os.getcwd() #assumes script is run from "data-results" directory
-            data_directory = "ols_search_results"
-            completeName = os.path.join(save_directory_path, data_directory, attribute_type_filename)
+            # get ols search results
+            terms_found = _get_results(attr_type, params1)
+            if terms_found != "None":
+                csvout.writerow([terms_found])
+            else:
+                terms_found = _get_results(attr_type, params2)
+                csvout.writerow([terms_found])
+
             
-            # open file to write data
-            outfile = open(completeName, "w")
-            csvout = unicodecsv.writer(outfile)
-
-            url = " http://www.ebi.ac.uk/ols/api/search?q={attr_type:s}&" \
-                "groupField=true&queryFields=label,synonym".format(attr_type=attr_type)
-
-            csvout.writerow(["Ontology", "Number of Results", attr_type, attribute_type_dict[attr_type]])
-
-            try:
-                response = requests.get(url)
-                if response.status_code == 200:
-                    results = json.loads(response.content)
-                    if results:
-                        facet_counts = results['facet_counts']['facet_fields']['ontology_prefix']
-
-                        d = dict(itertools.izip_longest(*[iter(facet_counts)] * 2, fillvalue=""))
-                        for k,v in d.iteritems():
-                            # print k,v
-                            csvout.writerow([k, v])
-                    else:
-                        # print "No reponse"
-                        csvout.writerow(["none", "none"])
-            except requests.exceptions.RequestException as e:
-                print e
-                csvout.writerow(e)
-    
     outfile.close()
+
+
+def _get_results(attr_type, params):
+    """
+    Get OLS Results for attr_type and OLS params
+    """
+    OLS_URL = " http://www.ebi.ac.uk/ols/api/search?q={attr_type:s}&" \
+                "{params}".format(attr_type=attr_type, params=params)
+
+    print "\n** ATTR-TYPE, PARAMS: ", attr_type, params
+
+    try:
+        response = requests.get(OLS_URL)
+        if response.status_code == 200:
+            results = json.loads(response.content)
+            if results:
+                num_results = results["response"]["numFound"]
+                if num_results > 0:
+                    # get first 10 results
+                    terms_found = results["response"]["docs"]
+                    print "** Terms found: ", terms_found
+                    return terms_found
+                else:
+                    print "** No terms found. Try params2."
+                    # call method with params2
+                    return "None"
+            else:
+                # print "No reponse"
+                csvout.writerow(["none", "none"])
+    except requests.exceptions.RequestException as e:
+        print e
+        csvout.writerow(e)
 
 
 if __name__ == '__main__':
@@ -118,7 +165,7 @@ if __name__ == '__main__':
     attribute_type_dict = read_attr_type_file()
 
     # Generate OLS Search results for Attribute Types 
-    get_ols_results(attribute_type_dict)
+    ols_search(attribute_type_dict)
 
 
 
