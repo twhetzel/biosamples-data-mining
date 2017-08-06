@@ -82,6 +82,7 @@ class Profiler:
                 return True
  
 
+    # EVALUATIONS FOR ATTRIBUTE TYPES
     # Mainly for Attribute types
     def check_for_sequence_mentions(self):
         formatted_value = self.data.lower().strip()
@@ -220,11 +221,20 @@ def profile_attribute_type_values(attribute_type_dict, all_file_names):
     outfile = open("attr_type_values_profiling_results_"+TIMESTAMP+".csv", "w")
     csvout = csv.writer(outfile)
 
-    csvout.writerow(["Count", "Attr", "Value Special Char(CNT)", "Value Special Char(%)", \
+    csvout.writerow(["Count", "Attr", \
+        "Attr Special Char(CNT)", "Attr Special Char(%)", \
+        "Attr Contains Nums (CNT)", "Attr Contains Nums(%)",  "Attr Starts wNumber(CNT)", "Attr Starts wNumber(%)", \
+        "Attr Only Nums(CNT)", "Attr Only Nums(%)", "Attr Boolean(CNT)", "Attr Boolean(%)", \
+        "Attr Unknown(cnt)", "Attr Unknown(%)", \
+        "Attr Age Related(CNT)", " Attr Age Related(%)", "Attr Antibody Related(CNT)", "Attr Antibody Related(%)", \
+        "Attr Weight Related(CNT)", "Attr Weight Related(%)", "Attr ID Related(CNT)", "Attr ID Related(%)", \
+        "Attr Clinical Related(CNT)", "Attr Clinical Related(%)", "Attr Disease Related(CNT)", "Attr Disease Related(%)", \
+        "Attr Sequence Related(CNT)", "Attr Sequence Related(%)", "Attr Seq Strings(CNT)", "Attr Seq Strings(%)", \
+        "Value Special Char(CNT)", "Value Special Char(%)", \
         "Value Contains Nums (CNT)", "Value Contains Nums(%)",  "Value Starts wNumber(CNT)", "Value Starts wNumber(%)", \
         "Value Only Nums(CNT)", "Value Only Nums(%)", "Value Boolean(CNT)", "Value Boolean(%)", \
         "Value Unknown(cnt)", "Value Unknown(%)", \
-        "Age Related(CNT)", "Age Related(%)", "Antibody Related(CNT)", "Antibody Related(%)", \
+        "Value Age Related(CNT)", "Value Age Related(%)", "Value Antibody Related(CNT)", "Value Antibody Related(%)", \
         "Value Weight Related(CNT)", "Value Weight Related(%)", "Value ID Related(CNT)", "Value ID Related(%)", \
         "Value Clinical Related(CNT)", "Value Clinical Related(%)", "Value Disease Related(CNT)", "Value Disease Related(%)", \
         "Value Sequence Related(CNT)", "Value Sequence Related(%)", "Value Seq Strings(CNT)", "Value Seq Strings(%)"])
