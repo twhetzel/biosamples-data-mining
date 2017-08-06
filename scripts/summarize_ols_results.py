@@ -29,11 +29,11 @@ def get_file_names():
     return all_file_names
 
 
-def load_ols_results():
+def load_ols_results(filename):
     """ 
     Read JSON file of OLS results. 
     """
-    with open(args.ols_result_file, 'r') as data_file:
+    with open(filename, 'r') as data_file:
         data = json.load(data_file)
     return data
 
@@ -97,6 +97,8 @@ if __name__ == '__main__':
     """
     print "Starting to summarize OLS search results..."
 
+    RESULTS_DIR = "/Users/twhetzel/git/biosamples-data-mining/data_results/OLSSearchResults/"
+
     # Commandline arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('--dir', default="/Users/twhetzel/git/biosamples-data-mining/data_results/ols_search_results/")
@@ -104,28 +106,30 @@ if __name__ == '__main__':
     parser.add_argument('--num_attr_review', help="Number of Attributes to analyze their values", default=16000)
     parser.add_argument('--ols_result_file', \
         default="/Users/twhetzel/git/biosamples-data-mining/data_results/OLSSearchResults/attr_type_ols_search_results_2017-08-05_23-04-05.csv", \
-        help="Full path to Ols result file to summarize.")
+        help="Full path to OLS result file to summarize.")
+    parser.add_argument('--ols_value_result_file',default=RESULTS_DIR+"values_ols_search_results_2017-08-06_22-02-37.csv")
     args = parser.parse_args()
 
 
     # all_file_names = get_file_names()
     
     # read in file of ols search results 
-    data = load_ols_results()
+    attr_type_filename = args.ols_result_file
+    attr_type_data = load_ols_results(attr_type_filename)
+
+    value_filename = args.ols_value_result_file
+    value_data = load_ols_results(value_filename)
+
 
     # generate summary of attr_type ols results
-    attr_type_overall_results = generate_attr_type_summary(data)
+    # attr_type_overall_results = generate_attr_type_summary(attr_type_data)
 
-
-    # read in file of ols search results 
-    # values_data = load_ols_values_results()
     
     # generate summary of value ols results
     # generate_values_summary(values_data)
     
 
     # find_attr_type_value_similarities()
-
     #NOTE: Search within lists of lists: 
     # https://stackoverflow.com/questions/1156087/python-search-in-lists-of-lists/1156114#1156114
 
