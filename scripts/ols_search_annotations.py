@@ -5,7 +5,7 @@ import requests, json
 import datetime
 import csv, unicodecsv
 import itertools
-import os
+import glob, os
 
 import google_sheets_quickstart
 
@@ -72,6 +72,23 @@ def get_timestamp():
     """
     timestamp = '{:%Y-%m-%d_%H-%M-%S}'.format(datetime.datetime.now())
     return timestamp
+
+
+def get_attr_type_value_file_names():
+    """
+    Get list of all filenames to examine.
+    """
+    all_value_file_names = []
+    cwd = os.getcwd()
+    # Change to dir with result files to analyze
+    os.chdir(args.attr_values_dir)
+    
+    for file in glob.glob("*.csv"):
+        all_value_file_names.append(file)
+
+    # Return to current working directory
+    os.chdir(cwd)
+    return all_value_file_names
 
 
 def get_ontology_topics():
@@ -158,12 +175,90 @@ def ols_search(attribute_type_dict):
     outfile.close()
 
 
-def _get_results(attr_type, params):
+@timing
+def ols_search_for_values(all_value_file_names):
+    """ 
+    Get search results from OLS for attribute type Values.
+    """
+
+    params1 = "local=true&exact=true"
+    params2 = "local=true&exact=false"
+    ols_result_obj = {}
+    # value_result_obj = {}
+
+    # prepare file for output of attribute value information
+    TIMESTAMP = get_timestamp()
+    filename = "values_ols_search_results_"+TIMESTAMP+".csv"
+    save_directory_path = "/Users/twhetzel/git/biosamples-data-mining/data_results"
+    data_directory = "OLSSearchResults"
+    completeName = os.path.join(save_directory_path, data_directory, filename)
+
+    outfile = open(completeName, "w")
+
+    all_attribute_types = attribute_type_dict.keys()
+    attr_type_count = 0
+
+    for attr_type in all_attribute_types:
+        attr_type_count += 1
+
+        # format attribute type the same as attribute filename 
+        formatted_attribute_type = attr_type.lower()
+        formatted_attribute_type = formatted_attribute_type.replace(" ", "_")
+        attribute_type_filename = formatted_attribute_type+".csv"
+
+        if attr_type_count <= int(args.num_attr_review):
+            print "\n** Attribute Type("+ str(attr_type_count) +"): ", attr_type, attribute_type_dict[attr_type]
+
+            # open file with values for ols search
+            with open(args.attr_values_dir+attribute_type_filename, "r") as attr_value_file:
+                
+                content = attr_value_file.readlines()
+                content = [x.strip(' \t\n\r') for x in content]
+                
+                value_result_list = []
+                for item in content:
+                    value_result_obj = {}
+                    # value_result_list = []
+                    value, val_count, iri = item.split('\t')
+
+                    # check if value is a number
+                    if all(c in "0123456789.-E" for c in value):
+                        # print "Value is a number."
+                        pass
+                    else:
+                        print "** Value: ", value
+                        # get ols search results
+                        NO_RESULTS = 0
+                        formatted_value = value.lower()
+                        formatted_value = formatted_value.replace(" ", "_")
+
+                        num_results, ols_term_result_obj = _get_results(value, params1)
+
+                        if num_results != NO_RESULTS:
+                            value_result_obj[formatted_value] = ols_term_result_obj
+                            # ols_result_obj[formatted_attribute_type] = value_result_obj
+                            value_result_list.append(value_result_obj)
+                        else:
+                            num_results, ols_term_result_obj = _get_results(value, params2)
+                            value_result_obj[formatted_value] = ols_term_result_obj
+                            # ols_result_obj[formatted_attribute_type] = value_result_obj
+                            value_result_list.append(value_result_obj)
+
+                    ols_result_obj[formatted_attribute_type] = value_result_list
+    
+    # write ols search results for attr_trype to file
+    json.dump(ols_result_obj, outfile)
+    outfile.close()
+
+
+def _get_results(search_value, params):
     """
     Get OLS Results for attr_type and OLS params
     """
-    OLS_URL = " http://www.ebi.ac.uk/ols/api/search?q={attr_type:s}&" \
-                "{params}".format(attr_type=attr_type, params=params)
+    OLS_URL = " http://wwwdev.ebi.ac.uk/ols/api/search?q={search_value:s}&" \
+                "{params}".format(search_value=search_value, params=params)
+
+    print "** Searching with ", search_value
 
     try:
         response = requests.get(OLS_URL)
@@ -174,7 +269,7 @@ def _get_results(attr_type, params):
                 # print "** NumResults: ", num_results
                 if num_results > 0:
                     terms_found = results["response"]["docs"]
-                    data_formatter = DataFormatter(attr_type, num_results, terms_found)
+                    data_formatter = DataFormatter(search_value, num_results, terms_found)
                     return (num_results, data_formatter.create_term_result_obj())
                 else:
                     # print "** No terms found. Try params2."
@@ -187,8 +282,8 @@ def _get_results(attr_type, params):
         else:
             print "** RESPONSE STATUS CODE: ", response.status_code
             if response.status_code == 500:
-                print "\n--> ReTry OLS...", attr_type, params, "\n"
-                _get_results(attr_type, params)
+                print "\n--> ReTry OLS...", search_value, params, "\n"
+                _get_results(search_value, params)
     except requests.exceptions.RequestException as e:
         print e
         # csvout.writerow(e)
@@ -199,6 +294,7 @@ if __name__ == '__main__':
 
     # Commandline arguments
     parser = argparse.ArgumentParser()
+    parser.add_argument('--attr_values_dir', default="/Users/twhetzel/git/biosamples-data-mining/data_results/attr_type_values-data_results/")
     parser.add_argument('--attr_type_file_path', default="/Users/twhetzel/git/biosamples-data-mining/data_results/unique_attr_types_2017-06-20_14-31-00.csv")
     parser.add_argument('--num_attr_review', help="Number of Attributes to search OLS", default=16000)
     args = parser.parse_args()
@@ -211,8 +307,13 @@ if __name__ == '__main__':
     attribute_type_dict = read_attr_type_file()
 
     # Generate OLS Search results for Attribute Types 
-    ols_search(attribute_type_dict)
+    # ols_search(attribute_type_dict)
 
+    # get list of attr_type value files
+    all_value_file_names = get_attr_type_value_file_names()
+
+    # Generate OLS Search results for Values
+    ols_search_for_values(all_value_file_names)
 
 
 
