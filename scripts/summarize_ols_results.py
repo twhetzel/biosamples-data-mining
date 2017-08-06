@@ -38,42 +38,57 @@ def load_ols_results():
     return data
 
 
-def generate_summary(data):
+def generate_attr_type_summary(data):
     """
     Summarize results for attr_type <-> topic mapping.
     """
     ols_results_directory = "/Users/twhetzel/git/biosamples-data-mining/data_results/OLSSearchResults/SummaryResults/"
     TIMESTAMP = get_timestamp()
-    outfile = open(ols_results_directory+"ols_summary_results"+TIMESTAMP+".csv", "w")
-    csvout = csv.writer(outfile)
+    # outfile = open(ols_results_directory+"ols_summary_results"+TIMESTAMP+".csv", "w")
+    # csvout = csv.writer(outfile)
 
+    attr_type_overall_results = {}
 
     attr_type_count = 0
     for attr_type, value_obj in data.iteritems():
-        ontology_topics_list = []
-        ontology_prefix_list = []
+        overall_result_list = []
+        result_list = []
+
+        # ontology_topics_list = []
+        # ontology_prefix_list = []
         attr_type_count += 1
 
         if value_obj != "None":
+            print "\n"
             for count, result in enumerate(value_obj["results"]):
                 ontology_prefix = value_obj["results"][count]["ontology_prefix"].encode('utf-8')
                 ontology_topics = value_obj["results"][count]["ontology_topics"]
                 formatted_ontology_topics = [item.encode('utf-8') for item in ontology_topics]
+                
+                result_list = [count, ontology_prefix,formatted_ontology_topics]
+                # print "** ResultList: ", result_list
 
-                ontology_prefix_list.append(ontology_prefix)
-                ontology_topics_list.append(formatted_ontology_topics)
+                overall_result_list.append(result_list)
 
-            print "\n** Attr_Type("+ str(attr_type_count) +"): ", attr_type
-            print "** Topics: ", ontology_topics_list
-            print "** Prefix: ", ontology_prefix_list
-            csvout.writerow([attr_type, ontology_prefix_list, ontology_topics_list])
+                # ontology_prefix_list.append(ontology_prefix)
+                # ontology_topics_list.append(formatted_ontology_topics)
+
+            print "** Attr_Type("+ str(attr_type_count) +"): ", attr_type
+            print "** Results: ", overall_result_list
+            # print "** Topics: ", ontology_topics_list
+            # print "** Prefix: ", ontology_prefix_list
+            # csvout.writerow([attr_type, overall_result_list])
+            attr_type_overall_results[attr_type] = overall_result_list
         else:
             print "\n** Attr_Type("+ str(count) +"): ", attr_type
-            print "** Topics: ", value_obj
-            print "** Prefix: ", value_obj
-            csvout.writerow([attr_type, value_obj, value_obj])
+            print "** Results: ", value_obj
+            # print "** Topics: ", value_obj
+            # print "** Prefix: ", value_obj
+            # csvout.writerow([attr_type, value_obj])
+            attr_type_overall_results[attr_type] = [0, [value_obj], [value_obj]]
 
-    outfile.close()
+    # outfile.close()
+    return attr_type_overall_results
 
 
 if __name__ == '__main__':
@@ -98,10 +113,21 @@ if __name__ == '__main__':
     # read in file of ols search results 
     data = load_ols_results()
 
-    # summarize results, for each attribute type return csv list of attr_type and topics
-    # if exact match, give 100% to match/topic, if mutl results, give x/10*100 to each match
-    generate_summary(data)
+    # generate summary of attr_type ols results
+    attr_type_overall_results = generate_attr_type_summary(data)
+
+
+    # read in file of ols search results 
+    # values_data = load_ols_values_results()
     
+    # generate summary of value ols results
+    # generate_values_summary(values_data)
+    
+
+    # find_attr_type_value_similarities()
+
+    #NOTE: Search within lists of lists: 
+    # https://stackoverflow.com/questions/1156087/python-search-in-lists-of-lists/1156114#1156114
 
 
     # Examples to parse "data"
