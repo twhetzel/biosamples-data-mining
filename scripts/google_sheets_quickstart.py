@@ -1,7 +1,7 @@
 # Docs: https://developers.google.com/sheets/api/quickstart/python
 # Configured with Google Project 
 
-from __future__ import print_function
+# from __future__ import print_function
 import httplib2
 import os
 
@@ -10,11 +10,11 @@ from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
+# try:
+#     import argparse
+#     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+# except ImportError:
+#     flags = None
 
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/sheets.googleapis.com-python-quickstart.json
@@ -48,7 +48,7 @@ def get_credentials():
             credentials = tools.run_flow(flow, store, flags)
         else: # Needed only for compatibility with Python 2.6
             credentials = tools.run(flow, store)
-        print('Storing credentials to ' + credential_path)
+        print 'Storing credentials to ' + credential_path
     return credentials
 
 
@@ -75,11 +75,13 @@ def get_google_sheets_data():
         spreadsheetId=spreadsheetId, range=rangeName).execute()
     values = result.get('values', [])
 
+    ontology_topics = {}
+
     if not values:
         print('No data found.')
     else:
-        print('Ontology Name, Prefix, Category')
-        print(values)
+        # print('Ontology Name, Prefix, Category')
+        # print(values)
         
         for row in values:
             # Print columns A and E, which correspond to indices 0 and 4.
@@ -89,9 +91,14 @@ def get_google_sheets_data():
             ontology_name = row.pop(0)
             ontology_prefix = row.pop(0)
             topics = row
-            print('{0}, {1}, {2}'.format(ontology_name, ontology_prefix, topics))
+            # print('{0}, {1}, {2}'.format(ontology_name, ontology_prefix, topics))
+            ontology_topics[ontology_prefix] = topics
+
+    return ontology_topics
 
 
-if __name__ == '__main__':
-    get_google_sheets_data()
+# if __name__ == '__main__':
+#     ontology_topics = get_google_sheets_data()
+    # print(ontology_topics)
+
 
