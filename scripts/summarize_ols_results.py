@@ -206,10 +206,10 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
                 print "** ML: ", all_match_pairs
                 
                 if found_match:
-                    csvout.writerow([attr_type, value, all_match_pairs])
+                    csvout.writerow([attr_type, value.encode('utf-8'), all_match_pairs])
                 else:
                     print "No matching ontology results for: ", attr_type, value
-                    csvout.writerow([attr_type, value, "No Matches"])
+                    csvout.writerow([attr_type, value.encode('utf-8'), "No Matches"])
         else:
             # print "** Attr_type not in VOR"
             pass
