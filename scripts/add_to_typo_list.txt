@@ -1058,20 +1058,20 @@ Testperiod,Test period
 Cellmassmorphology,Cell mass morphology
 Ethinicity,Ethnicity
 Inividuals,Individuals
-Day013714306090365
-Antibodystimulation
-Expsoure
-Motherid
-Prognosticsubgroup
-Oganismpart
-Supernatantexposureduration
-Yearcollected
-Diseasefreeaftertwoyears
-Hospdays
-Swimmingpoolhottubuse
-Facialcosmetics
-Total16s
-Percentdcsignpositiveofmonocytes
+Day013714306090365,Day 013714306090365
+Antibodystimulation,Antibody stimulation
+Expsoure,Exposure
+Motherid,Mother identifier
+Prognosticsubgroup,Prognostic subgroup
+Oganismpart,Oganism part
+Supernatantexposureduration,Supernatant exposure duration
+Yearcollected,Year collected
+Diseasefreeaftertwoyears,Disease free after two years
+Hospdays,Hospital days
+Swimmingpoolhottubuse,Swimming pool hot tub use
+Facialcosmetics,Facial cosmetics
+Total16s,Total 16s
+Percentdcsignpositiveofmonocytes,Percent dc sign positive of monocytes
 Imortalization
 Insertlength
 Samplecode
@@ -1686,7 +1686,7 @@ Mate2
 FGSC2489
 Tnm6th
 Recurrence0
-Talleststem9
+Talleststem9,Tallest stem 9
 Dource
 Lemamb1091
 Unfx1
