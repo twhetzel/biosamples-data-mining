@@ -8,6 +8,8 @@ import datetime
 import matplotlib.pyplot as plt
 import numpy as np
 
+import enchant
+
 
 # Methods
 def get_timestamp():
@@ -103,6 +105,8 @@ def calculate_token_count_distribution(all_attr_distribution):
     all_attr_type_count_list = [] # List of all counts of attribute tokens
     all_attr_token_length_list = [] # List of all lengths of attribute tokens
 
+    all_tokens = []
+
     for attr_type_obj in all_attr_distribution:
         key = attr_type_obj.keys()
         token_count = attr_type_obj[key[0]]["token_count"]
@@ -111,7 +115,12 @@ def calculate_token_count_distribution(all_attr_distribution):
         for token_key in attr_type_obj[key[0]]["token_lengths"]:
             for token,token_length in token_key.iteritems():
                 all_attr_token_length_list.append(token_length)
+                all_tokens.append(token)
 
+    # print "** AT: ", all_tokens, len(all_tokens)
+    
+    # Check tokens for mispellings
+    # _check_for_typos(all_tokens)
 
     # Prepare to plot token count distribution
     # Convert to ndarray, https://docs.scipy.org/doc/numpy/user/basics.creation.html
@@ -160,6 +169,31 @@ def _plot_attr_token_lengths(x_token_lengths):
     # Tweak spacing to prevent clipping of ylabel
     fig.tight_layout()
     plt.show()
+
+
+def _check_for_typos(all_tokens):
+    """
+    Use enchant to check for typos. 
+    NOTE: Can use personal word list and Dict together:http://pythonhosted.org/pyenchant/tutorial.html
+    """
+    d = enchant.DictWithPWL("en_US","mywords.txt")
+    known_typo_list = enchant.DictWithPWL("en_US", "add_to_typo_list.txt")
+    unknown_word_list = enchant.DictWithPWL("en_US", "unknown_words.txt")
+
+    counter = 0
+    incorrect_token_list = []
+    for token in all_tokens:
+        counter += 1
+        is_correct = d.check(token)
+        known_typo = known_typo_list.check(token)
+        unknown_word = unknown_word_list.check(token)
+
+        if not is_correct and not known_typo and not unknown_word and len(token) > 4:
+            # print counter, "Token: ", token, ", IC: ", is_correct, "KT: ", known_typo, "UW: ", unknown_word, "LEN: ", len(token)
+            print token
+            if token not in incorrect_token_list:
+                incorrect_token_list.append(token)
+    print "** Num Incorrect: ", len(incorrect_token_list)
 
 
 if __name__ == '__main__':
