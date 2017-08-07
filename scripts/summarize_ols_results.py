@@ -2,6 +2,7 @@ import argparse
 import json
 import datetime
 import csv, os
+from collections import Counter
 
 
 def get_timestamp():
@@ -176,7 +177,7 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
     outfile = open(completeName, "w")
     csvout = csv.writer(outfile)
 
-    csvout.writerow(["AttributeType", "Value", "Ontology Matches"])
+    csvout.writerow(["AttributeType", "Value", "Summary", "Ontology Matches"])
 
     # Iterate through attr_type_overall_results to get key and list of ols results
     for attr_type, at_results in attr_type_overall_results.iteritems():
@@ -197,6 +198,8 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
                     search = val_results[1]
                     # print "** SEARCH: ", search
 
+                    # compare two lists for matches 
+                    # https://stackoverflow.com/questions/1156087/python-search-in-lists-of-lists/1156114#1156114
                     for sublist in at_results:
                         if sublist[1] == search:
                             print "Found it!", sublist, val_results
@@ -204,12 +207,14 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
                             match_pair = [sublist, val_results]
                             all_match_pairs.append(match_pair)
                 print "** ML: ", all_match_pairs
+
+                summary = _get_most_frequent_ontology(all_match_pairs)
                 
                 if found_match:
-                    csvout.writerow([attr_type, value.encode('utf-8'), all_match_pairs])
+                    csvout.writerow([attr_type, value.encode('utf-8'), summary, all_match_pairs])
                 else:
                     print "No matching ontology results for: ", attr_type, value
-                    csvout.writerow([attr_type, value.encode('utf-8'), "No Matches"])
+                    csvout.writerow([attr_type, value.encode('utf-8'), "No Matches", "No Matches"])
         else:
             # print "** Attr_type not in VOR"
             pass
@@ -219,6 +224,18 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
     # "\n** DATA2: ", value_overall_results["vioscreen_alcohol"]
     outfile.close()
 
+
+def _get_most_frequent_ontology(matches):
+    """
+    Given list of list of matches, find most frequently found ontology.
+    Example data: [[[5, 'CLO', ['Cell']], [0, 'CLO', ['Cell']]], [[6, 'CLO', ['Cell']], [0, 'CLO', ['Cell']]], [[7, 'CLO', ['Cell']], [0, 'CLO', ['Cell']]], [[8, 'CLO', ['Cell']], [0, 'CLO', ['Cell']]], [[9, 'CLO', ['Cell']], [0, 'CLO', ['Cell']]]]
+    """
+    ontology_match_list = []
+    for ontology in enumerate(matches):
+        ontology_match_list.append(ontology[1][1][1])
+    summary_counter = Counter(ontology_match_list)
+    summary = ", ".join('{} {}'.format(k, v) for k, v in summary_counter.iteritems())
+    return summary
 
 
 if __name__ == '__main__':
@@ -276,8 +293,6 @@ if __name__ == '__main__':
     # u'double_barcodes': {u'result1': [[],[]]}}
     
     # Find ontology mapping similarities between attr_type and values
-    #NOTE: Search within lists of lists: 
-    # https://stackoverflow.com/questions/1156087/python-search-in-lists-of-lists/1156114#1156114
     find_attr_type_value_similarities(attr_type_overall_results, value_overall_results)
 
 
