@@ -207,7 +207,8 @@ def ols_search_for_values(all_value_file_names):
         attribute_type_filename = formatted_attribute_type+".csv"
 
         if attr_type_count <= int(args.num_attr_review):
-            print "\n** Attribute Type("+ str(attr_type_count) +"): ", attr_type, attribute_type_dict[attr_type]
+            print "\n** Attribute Type("+ str(attr_type_count) +"): ", attr_type, \
+            "-- UniqValues: ",attribute_type_dict[attr_type]
 
             # open file with values for ols search
             with open(args.attr_values_dir+attribute_type_filename, "r") as attr_value_file:
@@ -215,36 +216,48 @@ def ols_search_for_values(all_value_file_names):
                 content = attr_value_file.readlines()
                 content = [x.strip(' \t\n\r') for x in content]
                 
+                line_count = 0
                 value_result_list = []
+                
                 for item in content:
-                    value_result_obj = {}
-                    # value_result_list = []
-                    value, val_count, iri = item.split('\t')
+                    line_count += 1
+                    if line_count < 1000:
+                        value_result_obj = {}
+                        # value_result_list = []
+                        value, val_count, iri = item.split('\t')
 
-                    # check if value is a number
-                    if all(c in "0123456789.-E" for c in value):
-                        # print "Value is a number."
-                        pass
-                    else:
-                        print "** Value: ", value
-                        # get ols search results
-                        NO_RESULTS = 0
-                        formatted_value = value.lower()
-                        formatted_value = formatted_value.replace(" ", "_")
-
-                        num_results, ols_term_result_obj = _get_results(value, params1)
-
-                        if num_results != NO_RESULTS:
-                            value_result_obj[formatted_value] = ols_term_result_obj
-                            # ols_result_obj[formatted_attribute_type] = value_result_obj
-                            value_result_list.append(value_result_obj)
+                        # check if value is a number
+                        if all(c in "-0123456789.E/" for c in value):
+                            print "\n-- Skip searching with ", value
+                            pass
                         else:
-                            num_results, ols_term_result_obj = _get_results(value, params2)
-                            value_result_obj[formatted_value] = ols_term_result_obj
-                            # ols_result_obj[formatted_attribute_type] = value_result_obj
-                            value_result_list.append(value_result_obj)
+                            print "** Value("+str(line_count)+")", value ,\
+                            "-- Attribute Type("+str(attr_type_count)+")", str(attr_type)
+                            
+                            # get ols search results
+                            NO_RESULTS = 0
+                            formatted_value = value.lower()
+                            formatted_value = formatted_value.replace(" ", "_")
 
-                    ols_result_obj[formatted_attribute_type] = value_result_list
+                            if len(value) < 100:
+                                print "** LV: ",len(value)
+                                num_results, ols_term_result_obj = _get_results(value, params1)
+                            else:
+                                pass
+
+                            if num_results != NO_RESULTS:
+                                print "*** Found values for ", value
+                                value_result_obj[formatted_value] = ols_term_result_obj
+                                # ols_result_obj[formatted_attribute_type] = value_result_obj
+                                value_result_list.append(value_result_obj)
+                            else:
+                                num_results, ols_term_result_obj = _get_results(value, params2)
+                                print "*** Found values for ", value
+                                value_result_obj[formatted_value] = ols_term_result_obj
+                                # ols_result_obj[formatted_attribute_type] = value_result_obj
+                                value_result_list.append(value_result_obj)
+
+                        ols_result_obj[formatted_attribute_type] = value_result_list
     
     # write ols search results for attr_trype to file
     json.dump(ols_result_obj, outfile)
@@ -258,7 +271,8 @@ def _get_results(search_value, params):
     OLS_URL = " http://wwwdev.ebi.ac.uk/ols/api/search?q={search_value:s}&" \
                 "{params}".format(search_value=search_value, params=params)
 
-    print "** Searching with ", search_value
+    # print "*** Searching with ",search_value
+    # print "*** OLS_URL: ", OLS_URL
 
     try:
         response = requests.get(OLS_URL)
@@ -296,7 +310,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--attr_values_dir', default="/Users/twhetzel/git/biosamples-data-mining/data_results/attr_type_values-data_results/")
     parser.add_argument('--attr_type_file_path', default="/Users/twhetzel/git/biosamples-data-mining/data_results/unique_attr_types_2017-06-20_14-31-00.csv")
-    parser.add_argument('--num_attr_review', help="Number of Attributes to search OLS", default=16000)
+    parser.add_argument('--num_attr_review', default=16000, help="Number of Attributes to search OLS")
     args = parser.parse_args()
 
     # Get ontology topics from Google Sheet
@@ -309,7 +323,7 @@ if __name__ == '__main__':
     # Generate OLS Search results for Attribute Types 
     # ols_search(attribute_type_dict)
 
-    # get list of attr_type value files
+    # Get list of attr_type value files
     all_value_file_names = get_attr_type_value_file_names()
 
     # Generate OLS Search results for Values
