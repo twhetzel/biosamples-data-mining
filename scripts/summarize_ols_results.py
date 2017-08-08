@@ -167,7 +167,7 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
     """
     Find ontology mapping matches between attr_type and values for that attr_type.
     """
-    # prepare file for output of attribute value information
+
     TIMESTAMP = get_timestamp()
     filename = "summary_ols_search_results_"+TIMESTAMP+".csv"
     save_directory_path = "/Users/twhetzel/git/biosamples-data-mining/data_results"
@@ -177,7 +177,7 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
     outfile = open(completeName, "w")
     csvout = csv.writer(outfile)
 
-    csvout.writerow(["AttributeType", "Value", "Summary", "Ontology Matches"])
+    csvout.writerow(["AttributeType", "Value", "Summary", "Ontology Matches", "AT-OntologyHits", "VAL-OntologyHits"])
 
     # Iterate through attr_type_overall_results to get key and list of ols results
     for attr_type, at_results in attr_type_overall_results.iteritems():
@@ -211,10 +211,12 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
                 summary = _get_most_frequent_ontology(all_match_pairs)
                 
                 if found_match:
-                    csvout.writerow([attr_type, value.encode('utf-8'), summary, all_match_pairs])
+                    csvout.writerow([attr_type, value.encode('utf-8'), summary, \
+                        all_match_pairs, attr_type_overall_results, value_overall_results])
                 else:
                     print "No matching ontology results for: ", attr_type, value
-                    csvout.writerow([attr_type, value.encode('utf-8'), "No Matches", "No Matches"])
+                    csvout.writerow([attr_type, value.encode('utf-8'), "No Matches", "No Matches", \
+                        all_match_pairs, attr_type_overall_results, value_overall_results])
         else:
             # print "** Attr_type not in VOR"
             pass
