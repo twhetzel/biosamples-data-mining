@@ -1,6 +1,6 @@
 import argparse
 from functools import wraps
-from time import time
+from time import time, sleep
 import requests, json
 import datetime
 import csv, unicodecsv
@@ -221,13 +221,13 @@ def ols_search_for_values(all_value_file_names):
                 
                 for item in content:
                     line_count += 1
-                    if line_count < 1000:
+                    if line_count < 100:
                         value_result_obj = {}
                         # value_result_list = []
                         value, val_count, iri = item.split('\t')
 
                         # check if value is a number
-                        if all(c in "-0123456789.E/" for c in value):
+                        if all(c in "-0123456789.E/\%" for c in value):
                             print "\n-- Skip searching with ", value
                             pass
                         else:
@@ -241,6 +241,7 @@ def ols_search_for_values(all_value_file_names):
 
                             if len(value) < 100:
                                 print "** LV: ",len(value)
+                                sleep(.2)
                                 num_results, ols_term_result_obj = _get_results(value, params1)
                             else:
                                 pass
@@ -251,6 +252,7 @@ def ols_search_for_values(all_value_file_names):
                                 # ols_result_obj[formatted_attribute_type] = value_result_obj
                                 value_result_list.append(value_result_obj)
                             else:
+                                sleep(.5)
                                 num_results, ols_term_result_obj = _get_results(value, params2)
                                 print "*** Found values for ", value
                                 value_result_obj[formatted_value] = ols_term_result_obj
@@ -268,7 +270,7 @@ def _get_results(search_value, params):
     """
     Get OLS Results for attr_type and OLS params
     """
-    OLS_URL = " http://wwwdev.ebi.ac.uk/ols/api/search?q={search_value:s}&" \
+    OLS_URL = " http://www.ebi.ac.uk/ols/api/search?q={search_value:s}&" \
                 "{params}".format(search_value=search_value, params=params)
 
     # print "*** Searching with ",search_value
@@ -295,9 +297,9 @@ def _get_results(search_value, params):
                 pass
         else:
             print "** RESPONSE STATUS CODE: ", response.status_code
-            if response.status_code == 500:
-                print "\n--> ReTry OLS...", search_value, params, "\n"
-                _get_results(search_value, params)
+            # if response.status_code == 500 or response.status_code == 400:
+            print "\n--> ReTry OLS...", search_value, params, "\n"
+            _get_results(search_value, params)
     except requests.exceptions.RequestException as e:
         print e
         # csvout.writerow(e)
