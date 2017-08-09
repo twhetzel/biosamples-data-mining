@@ -206,7 +206,7 @@ def ols_search_for_values(all_value_file_names):
         formatted_attribute_type = formatted_attribute_type.replace(" ", "_")
         attribute_type_filename = formatted_attribute_type+".csv"
 
-        if attr_type_count <= int(args.num_attr_review):
+        if attr_type_count >= int(args.restart_attr_count) and attr_type_count <= int(args.num_attr_review):
             print "\n** Attribute Type("+ str(attr_type_count) +"): ", attr_type, \
             "-- UniqValues: ",attribute_type_dict[attr_type]
 
@@ -313,6 +313,7 @@ if __name__ == '__main__':
     parser.add_argument('--attr_values_dir', default="/Users/twhetzel/git/biosamples-data-mining/data_results/attr_type_values-data_results/")
     parser.add_argument('--attr_type_file_path', default="/Users/twhetzel/git/biosamples-data-mining/data_results/unique_attr_types_2017-06-20_14-31-00.csv")
     parser.add_argument('--num_attr_review', default=16000, help="Number of Attributes to search OLS")
+    parser.add_argument('--restart_attr_count', default=0, help="Count of which attribute to re-start OLS search at.")
     args = parser.parse_args()
 
     # Get ontology topics from Google Sheet
