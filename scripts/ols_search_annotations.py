@@ -221,11 +221,11 @@ def ols_search_for_values(all_value_file_names):
                 
                 line_count = 0
                 value_result_list = []
-                retry_count = 0
+                # retry_count = 0
 
                 for item in content:
                     line_count += 1
-                    if line_count < 100:
+                    if line_count < 100:  #is this still needed?
                         value_result_obj = {}
                         # value_result_list = []
                         value, val_count, iri = item.split('\t')
@@ -245,10 +245,13 @@ def ols_search_for_values(all_value_file_names):
 
                             if len(value) < 100:
                                 # print "** LV: ",len(value)
-                                sleep(.2)
-                                num_results, ols_term_result_obj = _get_results(value, params1, retry_count)
+                                # sleep(.02)
+                                num_results, ols_term_result_obj = _get_results(value, params1)
+                                # print "** OTRO: ", num_results, type(ols_term_result_obj), ols_term_result_obj
                             else:
-                                pass
+                                # print "** VAL TOO LONG **"
+                                value = value[:100]
+                                num_results, ols_term_result_obj = _get_results(value, params1)
 
                             if num_results != NO_RESULTS:
                                 print "*** Found values for ", value
@@ -256,8 +259,9 @@ def ols_search_for_values(all_value_file_names):
                                 # ols_result_obj[formatted_attribute_type] = value_result_obj
                                 value_result_list.append(value_result_obj)
                             else:
-                                sleep(.5)
-                                num_results, ols_term_result_obj = _get_results(value, params2, retry_count)
+                                # sleep(.02)
+                                # print "** Else statement-retry count: ", retry_count
+                                num_results, ols_term_result_obj = _get_results(value, params2)
                                 print "*** Found values for ", value
                                 value_result_obj[formatted_value] = ols_term_result_obj
                                 # ols_result_obj[formatted_attribute_type] = value_result_obj
@@ -270,7 +274,7 @@ def ols_search_for_values(all_value_file_names):
     outfile.close()
 
 
-def _get_results(search_value, params, retry_count):
+def _get_results(search_value, params):
     """
     Get OLS Results for attr_type and OLS params
     """
@@ -280,7 +284,10 @@ def _get_results(search_value, params, retry_count):
 
     # print "*** Searching with ",search_value
     # print "*** OLS_URL: ", OLS_URL
-    print "** RC: ", retry_count
+    # print "** RC: ", retry_count
+
+    # foobar = "{'no_result_found': [{ 'none': { 'results': [{ 'iri': 'none', 'ontology_topics': ['none'], 'ontology_prefix': 'none', 'label': 'none' }] }"
+    # print "** FB: ", json.dumps(foobar)
 
     try:
         response = requests.get(OLS_URL)
@@ -302,16 +309,16 @@ def _get_results(search_value, params, retry_count):
                 # csvout.writerow(["none", "none"])
                 pass
         else:
-            retry_count += 1
-            print "** RC: ", retry_count
-            print "** RESPONSE STATUS CODE: ", response.status_code
-            # if response.status_code == 500 or response.status_code == 400:
-            if retry_count <= 5:
-                print "\n--> ReTry OLS...", search_value, params, "\n"
-                _get_results(search_value, params)
-            else:
-                print "Skip getting OLS results."
-                return (num_results,"None")
+            # retry_count += 1
+            # print "** RC-ELSE: ", retry_count
+            # print "** RESPONSE STATUS CODE: ", response.status_code
+            # # if response.status_code == 500 or response.status_code == 400:
+            # if retry_count <= 5:
+            print "\n--> ReTry OLS...", search_value, params, "\n"
+            _get_results(search_value, params)
+            # else:
+            #     print "Skip getting OLS results."
+            #     return ("0", foobar)
     except requests.exceptions.RequestException as e:
         print e
         # csvout.writerow(e)
