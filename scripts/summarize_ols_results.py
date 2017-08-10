@@ -1,8 +1,25 @@
 import argparse
 import json
 import datetime
+from time import time
 import csv, os
 from collections import Counter
+from functools import wraps
+
+
+def timing(f):
+    """
+    Create wrapper to report time of functions.
+    """
+    @wraps(f)
+    def wrap(*args, **kw):
+        ts = time()
+        result = f(*args, **kw)
+        te = time()
+        print 'Function: %r took: %2.2f sec, %2.2f min' % \
+          (f.__name__, te-ts, (te-ts)/60)
+        return result
+    return wrap
 
 
 def get_timestamp():
@@ -88,7 +105,7 @@ def generate_attr_type_summary(data):
             # print "** Topics: ", value_obj
             # print "** Prefix: ", value_obj
             # csvout.writerow([attr_type, value_obj])
-            attr_type_overall_results[attr_type] = [[0, [value_obj], [value_obj]]]
+            attr_type_overall_results[attr_type] = [[-1, [value_obj], [value_obj]]]
 
     # outfile.close()
     return attr_type_overall_results
@@ -157,12 +174,13 @@ def generate_values_summary(data):
             # print "** Topics: ", value_obj
             # print "** Prefix: ", value_obj
             # csvout.writerow([attr_type, value_obj])
-            value_overall_results[attr_type] = {u'None': [[0, 'None', ['None']]]}
+            value_overall_results[attr_type] = {u'None': [[-1, 'None', ['None']]]}
 
     # outfile.close()
     return value_overall_results
 
 
+@timing
 def find_attr_type_value_similarities(attr_type_overall_results, value_overall_results):
     """
     Find ontology mapping matches between attr_type and values for that attr_type.
@@ -180,10 +198,10 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
     csvout.writerow(["AttributeType", "Value", "Summary", "Ontology Matches", "AT-OntologyHits", "VAL-OntologyHits"])
 
     # Iterate through attr_type_overall_results to get key and list of ols results
-    for attr_type, at_results in attr_type_overall_results.iteritems():
+    for attr_type, attr_results in attr_type_overall_results.iteritems():
         # Check if this attr_type has value data
         if str(attr_type) in value_overall_results:
-            print "\n** ATOR: ", attr_type #, at_results
+            print "\n** ATOR: ", attr_type #, attr_results
             # print "** VOR-MAP: ", value_overall_results[str(attr_type)]
     
             
@@ -200,7 +218,7 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
 
                     # compare two lists for matches 
                     # https://stackoverflow.com/questions/1156087/python-search-in-lists-of-lists/1156114#1156114
-                    for sublist in at_results:
+                    for sublist in attr_results:
                         if sublist[1] == search:
                             print "Found it!", sublist, val_results
                             found_match = True
@@ -208,15 +226,16 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
                             all_match_pairs.append(match_pair)
                 print "** ML: ", all_match_pairs
 
-                summary = _get_most_frequent_ontology(all_match_pairs)
+                pair = True
+                summary = _get_most_frequent_ontology(all_match_pairs, pair)
                 
                 if found_match:
                     csvout.writerow([attr_type, value.encode('utf-8'), summary, \
-                        all_match_pairs, attr_type_overall_results, value_overall_results])
+                        all_match_pairs, attr_results, value_results])
                 else:
                     print "No matching ontology results for: ", attr_type, value
-                    csvout.writerow([attr_type, value.encode('utf-8'), "No Matches", "No Matches", \
-                        all_match_pairs, attr_type_overall_results, value_overall_results])
+                    csvout.writerow([attr_type, value.encode('utf-8'), "No Matches", \
+                        "No Matches", attr_results, value_results])
         else:
             # print "** Attr_type not in VOR"
             pass
@@ -227,16 +246,21 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
     outfile.close()
 
 
-def _get_most_frequent_ontology(matches):
+def _get_most_frequent_ontology(matches, pair):
     """
     Given list of list of matches, find most frequently found ontology.
     Example data: [[[5, 'CLO', ['Cell']], [0, 'CLO', ['Cell']]], [[6, 'CLO', ['Cell']], [0, 'CLO', ['Cell']]], [[7, 'CLO', ['Cell']], [0, 'CLO', ['Cell']]], [[8, 'CLO', ['Cell']], [0, 'CLO', ['Cell']]], [[9, 'CLO', ['Cell']], [0, 'CLO', ['Cell']]]]
     """
     ontology_match_list = []
     for ontology in enumerate(matches):
-        ontology_match_list.append(ontology[1][1][1])
-    summary_counter = Counter(ontology_match_list)
-    summary = ", ".join('{} {}'.format(k, v) for k, v in summary_counter.iteritems())
+        if pair:
+            ontology_match_list.append(ontology[1][1][1])
+        else:
+            ontology_match_list.append(ontology[1][1])
+    # summary_counter = Counter(ontology_match_list)
+    # summary = ", ".join('{} {}'.format(k, v) for k, v in summary_counter.iteritems())
+    summary = Counter(ontology_match_list).most_common()
+    print "** SummaryMatch: ", summary
     return summary
 
 
@@ -257,7 +281,7 @@ if __name__ == '__main__':
         default=RESULTS_DIR+"attr_type_ols_search_results_2017-08-05_23-04-05.csv", \
         help="Full path to OLS result file to summarize.")
     parser.add_argument('--value_ols_result_file', \
-        default=RESULTS_DIR+"values_ols_search_results_2017-08-06_22-02-37.csv")
+        default=RESULTS_DIR+"values_ols_search_results_2017-08-09_16-05-06.csv")  #"values_ols_search_results_2017-08-06_22-02-37.csv")
     args = parser.parse_args()
 
     # Is this stil needed?
