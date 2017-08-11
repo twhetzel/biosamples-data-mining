@@ -105,7 +105,7 @@ def generate_attr_type_summary(data):
             # print "** Topics: ", value_obj
             # print "** Prefix: ", value_obj
             # csvout.writerow([attr_type, value_obj])
-            attr_type_overall_results[attr_type] = [[-1, [value_obj], [value_obj]]]
+            attr_type_overall_results[attr_type] = [[-1, value_obj, [value_obj]]]
 
     # outfile.close()
     return attr_type_overall_results
@@ -204,11 +204,15 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
             print "\n** ATOR: ", attr_type #, attr_results
             # print "** VOR-MAP: ", value_overall_results[str(attr_type)]
     
+            pair = False
+            ordered_attr_results = _get_most_frequent_ontology(attr_results, pair)
             
             found_match = False
             for value, value_results in value_overall_results[str(attr_type)].iteritems():
                 print "\n** Val: ", value, ", Attr_Type: ", attr_type
                 # print "** Val-ONTOL: ", value_results
+
+                ordered_value_results = _get_most_frequent_ontology(value_results, pair)
                 
                 all_match_pairs = []
                 for count, val_results in enumerate(value_results):
@@ -231,11 +235,11 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
                 
                 if found_match:
                     csvout.writerow([attr_type, value.encode('utf-8'), summary, \
-                        all_match_pairs, attr_results, value_results])
+                        all_match_pairs, ordered_attr_results, ordered_value_results])
                 else:
                     print "No matching ontology results for: ", attr_type, value
                     csvout.writerow([attr_type, value.encode('utf-8'), "No Matches", \
-                        "No Matches", attr_results, value_results])
+                        "No Matches", ordered_attr_results, ordered_value_results])
         else:
             # print "** Attr_type not in VOR"
             pass
@@ -257,8 +261,7 @@ def _get_most_frequent_ontology(matches, pair):
             ontology_match_list.append(ontology[1][1][1])
         else:
             ontology_match_list.append(ontology[1][1])
-    # summary_counter = Counter(ontology_match_list)
-    # summary = ", ".join('{} {}'.format(k, v) for k, v in summary_counter.iteritems())
+    
     summary = Counter(ontology_match_list).most_common()
     print "** SummaryMatch: ", summary
     return summary
@@ -278,8 +281,9 @@ if __name__ == '__main__':
     # parser.add_argument('--attr_type_file_path', default="/Users/twhetzel/git/biosamples-data-mining/data_results/unique_attr_types_2017-06-20_14-31-00.csv")
     # parser.add_argument('--num_attr_review', default=16000, help="Number of Attributes to analyze their values")
     parser.add_argument('--attr_type_ols_result_file', \
-        default=RESULTS_DIR+"attr_type_ols_search_results_2017-08-05_23-04-05.csv", \
+        default=RESULTS_DIR+"attr_type_ols_search_results_2017-08-11_14-54-38.csv", \
         help="Full path to OLS result file to summarize.")
+    #"attr_type_ols_search_results_2017-08-05_23-04-05.csv",
     parser.add_argument('--value_ols_result_file', \
         default=RESULTS_DIR+"values_ols_search_results_2017-08-09_16-05-06.csv")  #"values_ols_search_results_2017-08-06_22-02-37.csv")
     args = parser.parse_args()
