@@ -192,10 +192,13 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
     data_directory = "OLSSearchResults"
     completeName = os.path.join(save_directory_path, data_directory, filename)
 
-    # outfile = open(completeName, "w")
-    # csvout = csv.writer(outfile)
+    outfile = open(completeName, "w")
+    csvout = csv.writer(outfile)
     # csvout.writerow(["AttributeType", "Value", "Summary", "Ontology Matches", "AT-OntologyHits", "VAL-OntologyHits"])
+    csvout.writerow(["AttributeType", "Summary"])
 
+    # attr_type_keys_count = attr_type_overall_results.keys()
+    # print "** ATKC: ", len(attr_type_keys_count)
 
     # Iterate through attr_type_overall_results to get key and list of ols results
     for attr_type, attr_results in attr_type_overall_results.iteritems():
@@ -262,6 +265,7 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
 
         print "\n** AAVOMP: ", len(all_attr_value_ontology_match_pairs)
         all_attr_value_ontology_match_pairs_summary = _get_most_frequent_ontology(all_attr_value_ontology_match_pairs, True)
+        csvout.writerow([attr_type, all_attr_value_ontology_match_pairs_summary])
         print "\n** AAVOMP-SUMMARY: ", all_attr_value_ontology_match_pairs_summary
         
         print "** Out of ATOR loop\n=-=-=-=-=-="
@@ -270,7 +274,7 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
     # print "\n** DATA1: ", attr_type_overall_results["vioscreen_alcohol"], \
     # "\n** DATA2: ", value_overall_results["vioscreen_alcohol"]
     
-    # outfile.close()
+    outfile.close()
 
 
 def _get_most_frequent_ontology(matches, pair):
@@ -279,20 +283,27 @@ def _get_most_frequent_ontology(matches, pair):
     Example data: [[[5, 'CLO', ['Cell']], [0, 'CLO', ['Cell']]], [[6, 'CLO', ['Cell']], [0, 'CLO', ['Cell']]], [[7, 'CLO', ['Cell']], [0, 'CLO', ['Cell']]], [[8, 'CLO', ['Cell']], [0, 'CLO', ['Cell']]], [[9, 'CLO', ['Cell']], [0, 'CLO', ['Cell']]]]
     """
     ontology_match_list = []
+    topic_ontology_match_list = []
     for ontology in enumerate(matches):
         if pair:
-            # print "** Ontology with Match: ", ontology, ontology[1][1][1]
+            print "** Ontology with Match: ", ontology, ontology[1][1][1]
             ontology_match_list.append(ontology[1][1][1])
+            topic_ontology_match_list.append(ontology[1][1][2])
         else:
             ontology_match_list.append(ontology[1][1])
+            topic_ontology_match_list.append(ontology[1][2])
     
+    print "** OML: ", ontology_match_list
     summary = Counter(ontology_match_list).most_common()
+    print "** Summary: ", summary
+    topic_summary = [list(x) for x in set(tuple(x) for x in topic_ontology_match_list)]
+    print "** TS: ", topic_summary
     
     # if pair:
     #     print "** SummaryMatch: ", summary
     # else:
     #     print "** Summary: ", summary
-    return summary
+    return topic_summary, summary
 
 
 if __name__ == '__main__':
