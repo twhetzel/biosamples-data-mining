@@ -192,31 +192,37 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
     data_directory = "OLSSearchResults"
     completeName = os.path.join(save_directory_path, data_directory, filename)
 
-    outfile = open(completeName, "w")
-    csvout = csv.writer(outfile)
+    # outfile = open(completeName, "w")
+    # csvout = csv.writer(outfile)
+    # csvout.writerow(["AttributeType", "Value", "Summary", "Ontology Matches", "AT-OntologyHits", "VAL-OntologyHits"])
 
-    csvout.writerow(["AttributeType", "Value", "Summary", "Ontology Matches", "AT-OntologyHits", "VAL-OntologyHits"])
 
     # Iterate through attr_type_overall_results to get key and list of ols results
     for attr_type, attr_results in attr_type_overall_results.iteritems():
+        attr_type_topic_map = {}
+        all_attr_value_ontology_match_pairs = []
+
         # Check if this attr_type has value data
         if str(attr_type) in value_overall_results:
-            print "\n** ATOR: ", attr_type #, attr_results
-            # print "** VOR-MAP: ", value_overall_results[str(attr_type)]
+            print "** ATOR: ", attr_type, attr_results
+            print "** VOR-MAP: ", value_overall_results[str(attr_type)]
     
             pair = False
-            ordered_attr_results = _get_most_frequent_ontology(attr_results, pair)
+            # ordered_attr_results = _get_most_frequent_ontology(attr_results, pair)
             
-            found_match = False
+            # found_match = False
             for value, value_results in value_overall_results[str(attr_type)].iteritems():
                 print "\n** Val: ", value, ", Attr_Type: ", attr_type
-                # print "** Val-ONTOL: ", value_results
-
-                ordered_value_results = _get_most_frequent_ontology(value_results, pair)
+                print "** Val-Ontol_Results: ", value_results
                 
-                all_match_pairs = []
+                # get ordered ontology count results for ols value search
+                # ordered_value_results = _get_most_frequent_ontology(value_results, pair)
+                
+                # all_match_pairs = []
                 for count, val_results in enumerate(value_results):
-                    # print "** RES: ", val_results[1]
+                    all_match_pairs = []
+                    found_match = False
+                    print "** RES: ", val_results[1]
                     search = val_results[1]
                     # print "** SEARCH: ", search
 
@@ -224,30 +230,47 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
                     # https://stackoverflow.com/questions/1156087/python-search-in-lists-of-lists/1156114#1156114
                     for sublist in attr_results:
                         if sublist[1] == search:
-                            print "Found it!", sublist, val_results
+                            # print "Found it!", sublist, val_results
                             found_match = True
                             match_pair = [sublist, val_results]
+                            print "** MP: ", match_pair
                             all_match_pairs.append(match_pair)
-                print "** ML: ", all_match_pairs
+                            # print "\n** ML-1: ", all_match_pairs
+                    all_attr_value_ontology_match_pairs.extend(all_match_pairs)
+                    print "*** Done searching for matches with ", val_results[1], "\n"
+                            
+                # print "\n** ML: ", all_match_pairs
 
                 pair = True
-                summary = _get_most_frequent_ontology(all_match_pairs, pair)
+                if pair and len(all_match_pairs) > 0:
+                    # print "\n** ML-2: ", all_match_pairs
+                    summary = _get_most_frequent_ontology(all_match_pairs, pair)
                 
                 if found_match:
-                    csvout.writerow([attr_type, value.encode('utf-8'), summary, \
-                        all_match_pairs, ordered_attr_results, ordered_value_results])
+                    # csvout.writerow([attr_type, value.encode('utf-8'), summary, \
+                    #     all_match_pairs, ordered_attr_results, ordered_value_results])
+                    # when there are matches, further summarize data for each attr_type
+                    pass
+                    
                 else:
-                    print "No matching ontology results for: ", attr_type, value
-                    csvout.writerow([attr_type, value.encode('utf-8'), "No Matches", \
-                        "No Matches", ordered_attr_results, ordered_value_results])
+                    print "No matching ontology results between: ", attr_type, value
+                    # csvout.writerow([attr_type, value.encode('utf-8'), "No Matches", \
+                    #     "No Matches", ordered_attr_results, ordered_value_results])
         else:
             # print "** Attr_type not in VOR"
             pass
 
+        print "\n** AAVOMP: ", len(all_attr_value_ontology_match_pairs)
+        all_attr_value_ontology_match_pairs_summary = _get_most_frequent_ontology(all_attr_value_ontology_match_pairs, True)
+        print "\n** AAVOMP-SUMMARY: ", all_attr_value_ontology_match_pairs_summary
+        
+        print "** Out of ATOR loop\n=-=-=-=-=-="
+
 
     # print "\n** DATA1: ", attr_type_overall_results["vioscreen_alcohol"], \
     # "\n** DATA2: ", value_overall_results["vioscreen_alcohol"]
-    outfile.close()
+    
+    # outfile.close()
 
 
 def _get_most_frequent_ontology(matches, pair):
@@ -258,12 +281,17 @@ def _get_most_frequent_ontology(matches, pair):
     ontology_match_list = []
     for ontology in enumerate(matches):
         if pair:
+            # print "** Ontology with Match: ", ontology, ontology[1][1][1]
             ontology_match_list.append(ontology[1][1][1])
         else:
             ontology_match_list.append(ontology[1][1])
     
     summary = Counter(ontology_match_list).most_common()
-    print "** SummaryMatch: ", summary
+    
+    # if pair:
+    #     print "** SummaryMatch: ", summary
+    # else:
+    #     print "** Summary: ", summary
     return summary
 
 
