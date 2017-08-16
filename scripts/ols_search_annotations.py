@@ -134,7 +134,7 @@ def ols_search_for_attribute_types(attribute_type_dict):
 
     # Results: Get first 10 results returned
     # format fields into list of Json objects
-    # ols_result_obj = {}
+    ols_result_obj = {}
 
 
     # prepare file for output of attribute value information
@@ -151,7 +151,7 @@ def ols_search_for_attribute_types(attribute_type_dict):
 
     for attr_type in all_attribute_types:
         attr_type_count += 1
-        ols_result_obj = {}
+        # ols_result_obj = {}
 
         attribute_type_formatted = attr_type.lower()
         attribute_type_formatted = attribute_type_formatted.replace(" ", "_")
@@ -164,16 +164,18 @@ def ols_search_for_attribute_types(attribute_type_dict):
             formatted_attr_type = attr_type.lower()
             formatted_attr_type = formatted_attr_type.replace(" ", "_")
 
+            # search with params1
             num_results, ols_term_result_obj = _get_results(attr_type, params1)
 
             if num_results > NO_RESULTS:
                 ols_result_obj[formatted_attr_type] = ols_term_result_obj
             else:
+                # search with params2
                 num_results, ols_term_result_obj = _get_results(attr_type, params2)
-                print "** NR: ", num_results
+                # print "** NR: ", num_results
                 ols_result_obj[formatted_attr_type] = ols_term_result_obj
-                if int(num_results) == NO_RESULTS:
-                    print "** ORO: ", ols_result_obj
+                # if int(num_results) == NO_RESULTS:
+                #     print "** ORO: ", ols_result_obj
     
     # write ols search results for attr_trype to file
     json.dump(ols_result_obj, outfile)
@@ -219,6 +221,7 @@ def ols_search_for_values(all_value_file_names):
 
             # open file with values for ols search
             with open(args.attr_values_dir+attribute_type_filename, "r") as attr_value_file:
+                # print "** AttrTypeFilename: ", attr_value_file
                 
                 content = attr_value_file.readlines()
                 content = [x.strip(' \t\n\r') for x in content]
@@ -273,7 +276,7 @@ def ols_search_for_values(all_value_file_names):
 
                         ols_result_obj[formatted_attribute_type] = value_result_list
     
-    # write ols search results for attr_trype to file
+    # write ols search results for attr_type to file
     json.dump(ols_result_obj, outfile)
     outfile.close()
 
@@ -325,12 +328,13 @@ if __name__ == '__main__':
     parser.add_argument('--attr_type_file_path', default="/Users/twhetzel/git/biosamples-data-mining/data_results/unique_attr_types_2017-06-20_14-31-00.csv")
     parser.add_argument('--search_content', default="attr_type", help="Indicates what content to search. \
                                             Possible values are attr_type, values, both.")
-    parser.add_argument('--num_attr_review', default=16000, help="Number of Attributes to search OLS")
-    parser.add_argument('--restart_attr_count', default=0, help="Count of which attribute to re-start OLS search at.")
+    parser.add_argument('--num_attr_review', default=16000, help="Number of Attributes to search OLS.")
+    parser.add_argument('--restart_attr_count', default=0, help="Count of which attribute to re-start OLS search \
+                                            when values are used for search.")
     args = parser.parse_args()
 
     # Get ontology topics from Google Sheet
-    global ontology_topics
+    # global ontology_topics
     ontology_topics = get_ontology_topics()
 
     # Get attr_type file with count of attr per type
@@ -341,11 +345,12 @@ if __name__ == '__main__':
     if args.search_content == "attr_type" or args.search_content == "both":
         ols_search_for_attribute_types(attribute_type_dict)
 
-    # Get list of attr_type value files
-    all_value_file_names = get_attr_type_value_file_names()
 
     # Generate OLS Search results for Values
     if args.search_content == "values" or args.search_content == "both":
+        # Get list of attr_type value files
+        all_value_file_names = get_attr_type_value_file_names()
+        # Run search on values
         ols_search_for_values(all_value_file_names)
 
 
