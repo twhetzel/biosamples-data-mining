@@ -56,6 +56,7 @@ def load_ols_results(filename):
     return data
 
 
+@timing
 def generate_attr_type_summary(data):
     """
     Summarize results of attr_type search results.
@@ -111,6 +112,7 @@ def generate_attr_type_summary(data):
     return attr_type_overall_results
 
 
+@timing
 def generate_values_summary(data):
     """
     Summarize results of values search results.
@@ -187,7 +189,7 @@ def find_attr_type_value_similarities(attr_type_overall_results, value_overall_r
     """
 
     TIMESTAMP = get_timestamp()
-    filename = "summary_ols_search_results_"+TIMESTAMP+".csv"
+    filename = "NEW-summary_ols_search_results_"+TIMESTAMP+".csv"
     save_directory_path = "/Users/twhetzel/git/biosamples-data-mining/data_results"
     data_directory = "OLSSearchResults"
     completeName = os.path.join(save_directory_path, data_directory, filename)
@@ -306,25 +308,160 @@ def _get_most_frequent_ontology(matches, pair):
     return topic_summary, summary
 
 
+@timing
+def new_find_attr_type_value_similarities(attr_type_search_results, value_search_results):
+    """
+    Summarize data as 1 row per attribute type, with combined count score 
+    from all values where there was an ontology match.
+    - Need to know:
+    -- total samples for attr_type
+    -- total values for the attr_type
+    -- total values searched per attr_type (can be up to 100 based on limit in code)
+    -- total search results per value
+    -- if no match, what are results for values only and maybe attr_type only
+    -- if no match, are values all numbers?
+
+    Output: 
+    attr_type, summary as: topic_1 (OntolPrefix1: Cnt:X, OntolPrefix2, Count: Y), topic_2 (OntolPrefix1: Cnt:X, ),
+    total samples with this attr_type
+    """
+    TIMESTAMP = get_timestamp()
+    filename = "NEW-summary_ols_search_results_"+TIMESTAMP+".csv"
+    save_directory_path = "/Users/twhetzel/git/biosamples-data-mining/data_results"
+    data_directory = "OLSSearchResults"
+    completeName = os.path.join(save_directory_path, data_directory, filename)
+
+    # outfile = open(completeName, "w")
+    # csvout = csv.writer(outfile)
+    # csvout.writerow(["AttributeType", "Summary"])
+
+    # print "** Num AttrType: ", len(attr_type_search_results.keys())
+
+    # Iterate through attr_type_overall_results to get key and list of ols results
+    attr_no_results = 0
+    value_no_results = 0
+    try:
+        for attr_type, attr_results in attr_type_search_results.iteritems():
+            # Handle case when attr_type does not have any search results
+            if len(attr_results) == 1 and attr_results[0][0] == -1:
+                attr_no_results += 1
+                print "\n===============\n** ATR: "+attr_type+", NumResults:", len(attr_results), "\nResults: ", attr_results
+      
+                # Check if this attr_type has value data
+                if str(attr_type) in value_search_results:
+                    print "\n** VR-MAP: ", value_search_results[str(attr_type)]
+                    # print "\n** VR-MAP KEYS: ", value_search_results[str(attr_type)].keys()
+                    number_of_values_searched = len(value_search_results[str(attr_type)].keys())
+
+                    # find count of values with no results
+                    not_searched = 0
+                    for key in value_search_results[str(attr_type)].keys():
+                        if key == 'None':
+                            # {u'None': [[-1, 'None', ['None']]]}
+                            # print "Value was number"
+                            value_no_results += 1
+
+                    all_value_results = []
+                    for k,v in value_search_results[str(attr_type)].iteritems():
+                        print v
+                        if key == 'None':
+                            pass
+                        else:
+                            # print "** Value has search results: ", v
+                            for result in v:
+                                if v == []:
+                                    # {u'gatacgttcgca': [], u'ttgcgttagcag': []}
+                                    # print "Value searched but had no results"
+                                    not_searched += 1
+                                else:
+                                    # print "Prefix: ", result[1]
+                                    all_value_results.append(result[1])
+                    # print "Not Searched:", not_searched, "\n** All value prefix results: ", all_value_results
+
+                    if len(all_value_results) > 0:
+                        summary = Counter(all_value_results).most_common()
+                        print "** Summary: ", summary
+                        new_summary = []
+                        for prefix, count in summary:
+                            denom = 100.00 * number_of_values_searched
+                            percentage = round((count/denom) * 100, 2)
+                            new_summary.append((prefix,percentage))
+                        print "*** NumValues per AttrType: ", number_of_values_searched
+                        print "** New Summary: ", new_summary
+                    else:
+                        print "** No AttrType and No Value results"
+
+
+                    # check if any values have search results
+                    if not_searched == len(value_search_results[str(attr_type)].keys()):
+                        value_no_results += 1
+                        print "** No search results for attr_type or it's values"
+       
+                    print "Number of values with no results: ", not_searched, "of "+ \
+                    str(len(value_search_results[str(attr_type)].keys())), "total values"
+            else:
+                # Handle case when attr_type has search results
+                print "\n=-=-=-=-=-=-=-=-=-=-=-=\n** ATR: "+attr_type+", NumResults:", len(attr_results), "\nResults: ", attr_results
+                all_attr_value_ontology_match_pairs = []
+                number_of_values_searched = len(value_overall_results[str(attr_type)].keys())
+                print "** NumValues per AttrType: ", number_of_values_searched
+                
+                for value, value_results in value_overall_results[str(attr_type)].iteritems():
+                    # print "\n** Val: ", value, ", Attr_Type: ", attr_type
+                    # print "** Val-Ontol_Results: ", value_results
+
+                    all_matches = []
+                    for count, val_results in enumerate(value_results):
+                            search = val_results[1]
+
+                            # compare two lists for matches 
+                            # https://stackoverflow.com/questions/1156087/python-search-in-lists-of-lists/1156114#1156114
+                            for sublist in attr_results:
+                                if sublist[1] == search:
+                                    # print "--- Found it!", sublist, val_results
+                                    all_matches.append(sublist[1])
+                            # print "*** Done searching for matches with ", val_results[1], "\n"
+                    all_attr_value_ontology_match_pairs.extend(all_matches)
+
+
+                if len(all_attr_value_ontology_match_pairs) > 0:
+                    summary = Counter(all_attr_value_ontology_match_pairs).most_common()
+                    # print "** Summary: ", summary
+                    new_summary = []
+                    for prefix, count in summary:
+                        denom = 100.00 * number_of_values_searched
+                        percentage = round((count/denom) * 100, 2)
+                        new_summary.append((prefix,percentage))
+                    # print "*** NumValues per AttrType: ", number_of_values_searched
+                    print "** New Summary: ", new_summary
+                else:
+                    summary = "No matches"
+                    print "** No matches"
+    except KeyError:
+        print "No values for this attr_type: ", attr_type
+
+    print "\n** Total AttrType with No results: ", attr_no_results
+    print "** Total AttrType with No Results and Values with No results: ", value_no_results
+    # outfile.close()
+
+
+
 if __name__ == '__main__':
     """ 
-    Summarize OLS search results for each Attribute Type. 
+    Summarize search results for each Attribute Type. 
     """
     print "Starting to summarize OLS search results..."
 
     RESULTS_DIR = "/Users/twhetzel/git/biosamples-data-mining/data_results/OLSSearchResults/"
+    ATTR_TYPES_DIR = "/AttrTypeResults/"
+    VALUES_DIR = "/ValuesResults/"
+    ALL_ATTR_TYPE_FILE = "ALL_attr_type_ols_search_results_2017-08-11_15-54-07.csv"
+    ALL_VALUE_FILE = "All_values_ols_search_results_2017-08-18-Combined.csv"
 
     # Commandline arguments
     parser = argparse.ArgumentParser()
-    # parser.add_argument('--dir', default="/Users/twhetzel/git/biosamples-data-mining/data_results/ols_search_results/")
-    # parser.add_argument('--attr_type_file_path', default="/Users/twhetzel/git/biosamples-data-mining/data_results/unique_attr_types_2017-06-20_14-31-00.csv")
-    # parser.add_argument('--num_attr_review', default=16000, help="Number of Attributes to analyze their values")
-    parser.add_argument('--attr_type_ols_result_file', \
-        default=RESULTS_DIR+"attr_type_ols_search_results_2017-08-11_14-54-38.csv", \
-        help="Full path to OLS result file to summarize.")
-    #"attr_type_ols_search_results_2017-08-05_23-04-05.csv",
-    parser.add_argument('--value_ols_result_file', \
-        default=RESULTS_DIR+"values_ols_search_results_2017-08-09_16-05-06.csv")  #"values_ols_search_results_2017-08-06_22-02-37.csv")
+    parser.add_argument('--attr_type_ols_result_file', default=RESULTS_DIR+ATTR_TYPES_DIR+ALL_ATTR_TYPE_FILE)
+    parser.add_argument('--value_ols_result_file', default=RESULTS_DIR+VALUES_DIR+ALL_VALUE_FILE)
     args = parser.parse_args()
 
     # Is this stil needed?
@@ -357,12 +494,15 @@ if __name__ == '__main__':
     value_overall_results = generate_values_summary(value_data)
     
     # print "**VOR: ", value_overall_results
-    # Example VOR Output
     # {u'included_final_analysis': {u'result1': [[],[]]}, {u'result2': [[],[]]}, \
     # u'double_barcodes': {u'result1': [[],[]]}}
     
-    # Find ontology mapping similarities between attr_type and values
-    find_attr_type_value_similarities(attr_type_overall_results, value_overall_results)
+
+    # Find ontology mapping similarities between attr_type and values --OLD SUMMARY 
+    # find_attr_type_value_similarities(attr_type_overall_results, value_overall_results)
+
+    new_find_attr_type_value_similarities(attr_type_overall_results, value_overall_results)
+
 
 
 
