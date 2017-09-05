@@ -231,22 +231,22 @@ Lable,Label
 Disssolved,Dissolved
 Tmp,Temperature
 Samplingsite,Sampling site
-******* Qtlstatus,Qtl status
+Qtlstatus,Qtl status
 Eventprogression,Event progression
 Mislabeledprobabove0point35,Mislabeled probe above 0 point 35
 Mislabeledprobabove0point30,Mislabeled probe above 0 point 30
 Sampletype,Sample type
 Speciman,Specimen
 Seqid,Sequence identifier
-******* Numberofcd4positivecd38positivehladrpositive,Number of cd4 positive cd38 positive hla-dr positive
+Numberofcd4positivecd38positivehladrpositive,Number of cd4 positive cd38 positive hla-dr positive
 Matchid,Match id
-******* Milliseimenpercentimeter
+Milliseimenpercentimeter,Milliseimens per centimeter
 Lesionscore,Lesion score
 Biomaterialpurity,Biomaterial purity
 Animalid,Animal id
 Numberofindividuals,Number of individuals
 Seedstockid,Seed stock id
-******* Matdepthcryosectionmmscaled,Mat depth cryosection mm scaled
+Matdepthcryosectionmmscaled,Mat depth cryosection mm scaled
 Mislabeledprobabove0point75,Mislabeled probe above 0 point 75
 Mislabeledprobabove0point70,Mislabeled probe above 0 point 70
 Numberofmonocytes,Number of monocytes
@@ -256,17 +256,15 @@ Differentiationgrade,Differentiation grade
 Movement24h,Movement 24h
 Developmenta,Developmental
 Cowid,Cow id
-******* Timepointc
-******* Timepointf
 Colonoscopytimepoint,Colonoscopy timepoint
 Babygender,Baby gender
 Primerplate,Primer plate
 Totalindividualweeks,Total individual weeks
-******* Totalpetrolumhydrocarbon,Total petrolium hydrocarbon
+Totalpetrolumhydrocarbon,Total petrolium hydrocarbon
 Romidepsin0016,Romidepsin 0016
 Totalexposureduration,Total exposure duration
 Temperatureunit,Temperature unit
-******* Timetometastas,Time to metastas
+Timetometastas,Time to metastasis
 Pmid19597147,Pmid 19597147
 Seasoncollected,Season collected
 Hostindividual,Host individual
@@ -297,10 +295,8 @@ Bodymassindex,Body mass index
 Descrption,Description
 Eatcandy,Eat candy
 Genotpe,Genotype
-******* Immunomagnetic
 Panacur48hr,Panacur 48 hr
 Ratio260280,Ratio 260280
-******* Slocus
 Carbonatenodule,Carbonate nodule
 Unnamed3,Unnamed 3
 Control1,Control 1
@@ -1078,269 +1074,268 @@ Samplecode
 Timeofcollection
 Materialsurface
 Pocketdepth
-Physicalcharacteristics
-Idenitifier
-Pairid
-Celllinecataloguenumber
+Physicalcharacteristics,Physical characteristics
+Idenitifier,Identifier
+Pairid,Pair id
+Celllinecataloguenumber,Cell line catalogue number
 Tacedinaline120min
-Fabricsoftener
+Fabricsoftener,Fabric softener
 Seqbarcode
-Clinicaltreatment7
-Datecollected
-Description2
-Externalsampleid
-Groupname
-Percentccr5positive
-Sourceofvesicles
+Clinicaltreatment7,Clinical treatment 7
+Datecollected,Date collected
+Description2,Description 2
+Externalsampleid,External sample id
+Groupname,Group name
+Percentccr5positive,Percent ccr5 positive
+Sourceofvesicles,Source of vesicles
 Diarrhaattp
-Bmiclass
-Tumourgrading
-Diseasestatedatabase
+Bmiclass,Bmi class
+Tumourgrading,Tumour grading
+Diseasestatedatabase,Disease state database
 Referencesample
-Coronalcaries
-Diseaseoutcome
+Coronalcaries,Coronal caries
+Diseaseoutcome,Disease outcome
 Rotation1yr
 Primers2
-Pylori2
+Pylori2,Pylori 2
 Packyears
-Mouserecipientid
-Scientifiname
-Antidody
+Mouserecipientid,Mouse recipient id
+Scientifiname,Scientific name
+Antidody,Antibody
 Absorption240nm
-Tumorgrading
+Tumorgrading,Tumor grading
 Day1pm
 Temphighf
 Breastmilk
 Genepoolid
 Coeff
-Sampledate
-Drugallergies
-Surgery6mos
+Sampledate,Sample date
+Drugallergies,Drug allergies
+Surgery6mos,Surgery 6 months
 Fragsize
-Cellularmodification
-Exposurefrequency
+Cellularmodification,Cellular modification
+Exposurefrequency,Exposure frequency
 Microequivalentperliter
-Gestional
-Degreedays
-Chromosome3
-Weight20
-Greekhouse
-Tumordriver
-Percentmrpositiveofmonocytes
+Gestional,Gestational
+Degreedays,Degree days
+Chromosome3,Chromosome 3
+Weight20,Weight 20
+Greekhouse,Greek house
+Tumordriver,Tumor driver
+Percentmrpositiveofmonocytes,Percent mr positive of monocytes
 Uniqueidentifier
-Analysissampleid
+Analysissampleid,Analysis sample id
 Fcpresponse
 Materialtype
-Extractedby
+Extractedby,Extracted by
 Pointdescription
-Speciesname
-Indexpatient
-Targetedcellty
-Bufexamac2500
+Speciesname,Species name
+Indexpatient,Index patient
+Targetedcellty,Targeted cell type
+Bufexamac2500,Bufexamac 2500
 Manufactuer
 Totalexposuretime
 Platelocation
 Staturecategory7
-Primer2
-Personalhistory
-Mislabeledprobabove0point50
+Primer2,Primer 2
+Personalhistory,Personal history
+Mislabeledprobabove0point50,Mislabeled probe above 0 point 50
 Barcodesequence
 Mosqattractperceive
 Mosqtreatment
 Rnaextract
-Vitamindstatus
+Vitamindstatus,Vitamin d status
 Day8am
-Survivalprobability
+Survivalprobability,Survival probability
 Minuniquepeptidecount
-Treenutallergy
-Populationdensity
-Diseaserecurrence
-Donordescription
-Flushingevent
-Cultivarnumber
+Treenutallergy,Tree nut allergy
+Populationdensity,Population density
+Diseaserecurrence,Disease recurrence
+Donordescription,Donor description
+Flushingevent,Flushing event
+Cultivarnumber,Cultivar number
 Cofradictype
-Averagesoilrelativehumidity
-Centimeters2
-Subjectnumber
-Siteid
+Averagesoilrelativehumidity,Average soil relative humidity
+Centimeters2,Centimeters 2
+Subjectnumber,Subject number
+Siteid,Site id
 Matdepthcryosectionmm
 Abxexposureabsolute
-Environmentalstress
+Environmentalstress,Environmental stress
 Barcodesequence
-Dayoftreatment
-Percentcd38positivehladrpositive
-Geneticmodifications
+Dayoftreatment,Day of treatment
+Percentcd38positivehladrpositive,Percent cd38 positive hladr positive
+Geneticmodifications,Genetic modifications
 Duplicationsinotherexperiments
-Sampleorigin
-Developmentalstage1
+Sampleorigin,Sample origin
+Developmentalstage1,Developmental stage 1
 Percentmrpositiveofmdc
-Bitefingernails
-Libraryid
-Celltypet
-Trasngene
-Seqence
-Bodywt
-Agestatus
-Wellinpcrplate
-Exon18
+Bitefingernails,Bite fingernails
+Libraryid,Library id
+Celltypet,Cell type
+Trasngene,Transgene
+Seqence,Sequence
+Bodywt,Body weight
+Agestatus,Age status
+Wellinpcrplate,Well in pcr plate
+Exon18,Exon 18
 Dacinostat075
-Cradipain
+Cradipain,Cradi pain
 Exoiii
 Density600
 After4oht
-Celll
+Celll,Cell
 Jobid
 Galectin1
-Histolo
+Histolo,Histology
 Read1
 Read2
 Pneumo
 Day14
 Chiip
-Isoleuc
+Isoleuc,Isoleucine
 Amplifed
 Weeks0
-Habitat2
+Habitat2,Habitat 2
 Child1
-Entinostat300
+Entinostat300,Entinostat 300
 Galectin3
-Fat08
-Weight18
-Weight12
-Weight11
-Weight16
-Noswabs
+Fat08,Fat 08
+Weight18,Weight 18
+Weight12,Weight 12
+Weight11,Weight 11
+Weight16,Weight 16
+Noswabs,No swabs
 Week10
-Runid
+Runid,Run id
 Index2name
 To80cm
 Texture40
-Extractiondate
+Extractiondate,Extraction date
 Exptgroup
 Bacteria100ul
 Tacedinaline60min
-Entinostat3000
+Entinostat3000,Entinostat 3000
 Gelyo1262
 Garliceat
-Apicidin0625
-Panobinostat075
+Apicidin0625,Apicidin 0625
+Panobinostat075,Panobinostat 075
 Texture20
-Spiritshard
+Spiritshard,Spirits hard
 Date3
 Duringafter
 Labled
-Visit2
-Visit3
-Visit1
+Visit2,Visit 2
+Visit3,Visit 3
+Visit1,Visit 1
 To40cm
-Productbrand
+Productbrand,Product brand
 Dmissing
 Cohort2
 Cohort1
-Childsecretorstatus
-Area2
+Childsecretorstatus,Child secretor status
+Area2,Area 2
 Hemicellulose8
 Irinotecantreatment
 Responseto5
 Scriptaid0625
-Surfacetype
-Saha30min
+Surfacetype,Surface type
 Texture125
-Qualtity
-Exclusisbreast
-Breasfedformula
-Circumference2
+Qualtity,Quality
+Exclusisbreast,Exclusis breast
+Breasfedformula,Breast fed formula
+Circumference2,Circumference 2
 Collectionday
-Histology2
-Entinostat1500
-Methyl150
+Histology2,Histology 2
+Entinostat1500,Entinostat 1500
+Methyl150,Methyl 150
 Day14
 Blankswab
 Hcluptake
-Sealevel
+Sealevel,Sea level
 Platecounts
 Mibc90day
-Phenotye
+Phenotye,Phenotype
 Precipitation24hour
-Totaltfa
-Belinostat0469
-Apicidin0039
+Totaltfa,Total fat
+Belinostat0469,Belinostat 0469
+Apicidin0039,Apicidin 0039
 Colma3223
 Acid12500
 Methyl16
 Child2
-Level1
+Level1,Level 1
 Frtsumm
-Tryptoph
+Tryptoph,Tryptophan
 Mtdna
 Subsample4
-Agegroup
+Agegroup,Age group
 Methyl160
 Colma3016
-Agrochem
+Agrochem,Agrochemical
 Const
 Vegsumm
 Cotaining
 Within8
 Subfrg
-Genoptype
-Surviaval
+Genoptype,Genotype
+Surviaval,Survival
 Totfolat
-Vendorid
+Vendorid,Vendor id
 Cradipop
-Cyles
+Cyles,Cycles
 Faspval
 Bmi30349
-Fat12
+Fat12,Fat 12
 Jesant1098
 Texture63
 Fileiduds
 Truseq
 Who2009
 Subsample3
-Leaflength7
+Leaflength7,Leaf length 7
 Alphtoco
-Belinostat0117
+Belinostat0117,Belinostat 0117
 Phaeopigments
 Malt1
 Malt2
 Type1
 Bandid
-Panobinostat0469
+Panobinostat0469,Panobinostat 0469
 Forpcr
 Fraction5
-Drinksoda
+Drinksoda,Drink soda
 Aquaporin8
 Satfat
-Exon3
+Exon3,Exon 3
 Helper1
 Score9
-Quantiy
+Quantiy,Quantity
 Htgts
-Hbvdna
+Hbvdna,Hbv dna
 Procdate
-Leptin30
+Leptin30,Leptin 30
 Ctdtmp
-Proteomexchange
-Genotype1
+Proteomexchange,Proteome exchange
+Genotype1,Genotype 1
 Cowmilk
 Stockcode
-Apicidin25
-Refgroup
+Apicidin25,Apicidin 25
+Refgroup,Reference group
 Libraryname
 Genecopies
 Condition2
-Latitute
-Enzyme2
+Latitute,Latitude
+Enzyme2,Enzyme 2
 Histo
 2000um
 Botom
 Texture2
-Phenoty
+Phenoty,Phenotype
 Crush2
 Upstate05814
 Varname
-Abudance
+Abudance,Abundance
 Acid78125
 Texture0
 Symptomsvshem
@@ -1350,111 +1345,111 @@ Othmethonsp
 Ncnnct
 Greem2424
 Partecipants
-Agecat
-Belinostat1875
-Salivaph
-Ioslate
-Perineuralspreading
-Footeczema
-Lifecycle
-Chimpsiv
-Familyhistory
+Agecat,Age category
+Belinostat1875,Belinostat 1875
+Salivaph,Saliva ph
+Ioslate,Isolate
+Perineuralspreading,Perineural spreading
+Footeczema,Foot eczema
+Lifecycle,Life cycle
+Chimpsiv,Chimp siv
+Familyhistory,Family history
 Gravel20
-Diseasesta
-Panobinostat75
+Diseasesta,Disease state
+Panobinostat75,Panobinostat 75
 Testsubstance1
-Originaldisease
-Tumorsize
+Originaldisease,Original disease
+Tumorsize,Tumor size
 Reagent113
 Reagent117
 Reagent114
 Testsubstance2
 Reagent119
 Reagent118
-Smoketobacco
+Smoketobacco,Smoke tobacco
 Stationdepth
 Bioprojec
-Eventdeath
+Eventdeath,Event death
 Stage2
 Developmentalst
 Chiptarget
 Rotation4yrs
-Hydroxylysine1
-Hydroxylysine2
+Hydroxylysine1,Hydroxylysine 1
+Hydroxylysine2,Hydroxylysine 2
 Bymonth
-Initialtimepopint
-Falsediscoveryrate
+Initialtimepopint,Initial time point
+Falsediscoveryrate,False discovery rate
 Epitheliuml
 Inflam
 Pstage
-Insulin30
+Insulin30,Insulin 30
 Reagent116
-Geneticmodification
+Geneticmodification,Genetic modification
 Reagent115
-Histologynumlot
-Dnaweight
+Histologynumlot,Histology num lot
+Dnaweight,Dna weight
 Individualidentifier
 Upstate05813
 3primeadaptercomplete
-Timetoprogression
-Patiicipant
+Timetoprogression,Time to progression
+Patiicipant,Participant
 Rendy3118
 Grade73
 Correlation1
-Nonhumanreads
+Nonhumanreads,Non-human reads
 Enzyme1
-Mislabeledprobabove0point15
-Mislabeledprobabove0point10
+Mislabeledprobabove0point15,Mislabeled probe above 0 point 15
+Mislabeledprobabove0point10,Mislabeled probe above 0 point 10
 Correlation3
 Flxdata
-Outdoorenvironment
-Antbody
-Clinincaltreatment
+Outdoorenvironment,Outdoor environment
+Antbody,Antibody
+Clinincaltreatment,Clinincal treatment
 Lefka2175
-Geogrphic
-Interferon90
-Julianday
-Sampletitle
+Geogrphic,Geographic
+Interferon90,Interferon 90
+Julianday,Julian day
+Sampletitle,Sample title
 Fileid
 Strand2
 Replicte
 Strand1
 Bcodeid
 Size500250
-Mouseweight
-Manuscriptid
+Mouseweight,Mouse weight
+Manuscriptid,Manuscript id
 Micromoleperliter
-Lean12
-Celldensity
-Samplemethod
-Abfsubgroup
+Lean12,Lean 12
+Celldensity,Cell density
+Samplemethod,Sample method
+Abfsubgroup,Abf subgroup
 Studyinstitutionupr
-Lymphnodestaging
+Lymphnodestaging,Lymph node staging
 Fracfull
 Dicer1
 Who1997
-Runname
+Runname,Run name
 Stemdiameter9
-Rnaseqtime
+Rnaseqtime,Rnaseq time
 Chancealivein10
-Generalization6
+Generalization6,Generalization 6
 Carbo
 Scriptaid0156
 Grosspsrate
 Genbac3
 Metaldate
 Histopathology
-Dailyexposurefrequency
-Erythr
-Developmentalsta
+Dailyexposurefrequency,Daily exposure frequency
+Erythr,Erythrocyte
+Developmentalsta,Developmental stage
 Techrep
 Bmi35399
 Tagchip
-Histidin
+Histidin,Histidine
 Halotag
 Queau2401
 Comob
-Culturemedium
+Culturemedium,Culture medium
 Hiseqlane
 Vlp100ul
 Sampl
@@ -1462,46 +1457,46 @@ Subjorder
 Pfatot
 Presc
 Clay2
-Entinostat1172
-Panobinostat00117
+Entinostat1172,Entinostat 1172
+Panobinostat00117,Panobinostat 00117
 Replic
-Insecticde
-Entinostat375
+Insecticde,Insecticide
+Entinostat375,Entinosta t375
 Lables
 Cradiob
-Othername
+Othername,Other name
 Treatment0
 Saha120min
 Distand
 And10
 Marvin1553
-Datasource
+Datasource,Data source
 Texture630
 Score0
 Clean3
 Descrihtipt130ion
 Methion
-Factor1
-Factor3
-Factor2
-Factor4
-Ivyoak
-Agecat2
-Agecat1
-Genoty
-Diet2
+Factor1,Factor 1
+Factor3,Factor 3
+Factor2,Factor 2
+Factor4,Factor 4
+Ivyoak,Ivy oak
+Agecat2,Age category 2
+Agecat1,Age category 1
+Genoty,Genotype
+Diet2,Diet 2
 Microbiomecarbon
-Cellty
-Panobinostat0117
+Cellty,Cell type
+Panobinostat0117,Panobinostat 0117
 Adapter5
-Circumfrence2
+Circumfrence2,Circumfrence 2
 Organism2
 Relationshipn
-Animaltype
-Weeknumber
-Percentalpha4beta7
+Animaltype,Animal type
+Weeknumber,Week number
+Percentalpha4beta7,Percent alpha4beta7
 Index1name
-Libraryplate
+Libraryplate,Library plate
 Comp12wks
 Sand20200
 Methyl180
@@ -1521,7 +1516,7 @@ Testresult5
 Testresult2
 Testresult3
 Crushed1
-Gentotype
+Gentotype,Genotype
 Phosphatidylinositol3
 Texture2000
 Moisture9
@@ -1532,29 +1527,29 @@ Fraction6
 Fraction4
 Fraction2
 Fraction3
-Entinostat750
+Entinostat750,Entinostat 750
 Prolireating
-Entinostat4688
+Entinostat4688,Entinostat 4688
 Tretament
 Reagent126
 Reagent127
 Reagent128
 Reagent129
 Genoty
-Glucose30
-Ribofla
+Glucose30,Glucose 30
+Ribofla,Riboflavin
 Keran2360
 Less184
 Timeun
-Allskin
+Allskin,All skin
 Homecage
 Acid3125
 Dmso6h
 Quant
 Success1
 Arid3a
-Loss3
-Date2
+Loss3,Loss 3
+Date2,Date 2
 Group1
 Cdkn2b
 Aa2156
@@ -1562,35 +1557,35 @@ Postop
 Crush1
 Sample1401
 Implated
-Cgvhd
+Cgvhd,Chronic graft versus host disease
 Acid50000
-Diet3
+Diet3,Diet 3
 To120cm
 Texture80
 Saha10min
 Abberation2
 Spcond
 Sourse
-Cardiacindex
+Cardiacindex,Cardiac index
 Broodstock
 Dose1
-Embryoid
+Embryoid,Embryo id
 Vector1
 Vector2
 Longid
-Moxifloxacin05
-Entinostat1875
-Tumorgenecity
+Moxifloxacin05,Moxifloxacin 05
+Entinostat1875,Entinostat 1875
+Tumorgenecity,Tumorigenicity
 Identifyer
 Seisure
 China31271787
 Antiexposedall
 Bagnum
-Vo2peak
+Vo2peak,Vo2 peak
 Dose2
 Traeted
 Fementation
-Transgene1
+Transgene1,Transgene 1
 Gt28days
 Label115
 Label117
@@ -1598,32 +1593,32 @@ Label116
 Seqmod
 Stadard
 Creat
-Strrain
-Entinostat23438
+Strrain,Strain
+Entinostat23438,Entinostat 23438
 Driver2
 Lerhu2207
 Max25
-Apicidin0156
+Apicidin0156,Apicidin 0156
 Preopcx
 Gence3125
 Lemna2364
 Lemamb1082
-Row96well
+Row96well,Row 96 well
 Swell1
-Apicidin025
+Apicidin025,Apicidin 025
 Subsample2
 Gence3141
 Who2004
-Dacinostat30
+Dacinostat30,Dacinostat 30
 Thijs
-Apicidin0004
+Apicidin0004,Apicidin 0004
 Hormo
 I7index
-Posttraumatic
+Posttraumatic,Post traumatic
 Nonblood
 Itraq114
-Pathogengroup
-Discfat
+Pathogengroup,Pathogen group
+Discfat,Disc fat
 Chiprowcol
 Contruction
 Itraq4plex117
@@ -1631,24 +1626,24 @@ Mtraq
 Mosqage
 Pcrbatch
 Param2
-Apicidin100
+Apicidin100,Apicidin 100
 Testitemphase1
 Size12563
 Index2se
 Stimuated
-Gender1
-Treatment2
+Gender1,Gender 1
+Treatment2,Treatment 2
 Pcrcycles
-Gingivitisolson
+Gingivitisolson,Gingivitis olson
 Conditio
-Gender1m2f
+Gender1m2f,Gender 1m2f
 Unique6
-Dacinostat0047
-Abbrevation
-Fat28
-Fat20
-Apicidin10
-Apicidin0063
+Dacinostat0047,Dacinostat 0047
+Abbrevation,Abbreviation
+Fat28,Fat 28
+Fat20,Fat 20
+Apicidin10,Apicidin 10
+Apicidin0063,Apicidin 0063
 Acid3130
 Cells5
 Index2seq
@@ -1657,30 +1652,30 @@ Oneyear
 Bmi25299
 Clay4
 Matdepthcryosectionrel
-Livingwith
+Livingwith,Living with
 Specify2
-Circumfrence1
-Entinostat9375
-Preservationty
+Circumfrence1,Circumfrence 1
+Entinostat9375,Entinostat 9375
+Preservationty,Preservation type
 Invetigation
 Cataog
 Hospevent
 Constraction
-Pylori4
-Pylori5
-Pylori6
-Pylori7
-Clinial
+Pylori4,Pylori 4
+Pylori5,Pylori 5
+Pylori6,Pylori 6
+Pylori7,Pylori 7
+Clinial,Clinical
 Tacedinaline6h
-C13isotoperatiorate
-Item1
+C13isotoperatiorate,C13 isotope ratio rate
+Item1,Item 1
 Rainydry
 Acid191w8
 Chiprow
 Reads16s
-Seafloor
+Seafloor,Sea floor
 Tsa20um
-Rearranged11q23
+Rearranged11q23,Rearranged 11q23
 Mate1
 Mate2
 FGSC2489
@@ -1692,18 +1687,11 @@ Lemamb1091
 Unfx1
 Mgcd01036000
 Acid200000
-Tcrvbeta
+Tcrvbeta,Tcr vbeta
 Perfix
 Nanog
 Irradiancepar
 Card9
 Fgsc2489
 Templowf
-
-
-
-
-
-
-
 
